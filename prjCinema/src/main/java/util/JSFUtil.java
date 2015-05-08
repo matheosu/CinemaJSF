@@ -44,12 +44,12 @@ public class JSFUtil
 	}
 
 	/**
-	 * M�todo que l� um par�metro de um link ou bot�o passado atrav�s da TAG
+	 * Método que lê um parâmetro de um link ou botão passado através da TAG
 	 * <code>&lt;f:param&gt;</code>.
 	 * 
 	 * @param nomeDoParametro
 	 *           valor usado no atributo name da TAG "param"
-	 * @return o valor passado no envio da requisi��o como uma String
+	 * @return o valor passado no envio da requisição como uma String
 	 */
 	public static String getParametro(String nomeDoParametro)
 	{

@@ -14,8 +14,8 @@ public class LoginBean {
 
 	private static final String RAIZ_PATH = "/";
 	private static final String RESTRICT_PATH = RAIZ_PATH + "restrito/";
-	private static final String ACTION_LOGIN = "login.action";
-	private static final String ACTION_MENU = "principal.action";
+	private static final String ACTION_LOGIN = RAIZ_PATH + "login.action";
+	private static final String ACTION_MENU = RESTRICT_PATH + "principal.action";
 	private static final String REDIRECT = "?faces-redirect=true";
 	
 	private Funcionario funcionario;
@@ -63,16 +63,16 @@ public class LoginBean {
 		
 		if(func == null){
 			JSFUtil.retornarMensagemErro("Funcionário não existe", null, null);
-			return RAIZ_PATH + "login.action" + REDIRECT;
+			return ACTION_LOGIN;
 		} else if(func.getSenha().equals(SecurityUtil.criptografarSenha(this.getSenha()))){
 			this.setFuncionario(func);
 			this.setAutenticado(true);
 			this.matricula = null;
 			this.senha = null;
-			return RESTRICT_PATH + ACTION_MENU + REDIRECT;
+			return ACTION_MENU + REDIRECT;
 		}else{
 			JSFUtil.retornarMensagemErro("Senha incorreta!",null,null);
-			return RAIZ_PATH + ACTION_LOGIN + REDIRECT;
+			return ACTION_LOGIN;
 		}
 	}
 	
@@ -83,7 +83,7 @@ public class LoginBean {
 		this.senha = null;
 
 		JSFUtil.getHttpSession().invalidate();
-		return RAIZ_PATH + ACTION_LOGIN + REDIRECT;
+		return ACTION_LOGIN + REDIRECT;
 	}
 	
 	

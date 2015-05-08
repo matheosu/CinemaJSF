@@ -10,8 +10,9 @@ public class MenuBean {
 	private static final String RAIZ_PATH = "/";
 	private static final String RESTRICT_PATH = RAIZ_PATH + "restrito/";
 	private static final String ACTION_MENU = RESTRICT_PATH + "principal.action";
+	private static final String REDIRECT = "?faces-redirect=true";
 	
 	public String show(){
-		return ACTION_MENU;
+		return ACTION_MENU + REDIRECT;
 	}
 }

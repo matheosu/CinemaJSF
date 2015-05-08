@@ -5,14 +5,12 @@ import java.lang.reflect.Type;
 import java.util.ArrayList;
 import java.util.List;
 
-import model.BaseModel;
-
 import org.apache.log4j.Logger;
 
 import util.JSFUtil;
 import dao.IDAO;
 
-public abstract class BaseBean<T extends BaseModel> {
+public abstract class BaseBean<T> {
 
 	/* Logger */
     protected final Logger logger = Logger.getLogger(this.getPersistenceClass().getClass());
@@ -39,7 +37,7 @@ public abstract class BaseBean<T extends BaseModel> {
 	private static final String REDIRECT = "?faces-redirect=true";
 	
 	/* Classes */
-	private Class<BaseModel> persistentClass;
+	private Class<T> persistentClass;
 	private Class<?> daoClass;
 	
 	/* ActionFiles and AbsolutePath */
@@ -48,11 +46,11 @@ public abstract class BaseBean<T extends BaseModel> {
 	protected String absolutePath;
 	
 	/* Instance and Instances */
-	private List<BaseModel> instances = new ArrayList<BaseModel>();
-	private BaseModel instance;
+	private List<T> instances = new ArrayList<T>();
+	private T instance;
 	
 	/* DAO */
-	private IDAO<BaseModel> dao; 
+	private IDAO<T> dao; 
 
 	@SuppressWarnings("unchecked")
 	public BaseBean(){
@@ -64,7 +62,7 @@ public abstract class BaseBean<T extends BaseModel> {
 		
 		try {
 			this.daoClass = Class.forName(PATH_DAO + this.getPersistenceClass().getSimpleName() + PATTERN_DAO);
-			this.dao = (IDAO<BaseModel>) daoClass.newInstance();
+			this.dao = (IDAO<T>) daoClass.newInstance();
 		} catch (ClassNotFoundException cnfE) {
 			logger.error("DAO not found for this class" + this.getPersistenceClass().getSimpleName() + ": " + cnfE.getMessage());
 		} catch (InstantiationException iE) {
@@ -82,24 +80,24 @@ public abstract class BaseBean<T extends BaseModel> {
 	 * @author mauro
 	 */
 	@SuppressWarnings("unchecked")
-	private Class<BaseModel> getPersistenceClass() {
+	private Class<T> getPersistenceClass() {
 		if(this.persistentClass == null){
 			Type tipo = ((ParameterizedType) getClass().getGenericSuperclass())
 					.getActualTypeArguments()[0];
-			this.persistentClass = (Class<BaseModel>) tipo;
+			this.persistentClass = (Class<T>) tipo;
 		}
 		return this.persistentClass;
 	}
 
-	public BaseModel getInstance() {
+	public T getInstance() {
 		return instance;
 	}
 
-	public void setInstance(BaseModel instance) {
+	public void setInstance(T instance) {
 		this.instance = instance;
 	}
 
-	public List<BaseModel> getInstances() {
+	public List<T> getInstances() {
 		if(this.instances == null || this.instances.isEmpty())
 			this.instances = this.dao.getAll();
 		
@@ -107,7 +105,7 @@ public abstract class BaseBean<T extends BaseModel> {
 	}
 
 	public String list(){
-		logger.info("Testando");
+		getInstances();
 		return this.action_list + REDIRECT;
 	}
 	
@@ -118,8 +116,8 @@ public abstract class BaseBean<T extends BaseModel> {
 	
 	public String save(){
 		
-		if((this.getInstance().getId() != null) && (this.getInstance().getId().longValue() == 0))
-			this.getInstance().setId(null);
+//		if((this.getInstance().getId() != null) && (this.getInstance().getId().longValue() == 0))
+//			this.getInstance().setId(null);
 		
 		this.dao.save(this.getInstance());
 		this.instances = null;
