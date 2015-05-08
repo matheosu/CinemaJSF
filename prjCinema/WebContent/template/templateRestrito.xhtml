@@ -1,0 +1,99 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core">
+<h:head>
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+	<title>Restrito - <ui:insert name="titulo"></ui:insert></title>
+	<script type="text/javascript" src="../js/primefaces.js" />
+
+</h:head>
+
+<h:body>
+	<div class="ui-grid ui-grid-responsive" id="pagina" align="center">
+		<div id="idCabecalho" class="ui-grid-row">
+			<ui:insert name="cabecalho" />
+
+			<div class="ui-grid-col-12">
+				<h:form id="formCabecalho">
+					<p:toolbar>
+						<f:facet name="left">
+							<h:graphicImage url="/img/logo_nome.png" width="220" />
+						</f:facet>
+
+						<f:facet name="right">
+							<p:menuButton value="#{loginBean.funcionario}" iconPos="">
+								<p:menuitem value="Alterar Dados" icon="fa fa-user" />
+								<p:menuitem value="Configurações" icon="fa fa-cog" />
+								<p:separator />
+								<p:menuitem value="Sair" icon="fa fa-sign-out"  action="#{loginBean.sair}" ajax="false" style="color:red" />
+							</p:menuButton>
+						</f:facet>
+					</p:toolbar>
+				</h:form>
+			</div>
+		</div>
+	</div>
+
+	<p:panel style="text-align: center">
+		<div id="idConteudo" class="ui-grid ui-grid-responsive">
+			<div class="ui-grid-col-3" id="menu">
+				<h:form>
+					<p:menu>
+						<p:menuitem value="Menu Principal" url="#{menuBean.show()}" icon="fa fa-tachometer" />
+						<p:submenu label="Controle">
+							<p:menuitem value="Gêneros" url="#{generoBean.list}" icon="fa fa-certificate" />
+							<p:menuitem value="Filmes" url="#{filmeBean.list()}" icon="fa fa-video-camera" />
+						</p:submenu>
+						<p:submenu label="Operação"
+							rendered="#{loginBean.funcionario.setor.nivel >1 }">
+							<p:menuitem value="Salas" url="#{salaBean.list}" icon="fa fa-university" />
+							<p:menuitem value="Gerenciar Sessões" url="#{sessaoBean.list}" icon="fa fa-film" />
+						</p:submenu>
+						<p:submenu label="Administrativo"
+							rendered="#{loginBean.funcionario.setor.nivel >2 }">
+							<p:menuitem value="Funcionários" url="#{funcionarioBean.list()}" icon="fa fa-user" />
+							<p:menuitem value="Setores" url="#{setorBean.list}" icon="fa fa-users" />
+						</p:submenu>
+						<p:submenu label="Relatórios" icon="fa fa-file">
+							<p:menuitem value="Filmes mais Assistidos" url=""
+								icon="fa fa-video-camera" />
+							<p:menuitem value="Sessões" url=""
+								icon="fa fa-film" rendered="#{loginBean.funcionario.setor.nivel >1 }" />
+							<p:menuitem value="Rendimento" url="" icon="fa fa-money"
+								rendered="#{loginBean.funcionario.setor.nivel >2 }" />
+						</p:submenu>
+					</p:menu>
+				</h:form>
+			</div>
+
+			<div class="ui-grid-col-9" id="conteudo" align="center">
+				<ui:insert name="conteudo">
+				</ui:insert>
+			</div>
+		</div>
+
+
+		<div id="idRodape" class="ui-grid-row">
+			<br/>
+<!-- 			<div class="ui-grid ui-grid-responsive"> -->
+<!-- 				<div class="ui-grid-row"> -->
+<!-- 					<div class="ui-grid-col-4">4</div> -->
+<!-- 					<div class="ui-grid-col-4">4</div> -->
+<!-- 					<div class="ui-grid-col-4">4</div> -->
+<!-- 				</div> -->
+<!-- 			</div> -->
+
+			<ui:insert name="rodape"></ui:insert>
+			<f:facet name="footer">
+				<h:outputText
+					value="2015 CineUnigranrio - &copy; Todos os direitos reservados." />
+			</f:facet>
+		</div>
+	</p:panel>
+</h:body>
+
+</html>

@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core">
+
+<ui:composition template="/template/templateRestrito.xhtml">
+	<ui:define name="titulo">Funcionário</ui:define>
+
+	<ui:define name="conteudo">
+		<h:form id="formFuncionario">
+
+       		Funcionários <p:commandButton action="#{funcionarioBean.create}" type="push" immediate="true" ajax="false" icon="fa fa-plus" id="btnCreate" value="Novo Funcionário" />
+       		<p:dataTable id="listaFuncionarios" value="#{funcionarioBean.instances}" var="funcionario"
+				paginator="true" rows="10" rowsPerPageTemplate="10,15,20"
+				selectionMode="single" rowKey="#{funcionario.matricula}"
+				emptyMessage="Não há Funcionários cadastrados">
+				
+				<p:column headerText="Matricula">
+					<h:outputText value="#{funcionario.matricula}" />
+				</p:column>
+				<p:column headerText="CPF">
+					<h:outputText value="#{funcionario.pessoa.cpf}" />
+				</p:column>
+				<p:column headerText="Nome">
+					<h:outputText value="#{funcionario.pessoa.nome}" />
+				</p:column>
+				<p:column headerText="Data de Nascimento">
+					<h:outputText value="#{funcionario.pessoa.dataNascimento}" converter="data-converter" />
+				</p:column>
+				<p:column headerText="Setor">
+					<h:outputText value="#{funcionario.setor}" />
+				</p:column>
+
+				<p:column headerText="Ações">
+					<h:panelGroup>
+						<p:commandButton ajax="false" type="push" value="Alterar"
+							action="#{funcionarioBean.edit}" immediate="true"
+							icon="fa fa-pencil-square-o">
+							<f:param value="#{funcionario.matricula}" name="id" />
+						</p:commandButton>
+
+						<p:commandButton type="button" value="Excluir"
+							onclick="conf#{funcionario.matricula}.show()" icon="fa fa-times">
+						</p:commandButton>
+
+						<p:confirmDialog message="Deseja excluir este registro?"
+							showEffect="bounce" hideEffect="explode"
+							header="Confirmação de Exclusão" severity="alert"
+							widgetVar="conf#{funcionario.matricula}">
+
+							<p:commandButton ajax="false" type="push" value="Sim"
+								action="#{funcionarioBean.delete}" immediate="true"
+								icon="fa fa-trash">
+								<f:param value="#{funcionario.matricula}" name="id" />
+							</p:commandButton>
+
+							<p:commandButton value="Não" onclick="conf#{funcionario.matricula}.hide()"
+								type="button" icon="fa fa-times" />
+						</p:confirmDialog>
+
+					</h:panelGroup>
+				</p:column>
+			</p:dataTable>
+		</h:form>
+	</ui:define>
+
+</ui:composition>
+</html>

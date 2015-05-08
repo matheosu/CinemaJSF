@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core">
+
+<ui:composition template="/template/templateRestrito.xhtml">
+	<ui:define name="titulo">Salvar Funcionário</ui:define>
+
+	<ui:define name="conteudo">
+		<h:form id="formFuncionario">
+			<p:panel id="panelFuncionario" header="Funcionário" style="margin-bottom:20px">
+				<h:panelGrid columns="1" cellpadding="5">
+					
+					<p:inputMask placeholder="CPF"
+						value="#{funcionarioBean.instance.pessoa.cpf}" required="true"
+						requiredMessage="CPF é obrigatório"  mask="999.999.999-99"/>
+						
+					<p:inputMask placeholder="RG"
+						value="#{funcionarioBean.instance.pessoa.rg}" mask="99.999.999-9*"/>
+						
+					<p:inputText placeholder="Nome"
+						value="#{funcionarioBean.instance.pessoa.nome}" required="true"
+						requiredMessage="Nome é obrigatório" />
+						
+					<p:calendar id="dataNascimento" value="#{funcionarioBean.instance.pessoa.dataNascimento}"
+						pattern="dd/MM/yyyy" placeholder="Data de Nascimento" required="true" converter="data-converter" 
+						requiredMessage="DataNascimento é obrigatório" />
+
+					<p:selectOneRadio id="sexo" value="#{funcionarioBean.instance.pessoa.sexo}" converter="sexo-converter">
+						<f:selectItems value="#{funcionarioBean.getSexos()}" var="sexo" itemLabel="#{sexo.descricao}" itemValue="#{sexo}" />
+					</p:selectOneRadio>
+
+					<h:selectOneListbox id="setor"
+						value="#{funcionarioBean.instance.setor}" size="1"
+						converter="setor-converter" required="true"
+						requiredMessage="Setor é obrigatório" >
+						<f:selectItems value="#{funcionarioBean.setores}" var="setor"
+							itemValue="#{setor.id}" itemLabel="#{setor}" />
+					</h:selectOneListbox>
+
+					<p:password placeholder="Senha"
+						value="#{funcionarioBean.instance.senha}" />
+						
+				</h:panelGrid>
+				<f:facet name="footer">
+					<p:commandButton icon="fa fa-check" value="Salvar" action="#{funcionarioBean.save}" type="push" immediate="true" ajax="false"/>
+					<p:commandButton icon="fa fa-undo" value="Voltar" action="#{funcionarioBean.back}" type="push" immediate="true" ajax="false"/>
+				</f:facet>
+			</p:panel>
+
+		</h:form>
+	</ui:define>
+
+</ui:composition>
+</html>

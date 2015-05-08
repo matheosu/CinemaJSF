@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core">
+
+<ui:composition template="/template/templateGeneric.xhtml">
+	<ui:define name="titulo">Acesso ao Sistema</ui:define>
+
+	<ui:define name="conteudo">
+		<div class="ui-grid-row" align="center">
+			<div class="ui-grid-col-12" align="center">
+				<h:form id="form">
+					<p:messages globalOnly="true"/>
+					<p:panel header="Digite sua matricula e senha"
+						styleClass="align:center;">
+						<h:panelGrid columns="1">
+							<p:inputText id="txtMatricula" value="#{loginBean.matricula}"
+								required="true" requiredMessage="O Campo Matricula é obrigatório."
+								placeholder="Matricula" />
+
+							<p:password feedback="false" id="txtSenha"
+								value="#{loginBean.senha}" required="true"
+								requiredMessage="O Campo Senha é obrigatório."
+								placeholder="Senha" />
+
+							<f:facet name="footer">
+								<h:panelGroup layout="block" style="text-align: center">
+									<p:commandButton ajax="false" id="btnEntrar"
+										action="#{loginBean.autenticar}" value="Entrar"
+										icon="fa fa-paper-plane" />
+								</h:panelGroup>
+							</f:facet>
+						</h:panelGrid>
+					</p:panel>
+				</h:form>
+			</div>
+		</div>
+	</ui:define>
+
+</ui:composition>
+</html>

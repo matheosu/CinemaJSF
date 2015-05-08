@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core">
+
+<ui:composition template="/template/templateRestrito.xhtml">
+	<ui:define name="titulo">Salvar Filme</ui:define>
+
+	<ui:define name="conteudo">
+		<h:form id="formFilme" enctype="multipart/form-data">
+			<p:panel id="panelFilme" header="Filme" style="margin-bottom:20px">
+				<h:panelGrid columns="1" cellpadding="5">
+					<p:inputText placeholder="Título"
+						value="#{filmeBean.instance.titulo}" required="true"
+						requiredMessage="Título é obrigatório" />
+						
+					<p:calendar id="duracao" value="#{filmeBean.instance.duracao}"
+						pattern="HH:mm" timeOnly="true" title="Duração" label="Duração"
+						placeholder="Duração" required="true"
+						requiredMessage="Duração é obrigatório" />
+
+					<p:inputText placeholder="Sinpose"
+						value="#{filmeBean.instance.sinopse}" />
+					<p:inputText placeholder="Direção"
+						value="#{filmeBean.instance.direcao}" required="true"
+						requiredMessage="Direção é obrigatório" />
+					
+					<p:selectOneListbox id="classificacao" value="#{filmeBean.instance.classificacao}" 
+						size="1" converter="classificacao-converter" required="true" requiredMessage="Classificação é obrigatório">
+						<f:selectItems value="#{filmeBean.getClassificacoes()}" var="classificacao"
+							itemValue="#{classificacao}" itemLabel="#{classificacao.descricao}"/>
+					</p:selectOneListbox>
+					
+					<p:inputText placeholder="Status"
+						value="#{filmeBean.instance.status}" required="true"
+						requiredMessage="Status é obrigatório" />
+					<p:inputText type="url" placeholder="Trailer"
+						value="#{filmeBean.instance.trailer}" />
+				</h:panelGrid>
+				<f:facet name="footer">
+					<p:commandButton icon="fa fa-check" value="Salvar" action="#{filmeBean.save}" type="push" immediate="true" ajax="false"/>
+					<p:commandButton icon="fa fa-undo" value="Voltar" action="#{filmeBean.back}" type="push" immediate="true" ajax="false"/>
+				</f:facet>
+			</p:panel>
+
+		</h:form>
+	</ui:define>
+
+</ui:composition>
+</html>

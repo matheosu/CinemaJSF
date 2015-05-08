@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core">
+
+<ui:composition template="/template/templateRestrito.xhtml">
+	<ui:define name="titulo">Filmes</ui:define>
+
+	<ui:define name="conteudo">
+		<h:form id="formFilmes">
+
+       		Filmes <p:commandButton action="#{filmeBean.create}" type="push" immediate="true" ajax="false" icon="fa fa-plus" id="btnCreate" value="Novo Filme" />
+       		<p:dataTable id="listaFilmes" value="#{filmeBean.instances}" var="filme"
+				paginator="true" rows="10" rowsPerPageTemplate="10,15,20"
+				selectionMode="single" rowKey="#{filme.id}"
+				emptyMessage="Não há filmes cadastrados">
+				<p:column headerText="Titulo">
+					<h:outputText value="#{filme.titulo}" />
+				</p:column>
+				<p:column headerText="Duração">
+					<h:outputText value="#{filme.duracao}" />
+				</p:column>
+				<p:column headerText="Direção">
+					<h:outputText value="#{filme.direcao}" />
+				</p:column>
+				<p:column headerText="Classificação">
+					<h:outputText value="#{filme.classificacao}" />
+				</p:column>
+				<p:column headerText="Status">
+					<h:outputText value="#{filme.status}" />
+				</p:column>
+
+				<p:column headerText="Ações">
+					<h:panelGroup>
+						<p:commandButton ajax="false" type="push" value="Alterar"
+							action="#{filmeBean.edit}" immediate="true"
+							image="fa fa-pencil-square-o">
+							<f:param value="#{filme.id}" name="id" />
+						</p:commandButton>
+
+						<p:commandButton type="button" value="Excluir"
+							onclick="conf#{filme.id}.show()" image="ui-icon-close">
+						</p:commandButton>
+
+						<p:confirmDialog message="Deseja excluir este registro?"
+							showEffect="bounce" hideEffect="explode"
+							header="Confirmação de Exclusão" severity="alert"
+							widgetVar="conf#{filme.id}">
+
+							<p:commandButton ajax="false" type="push" value="Sim"
+								action="#{filmeBean.delete}" immediate="true"
+								image="fa fa-trash-o">
+								<f:param value="#{filme.id}" name="id" />
+							</p:commandButton>
+
+							<p:commandButton value="Não" onclick="conf#{filme.id}.hide()"
+								type="button" image="fa fa-times" />
+						</p:confirmDialog>
+
+					</h:panelGroup>
+				</p:column>
+			</p:dataTable>
+		</h:form>
+	</ui:define>
+
+</ui:composition>
+</html>

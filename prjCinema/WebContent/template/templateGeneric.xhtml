@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core">
+<h:head>
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+	<title>Cinema - <ui:insert name="titulo"></ui:insert></title>
+	<script type="text/javascript" src="../js/primefaces.js" />
+
+</h:head>
+
+<h:body>
+	<div class="ui-grid ui-grid-responsive" id="pagina" align="center">
+		<div id="idCabecalho" class="ui-grid-row">
+			<ui:insert name="cabecalho" />
+
+			<div class="ui-grid-col-12">
+				<h:form id="formCabecalho">
+					<p:toolbar>
+						<f:facet name="left">
+				        	<h:graphicImage url="/img/logo_nome.png" width="220"/>
+			        	</f:facet>
+
+						<f:facet name="right">
+							<p:menuButton value="#{loginBean.funcionario}" iconPos="" rendered="#{loginBean.autenticado}">
+								<p:menuitem value="Alterar Dados" icon="fa fa-user" />
+								<p:menuitem value="Configurações" icon="fa fa-cog" />
+								<p:separator />
+								<p:menuitem action="#{loginBean.sair}" value="Sair" icon="fa fa-sign-out"
+									style="color:red" />
+							</p:menuButton>
+						</f:facet>
+					</p:toolbar>
+				</h:form>
+			</div>
+		</div>
+		<p:panel style="padding: 3px; text-align: center">
+			<div id="idConteudo" class="ui-grid-row">
+				<ui:insert name="conteudo"></ui:insert>
+			</div>
+
+			<div id="idRodape" class="ui-grid-row">
+				<ui:insert name="rodape"></ui:insert>
+				<f:facet name="footer">
+					<h:outputText value="2015 CineUnigranrio - &copy; Todos os direitos reservados." />
+				</f:facet>
+			</div>
+		</p:panel>
+	</div>
+</h:body>
+
+</html>
