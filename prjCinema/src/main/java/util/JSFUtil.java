@@ -9,6 +9,7 @@ import javax.faces.application.FacesMessage;
 import javax.faces.application.FacesMessage.Severity;
 import javax.faces.context.ExternalContext;
 import javax.faces.context.FacesContext;
+import javax.faces.context.Flash;
 import javax.servlet.ServletContext;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -227,5 +228,13 @@ public class JSFUtil
 	{
 		return (ServletContext) FacesContext.getCurrentInstance().getExternalContext().getContext();
 	}
+	
+	/**
+	 * Método que retorna o Flash do contexto do Faces.
+	 * @return
+	 */
+	public static Flash flashScope (){
+		return (FacesContext.getCurrentInstance().getExternalContext().getFlash());
+	   }
 
 }

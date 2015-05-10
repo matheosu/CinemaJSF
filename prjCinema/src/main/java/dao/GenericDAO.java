@@ -61,7 +61,7 @@ public abstract class GenericDAO<T> implements IDAO<T> {
 		boolean transacaoAtiva = this.getEntityManager().getTransaction().isActive();
 
 		if (!transacaoAtiva)
-			this.openTransaction();
+			this.begin();
 
 		this.getEntityManager().merge(object);
 
@@ -76,7 +76,7 @@ public abstract class GenericDAO<T> implements IDAO<T> {
 		boolean transacaoAtiva = this.getEntityManager().getTransaction().isActive();
 
 		if (!transacaoAtiva)
-			this.openTransaction();
+			this.begin();
 
 		this.getEntityManager().remove(object);
 
@@ -85,7 +85,7 @@ public abstract class GenericDAO<T> implements IDAO<T> {
 	}
 
 	@Override
-	public void openTransaction() {
+	public void begin() {
 		this.getEntityManager().getTransaction().begin();
 	}
 

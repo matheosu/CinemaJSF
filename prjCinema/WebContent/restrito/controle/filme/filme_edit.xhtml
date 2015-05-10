@@ -10,6 +10,10 @@
 	<ui:define name="titulo">Salvar Filme</ui:define>
 
 	<ui:define name="conteudo">
+		<f:metadata>
+			<f:event type="preRenderView"
+				listener="#{funcionarioBean.pullInstance}" />
+		</f:metadata>
 		<h:form id="formFilme" enctype="multipart/form-data">
 			<p:panel id="panelFilme" header="Filme" style="margin-bottom:20px">
 				<h:panelGrid columns="1" cellpadding="5">

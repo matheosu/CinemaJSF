@@ -21,8 +21,8 @@ import model.enums.Sexo;
 @Table(name="pessoas")
 public class Pessoa extends BaseModel{
 
-	public static final int MAX_LENGTH_CPF = 14;
 	public static final int MAX_LENGTH_RG = 13;
+	public static final int MAX_LENGTH_CPF = 14;
 	public static final int MAX_LENGTH_NOME = 200;
 
 	@Id
@@ -40,6 +40,7 @@ public class Pessoa extends BaseModel{
 	private String nome;
 	
 	@Enumerated(EnumType.STRING)
+	@Column(length=Sexo.MAX_LENGHT)
 	private Sexo sexo;
 	
 	@Temporal(TemporalType.DATE)

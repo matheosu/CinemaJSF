@@ -6,7 +6,7 @@ import javax.faces.convert.Converter;
 import javax.faces.convert.FacesConverter;
 
 import model.enums.Sexo;
-import bean.FuncionarioBean;
+import util.SexoUtil;
 
 @FacesConverter(value="sexo-converter", forClass=SexoConverter.class)
 public class SexoConverter implements Converter{
@@ -16,7 +16,7 @@ public class SexoConverter implements Converter{
 		if(value == null || value.length() <=0)
 			return null;
 		
-		for(Sexo s : FuncionarioBean.getSexos()){
+		for(Sexo s : SexoUtil.getSexos()){
 			if(s.name().equals(value))
 				return s;
 		}

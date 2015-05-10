@@ -22,7 +22,7 @@ public class Funcionario extends BaseModel{
 	@SequenceGenerator(name = "FUNCIONARIO_MATRICULA", sequenceName = "SEQ_FUNCIONARIO", allocationSize=100)
 	private Long matricula;
 	
-	@Column(nullable = false, length = MAX_LENGTH_SENHA)
+	@Column(length = MAX_LENGTH_SENHA)
 	private String senha;
 	
 	@OneToOne

@@ -4,6 +4,7 @@ public enum Sexo {
 
 	FEMININO("Feminino"), MASCULINO("Masculino");
 	
+	public static final int MAX_LENGHT = 15;
 	private String descricao;
 	
 	Sexo(String descricao){
@@ -17,6 +18,7 @@ public enum Sexo {
 	public void setDescricao(String descricao) {
 		this.descricao = descricao;
 	}
+	
 	
 	
 }

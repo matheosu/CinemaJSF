@@ -16,7 +16,7 @@ public interface IDAO<T> {
 
 	public void delete(T object);
 
-	public void openTransaction();
+	public void begin();
 
 	public void commit();
 

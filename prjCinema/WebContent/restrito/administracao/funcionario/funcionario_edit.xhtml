@@ -10,10 +10,11 @@
 	<ui:define name="titulo">Salvar Funcionário</ui:define>
 
 	<ui:define name="conteudo">
+			<f:event listener="#{funcionarioBean.pullInstanceOutFlash}" type="preRenderView" />
 		<h:form id="formFuncionario">
 			<p:panel id="panelFuncionario" header="Funcionário" style="margin-bottom:20px">
 				<h:panelGrid columns="1" cellpadding="5">
-					
+
 					<p:inputMask placeholder="CPF"
 						value="#{funcionarioBean.instance.pessoa.cpf}" required="true"
 						requiredMessage="CPF é obrigatório"  mask="999.999.999-99"/>
@@ -30,7 +31,7 @@
 						requiredMessage="DataNascimento é obrigatório" />
 
 					<p:selectOneRadio id="sexo" value="#{funcionarioBean.instance.pessoa.sexo}" converter="sexo-converter">
-						<f:selectItems value="#{funcionarioBean.getSexos()}" var="sexo" itemLabel="#{sexo.descricao}" itemValue="#{sexo}" />
+						<f:selectItems value="#{funcionarioBean.sexos}" var="sexo" itemLabel="#{sexo.descricao}" itemValue="#{sexo}" />
 					</p:selectOneRadio>
 
 					<h:selectOneListbox id="setor"
