@@ -8,10 +8,9 @@ import java.util.List;
 import javax.annotation.PostConstruct;
 import javax.persistence.MappedSuperclass;
 
-import model.BaseModel;
-
 import org.apache.log4j.Logger;
 
+import bean.scoped.Flash;
 import util.JSFUtil;
 import dao.IDAO;
 
@@ -28,12 +27,12 @@ import dao.IDAO;
  * @param <T> Model a ter o CRUD implementado;
  */
 @MappedSuperclass
-public abstract class BaseBean<T extends BaseModel> {
+public abstract class BaseBean<T> {
+	
+	/**  Begin Constants **/
 
 	/* Logger */
     protected final Logger logger = Logger.getLogger(this.getClazz().getClass());
-    
-    /**  Begin Constants **/
    
     /* Patterns */
 	private static final String PATTERN_ACTION_LIST = "s.action";
@@ -55,10 +54,11 @@ public abstract class BaseBean<T extends BaseModel> {
 	private static final String[] CLASSES_CONTROLE = {"filme","genero"};
 	private static final String[] CLASSES_OPERACAO = {"sala","sessao"};
 	private static final String[] CLASSES_ADMINISTRACAO = {"funcionario","setor"};
-	/** End Constants **/
 
 	/* Flash Scoped */
-	private final String FLASH_INSTANCE = this.getClass().getSimpleName().toLowerCase() + "Instance";
+	public final String FLASH_INSTANCE = "instance" + this.getClass().getSimpleName();
+	
+	/** End Constants **/
 	
 	/* Class for Reflection and DAOClass for the Class Reflection */
 	private Class<T> clazz;
@@ -123,6 +123,7 @@ public abstract class BaseBean<T extends BaseModel> {
 		/*if((this.getInstance().getId() != null) && (this.getInstance().getId().longValue() == 0))
 			this.getInstance().setId(null);*/
 		
+		this.pullInstanceOutFlash(); // Devolve as alterações feita pelo xhtml no flash
 		this.dao.save(this.getInstance());
 		this.instances = null;
 		
@@ -149,22 +150,11 @@ public abstract class BaseBean<T extends BaseModel> {
 		return this.action_list + REDIRECT;
 	}
 	
-	/* Flash Methods */
-	/*private void putBeanInFlash(){
-		JSFUtil.flashScope().put(FLASH_BEAN, this);
-	}*/
-	
-	private void putInstanceInFlash(){
-		JSFUtil.flashScope().put(FLASH_INSTANCE, this.getInstance());
-	}
-	
 	@SuppressWarnings("unchecked")
-	public void pullInstanceOutFlash(){
-		Object o = JSFUtil.flashScope().get(FLASH_INSTANCE);
-		if( o != null)
-			this.setInstance((T) o);
+	public T getInstanceFlash(){
+//		return (T) Flash.get(FLASH_INSTANCE);
+		return (T) JSFUtil.flashScope().get(FLASH_INSTANCE);
 	}
-	
 	
 	/*
 	 * ########################################################################
@@ -174,6 +164,29 @@ public abstract class BaseBean<T extends BaseModel> {
 	 * ########################################################################
 	 */
 
+	/* Flash Methods */
+	/**
+	 * Método que põem a instância atual no scopo do flash;
+	 */
+	private void putInstanceInFlash(){
+		JSFUtil.flashScope().putNow(FLASH_INSTANCE, this.getInstance());
+		JSFUtil.flashScope().keep(FLASH_INSTANCE);
+//		Flash.put(FLASH_INSTANCE, this.getInstance());
+	}
+	
+	/**
+	 * Método que repõem a instância do flash para a instância do Managed Bean
+	 */
+	@SuppressWarnings("unchecked")
+	private void pullInstanceOutFlash(){
+		Object o = JSFUtil.flashScope().get(FLASH_INSTANCE);
+//		Object o = Flash.get(FLASH_INSTANCE);
+		
+		if( o != null)
+			this.setInstance((T) o);
+	}
+	
+	
 	/**
 	 * Method that a initialize all paths for the actual class;
 	 */

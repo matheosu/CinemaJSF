@@ -9,33 +9,33 @@
 <ui:composition template="/template/templateRestrito.xhtml">
 	<ui:define name="titulo">Salvar Funcionário</ui:define>
 
+	<ui:param name="instance" value="#{flash.keep.instanceFuncionarioBean}"/> 
+
 	<ui:define name="conteudo">
-			<f:event listener="#{funcionarioBean.pullInstanceOutFlash}" type="preRenderView" />
 		<h:form id="formFuncionario">
 			<p:panel id="panelFuncionario" header="Funcionário" style="margin-bottom:20px">
 				<h:panelGrid columns="1" cellpadding="5">
-
 					<p:inputMask placeholder="CPF"
-						value="#{funcionarioBean.instance.pessoa.cpf}" required="true"
+						value="#{instance.pessoa.cpf}" required="true"
 						requiredMessage="CPF é obrigatório"  mask="999.999.999-99"/>
 						
 					<p:inputMask placeholder="RG"
-						value="#{funcionarioBean.instance.pessoa.rg}" mask="99.999.999-9*"/>
+						value="#{instance.pessoa.rg}" mask="99.999.999-9*"/>
 						
 					<p:inputText placeholder="Nome"
-						value="#{funcionarioBean.instance.pessoa.nome}" required="true"
+						value="#{instance.pessoa.nome}" required="true"
 						requiredMessage="Nome é obrigatório" />
 						
-					<p:calendar id="dataNascimento" value="#{funcionarioBean.instance.pessoa.dataNascimento}"
+					<p:calendar id="dataNascimento" value="#{instance.pessoa.dataNascimento}"
 						pattern="dd/MM/yyyy" placeholder="Data de Nascimento" required="true" converter="data-converter" 
 						requiredMessage="DataNascimento é obrigatório" />
 
-					<p:selectOneRadio id="sexo" value="#{funcionarioBean.instance.pessoa.sexo}" converter="sexo-converter">
+					<p:selectOneRadio id="sexo" value="#{instance.pessoa.sexo}" converter="sexo-converter">
 						<f:selectItems value="#{funcionarioBean.sexos}" var="sexo" itemLabel="#{sexo.descricao}" itemValue="#{sexo}" />
 					</p:selectOneRadio>
 
 					<h:selectOneListbox id="setor"
-						value="#{funcionarioBean.instance.setor}" size="1"
+						value="#{instance.setor}" size="1"
 						converter="setor-converter" required="true"
 						requiredMessage="Setor é obrigatório" >
 						<f:selectItems value="#{funcionarioBean.setores}" var="setor"
@@ -43,7 +43,7 @@
 					</h:selectOneListbox>
 
 					<p:password placeholder="Senha"
-						value="#{funcionarioBean.instance.senha}" />
+						value="#{instance.senha}" />
 						
 				</h:panelGrid>
 				<f:facet name="footer">
