@@ -4,11 +4,13 @@ import java.util.ArrayList;
 import java.util.List;
 
 import javax.faces.bean.ManagedBean;
+import javax.faces.bean.RequestScoped;
 
 import model.Filme;
 import model.enums.Classificacao;
 
 @ManagedBean(name="filmeBean")
+@RequestScoped
 public class FilmeBean extends BaseBean<Filme>{
 
 	private static List<Classificacao> classificacoes = new ArrayList<Classificacao>();

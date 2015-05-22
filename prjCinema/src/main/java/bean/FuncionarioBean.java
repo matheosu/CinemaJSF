@@ -3,6 +3,7 @@ package bean;
 import java.util.List;
 
 import javax.faces.bean.ManagedBean;
+import javax.faces.bean.RequestScoped;
 
 import model.Funcionario;
 import model.Setor;
@@ -11,6 +12,7 @@ import util.SexoUtil;
 import dao.SetorDAO;
 
 @ManagedBean(name="funcionarioBean")
+@RequestScoped
 public class FuncionarioBean extends BaseBean<Funcionario>{
 
 	public FuncionarioBean() {

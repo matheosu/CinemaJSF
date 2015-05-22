@@ -57,7 +57,6 @@ public class LoginBean {
 	}
 	
 	public String autenticar(){
-		
 		FuncionarioDAO daoF = new FuncionarioDAO();
 		Funcionario func = daoF.findById(this.getMatricula());
 		

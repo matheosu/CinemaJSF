@@ -19,18 +19,18 @@
 						<h:panelGrid columns="1">
 							<p:inputText id="txtMatricula" value="#{loginBean.matricula}"
 								required="true" requiredMessage="O Campo Matricula é obrigatório."
-								placeholder="Matricula" />
-
+								placeholder="Matricula" tabindex="1"/>
+							<p:focus for="txtMatricula"/>
 							<p:password feedback="false" id="txtSenha"
 								value="#{loginBean.senha}" required="true"
 								requiredMessage="O Campo Senha é obrigatório."
-								placeholder="Senha" />
+								placeholder="Senha" tabindex="2"/>
 
 							<f:facet name="footer">
 								<h:panelGroup layout="block" style="text-align: center">
 									<p:commandButton ajax="false" id="btnEntrar"
 										action="#{loginBean.autenticar}" value="Entrar"
-										icon="fa fa-paper-plane" />
+										icon="fa fa-paper-plane"  tabindex="3"/>
 								</h:panelGroup>
 							</f:facet>
 						</h:panelGrid>

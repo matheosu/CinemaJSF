@@ -5,6 +5,7 @@ import java.lang.reflect.Type;
 import java.util.List;
 
 import javax.persistence.EntityManager;
+import javax.persistence.NoResultException;
 import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
 
@@ -42,17 +43,25 @@ public abstract class GenericDAO<T> implements IDAO<T> {
 
 	@Override
 	public T findById(Long id) {
-		return this.getEntityManager().find(this.persistentClass, id);
+		return this.getEntityManager().find(getPersistenceClass(), id);
 	}
 
 	@Override
 	public List<T> getAll() {
 		CriteriaBuilder cb = this.getEntityManager().getCriteriaBuilder();
-		CriteriaQuery<T> c = cb.createQuery(this.persistentClass);
-		c.select(c.from(this.persistentClass));
+		CriteriaQuery<T> c = cb.createQuery(getPersistenceClass());
+		c.select(c.from(getPersistenceClass()));
 
-		List<T> resultado = this.getEntityManager().createQuery(c).getResultList();
-		return resultado;
+		try {
+			return this.getEntityManager().createQuery(c).getResultList();
+		} catch (NoResultException nrE) {
+			logger.error("Sem Resultados: " ,nrE);
+			return null;
+		} catch (Exception e){
+			logger.error("Ocorreu um erro ao recuperar todos os registros de " + this.getPersistenceClass().getSimpleName() +" : ",e);
+			e.printStackTrace();
+			return null;
+		}
 	}
 
 	@Override

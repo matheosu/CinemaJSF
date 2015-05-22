@@ -5,12 +5,10 @@ import java.lang.reflect.Type;
 import java.util.ArrayList;
 import java.util.List;
 
-import javax.annotation.PostConstruct;
-import javax.persistence.MappedSuperclass;
+import model.BaseModel;
 
 import org.apache.log4j.Logger;
 
-import bean.scoped.Flash;
 import util.JSFUtil;
 import dao.IDAO;
 
@@ -26,8 +24,7 @@ import dao.IDAO;
  *
  * @param <T> Model a ter o CRUD implementado;
  */
-@MappedSuperclass
-public abstract class BaseBean<T> {
+public abstract class BaseBean<T extends BaseModel> {
 	
 	/**  Begin Constants **/
 
@@ -62,7 +59,7 @@ public abstract class BaseBean<T> {
 	
 	/* Class for Reflection and DAOClass for the Class Reflection */
 	private Class<T> clazz;
-	private Class<?> daoClazz;
+	private Class<? extends IDAO<T>> daoClazz;
 	
 	/* ActionFiles and AbsolutePath */
 	protected String action_list;
@@ -79,16 +76,12 @@ public abstract class BaseBean<T> {
 	public BaseBean() {
 		super();
 		this.initPath();
-	}
-	
-	@SuppressWarnings("unchecked")
-	@PostConstruct
-	public void postConstruct(){
+		
 		if(getClazz() != null)
 			this.setInstance(newInstance(getClazz()));
 		
 		if(getDAOClazz() != null)
-			this.dao = (IDAO<T>) newInstance(getDAOClazz());
+			this.dao = newInstanceDAO(getDAOClazz());
 	}
 	
 	/* Getters and Setters */
@@ -109,21 +102,20 @@ public abstract class BaseBean<T> {
 
 	/* CRUD */
 	public String list(){
-		return this.action_list + REDIRECT;
+		return this.action_list;
 	}
 	
 	public String create(){
 		this.setInstance(this.newInstance(this.getClazz()));
-		this.putInstanceInFlash();
-		return this.action_edit + REDIRECT;
+//		this.putInstanceInFlash();
+		return this.action_edit;
 	}
 
 	public String save(){
-		//TODO Pensar em arquitetura para resolver
-		/*if((this.getInstance().getId() != null) && (this.getInstance().getId().longValue() == 0))
-			this.getInstance().setId(null);*/
+		if((this.getInstance().getId() != null) && (this.getInstance().getId().longValue() == 0))
+			this.getInstance().setId(null);
 		
-		this.pullInstanceOutFlash(); // Devolve as alterações feita pelo xhtml no flash
+//		this.pullInstanceOutFlash(); // Devolve as alterações feita pelo xhtml no flash
 		this.dao.save(this.getInstance());
 		this.instances = null;
 		
@@ -133,8 +125,8 @@ public abstract class BaseBean<T> {
 	public String edit(){
 		Long id = JSFUtil.getParametroLong("id");
 		this.setInstance(this.dao.findById(id));
-		this.putInstanceInFlash();
-		return this.action_edit + REDIRECT;
+//		this.putInstanceInFlash();
+		return this.action_edit ;
 	}
 	
 	public String delete(){
@@ -147,13 +139,7 @@ public abstract class BaseBean<T> {
 	
 	public String back(){
 		this.setInstance(this.newInstance(this.getClazz()));
-		return this.action_list + REDIRECT;
-	}
-	
-	@SuppressWarnings("unchecked")
-	public T getInstanceFlash(){
-//		return (T) Flash.get(FLASH_INSTANCE);
-		return (T) JSFUtil.flashScope().get(FLASH_INSTANCE);
+		return this.action_list;
 	}
 	
 	/*
@@ -201,15 +187,30 @@ public abstract class BaseBean<T> {
 	 * @param clazz Class that a create a new instance;
 	 * @return T new instance for the clazz
 	 * @author matheuscastro
+	 * @return 
 	 */
-	@SuppressWarnings("unchecked")
-	private T newInstance(Class<?> clazz){
+	private T newInstance(Class<? extends T> clazz){
 		try {
-			return (T) clazz.newInstance();
+			return clazz.newInstance();
 		} catch (InstantiationException ie) {
-			logger.error("Error in create a newInstance for the " + clazz.getSimpleName() + ": " + ie.getMessage());
+			logger.error("Error in create a newInstance for the " + clazz.getSimpleName() + ": ", ie);
 		} catch (IllegalAccessException iae) {
-			logger.error("Error in create a newInstance for the " + clazz.getSimpleName() + ": "+ iae.getMessage());
+			logger.error("Error in create a newInstance for the " + clazz.getSimpleName() + ": ", iae);
+		} catch (Exception e){
+			logger.error("Some error is occurred: ", e);
+		}
+		return null;
+	}
+	
+	private IDAO<T> newInstanceDAO(Class<? extends IDAO<T>> clazzDAO){
+		try{
+			return clazzDAO.newInstance();
+		} catch (InstantiationException ie) {
+			logger.error("Error in create a newInstanceDAO for the " + getDAOClazz().getSimpleName() + ": ", ie);
+		} catch (IllegalAccessException iae) {
+			logger.error("Error in create a newInstanceDAO for the " + getDAOClazz().getSimpleName() + ": ", iae);
+		} catch (Exception e){
+			logger.error("Some error is occurred: ", e);
 		}
 		return null;
 	}
@@ -264,12 +265,13 @@ public abstract class BaseBean<T> {
 	 * Método que devolve a Classe DAO da classe que foi passada por reflection no generics;
 	 * @return Class
 	 */
-	private Class<?> getDAOClazz(){
+	@SuppressWarnings("unchecked")
+	private Class<? extends IDAO<T>> getDAOClazz(){
 		if(this.daoClazz == null){
 			try {
-				this.daoClazz = Class.forName(PATH_DAO + this.getClazz().getSimpleName() + PATTERN_DAO);
+				this.daoClazz = (Class<? extends IDAO<T>>) Class.forName(PATH_DAO + this.getClazz().getSimpleName() + PATTERN_DAO);
 			} catch (ClassNotFoundException cnfE) {
-				logger.error("DAO not found for this class" + this.getClazz().getSimpleName() + ": " + cnfE.getMessage());
+				logger.error("DAO not found for this class" + this.getClazz().getSimpleName() + ": ", cnfE);
 			}	
 		}
 		return this.daoClazz;

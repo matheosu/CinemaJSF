@@ -9,10 +9,11 @@
 <ui:composition template="/template/templateRestrito.xhtml">
 	<ui:define name="titulo">Salvar Funcionário</ui:define>
 
-	<ui:param name="instance" value="#{flash.keep.instanceFuncionarioBean}"/> 
+	<ui:param name="instance" value="#{funcionarioBean.instance}"/> 
 
 	<ui:define name="conteudo">
 		<h:form id="formFuncionario">
+			<h:inputHidden id="idFuncionario" value="#{instance.id}" />
 			<p:panel id="panelFuncionario" header="Funcionário" style="margin-bottom:20px">
 				<h:panelGrid columns="1" cellpadding="5">
 					<p:inputMask placeholder="CPF"
