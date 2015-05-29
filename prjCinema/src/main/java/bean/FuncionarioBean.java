@@ -27,5 +27,10 @@ public class FuncionarioBean extends BaseBean<Funcionario>{
 		SetorDAO daoS = new SetorDAO();
 		return daoS.getAll();
 	}
+
+	@Override
+	protected Funcionario newInstance() {
+		return new Funcionario();
+	}
 	
 }

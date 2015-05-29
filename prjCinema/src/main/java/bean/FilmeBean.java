@@ -30,5 +30,10 @@ public class FilmeBean extends BaseBean<Filme>{
 		
 		return classificacoes;
 	}
+
+	@Override
+	protected Filme newInstance() {
+		return new Filme();
+	}
 	
 }

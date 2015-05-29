@@ -8,7 +8,7 @@ import javax.faces.convert.FacesConverter;
 import model.enums.Sexo;
 import util.SexoUtil;
 
-@FacesConverter(value="sexo-converter", forClass=SexoConverter.class)
+@FacesConverter(value="sexo-converter", forClass=Sexo.class)
 public class SexoConverter implements Converter{
 
 	@Override

@@ -1,5 +1,6 @@
 package model;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -28,10 +29,12 @@ public class Funcionario extends BaseModel{
 	@OneToOne
 	private Setor setor;
 	
-	@OneToOne
+	@OneToOne(cascade=CascadeType.MERGE)
 	private Pessoa pessoa;
 	
-	public Funcionario(){}
+	public Funcionario(){
+		this.setPessoa(new Pessoa());
+	}
 	
 	public Funcionario(String senha, Setor setor, Pessoa pessoa){
 		this.setSenha(senha);

@@ -8,7 +8,7 @@ import javax.faces.convert.FacesConverter;
 import model.enums.Classificacao;
 import bean.FilmeBean;
 
-@FacesConverter(value="classificacao-converter" , forClass=ClassificacaoConverter.class)
+@FacesConverter(value="classificacao-converter" , forClass=Classificacao.class)
 public class ClassificacaoConverter implements Converter{
 	
 	@Override

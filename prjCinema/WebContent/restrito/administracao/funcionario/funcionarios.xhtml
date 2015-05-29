@@ -37,7 +37,7 @@
 				<p:column headerText="Ações">
 					<h:panelGroup>
 						<p:commandButton ajax="false" type="push" value="Alterar"
-							action="#{funcionarioBean.edit}" immediate="true"
+							action="#{funcionarioBean.edit}" immediate="false"
 							icon="fa fa-pencil-square-o">
 							<f:param value="#{funcionario.matricula}" name="id" />
 						</p:commandButton>

@@ -78,7 +78,7 @@ public abstract class BaseBean<T extends BaseModel> {
 		this.initPath();
 		
 		if(getClazz() != null)
-			this.setInstance(newInstance(getClazz()));
+			this.setInstance(newInstance());
 		
 		if(getDAOClazz() != null)
 			this.dao = newInstanceDAO(getDAOClazz());
@@ -106,8 +106,7 @@ public abstract class BaseBean<T extends BaseModel> {
 	}
 	
 	public String create(){
-		this.setInstance(this.newInstance(this.getClazz()));
-//		this.putInstanceInFlash();
+		this.setInstance(this.newInstance());
 		return this.action_edit;
 	}
 
@@ -115,7 +114,6 @@ public abstract class BaseBean<T extends BaseModel> {
 		if((this.getInstance().getId() != null) && (this.getInstance().getId().longValue() == 0))
 			this.getInstance().setId(null);
 		
-//		this.pullInstanceOutFlash(); // Devolve as alterações feita pelo xhtml no flash
 		this.dao.save(this.getInstance());
 		this.instances = null;
 		
@@ -125,8 +123,7 @@ public abstract class BaseBean<T extends BaseModel> {
 	public String edit(){
 		Long id = JSFUtil.getParametroLong("id");
 		this.setInstance(this.dao.findById(id));
-//		this.putInstanceInFlash();
-		return this.action_edit ;
+		return this.action_edit;
 	}
 	
 	public String delete(){
@@ -138,7 +135,7 @@ public abstract class BaseBean<T extends BaseModel> {
 	}
 	
 	public String back(){
-		this.setInstance(this.newInstance(this.getClazz()));
+		this.setInstance(this.newInstance());
 		return this.action_list;
 	}
 	
@@ -149,29 +146,6 @@ public abstract class BaseBean<T extends BaseModel> {
 	 * ########################################################################
 	 * ########################################################################
 	 */
-
-	/* Flash Methods */
-	/**
-	 * Método que põem a instância atual no scopo do flash;
-	 */
-	private void putInstanceInFlash(){
-		JSFUtil.flashScope().putNow(FLASH_INSTANCE, this.getInstance());
-		JSFUtil.flashScope().keep(FLASH_INSTANCE);
-//		Flash.put(FLASH_INSTANCE, this.getInstance());
-	}
-	
-	/**
-	 * Método que repõem a instância do flash para a instância do Managed Bean
-	 */
-	@SuppressWarnings("unchecked")
-	private void pullInstanceOutFlash(){
-		Object o = JSFUtil.flashScope().get(FLASH_INSTANCE);
-//		Object o = Flash.get(FLASH_INSTANCE);
-		
-		if( o != null)
-			this.setInstance((T) o);
-	}
-	
 	
 	/**
 	 * Method that a initialize all paths for the actual class;
@@ -189,26 +163,15 @@ public abstract class BaseBean<T extends BaseModel> {
 	 * @author matheuscastro
 	 * @return 
 	 */
-	private T newInstance(Class<? extends T> clazz){
-		try {
-			return clazz.newInstance();
-		} catch (InstantiationException ie) {
-			logger.error("Error in create a newInstance for the " + clazz.getSimpleName() + ": ", ie);
-		} catch (IllegalAccessException iae) {
-			logger.error("Error in create a newInstance for the " + clazz.getSimpleName() + ": ", iae);
-		} catch (Exception e){
-			logger.error("Some error is occurred: ", e);
-		}
-		return null;
-	}
+	protected abstract T newInstance();
 	
 	private IDAO<T> newInstanceDAO(Class<? extends IDAO<T>> clazzDAO){
 		try{
 			return clazzDAO.newInstance();
 		} catch (InstantiationException ie) {
-			logger.error("Error in create a newInstanceDAO for the " + getDAOClazz().getSimpleName() + ": ", ie);
+			logger.error("Error in create a newInstanceDAO for the " + clazzDAO.getSimpleName() + ": ", ie);
 		} catch (IllegalAccessException iae) {
-			logger.error("Error in create a newInstanceDAO for the " + getDAOClazz().getSimpleName() + ": ", iae);
+			logger.error("Error in create a newInstanceDAO for the " + clazzDAO.getSimpleName() + ": ", iae);
 		} catch (Exception e){
 			logger.error("Some error is occurred: ", e);
 		}

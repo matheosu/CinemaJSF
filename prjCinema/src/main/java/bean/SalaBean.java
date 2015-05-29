@@ -9,4 +9,9 @@ public class SalaBean extends BaseBean<Sala>{
 		// TODO Auto-generated constructor stub
 	}
 
+	@Override
+	protected Sala newInstance() {
+		return new Sala();
+	}
+
 }

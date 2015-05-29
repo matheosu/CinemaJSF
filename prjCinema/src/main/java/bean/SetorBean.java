@@ -6,7 +6,11 @@ public class SetorBean extends BaseBean<Setor>{
 
 	public SetorBean() {
 		super();
-		// TODO Auto-generated constructor stub
+	}
+
+	@Override
+	protected Setor newInstance() {
+		return new Setor();
 	}
 
 }

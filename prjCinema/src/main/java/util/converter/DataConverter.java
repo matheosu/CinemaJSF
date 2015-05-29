@@ -9,7 +9,7 @@ import javax.faces.convert.FacesConverter;
 
 import util.CalendarUtil;
 
-@FacesConverter(value="data-converter", forClass=DataConverter.class)
+@FacesConverter(value="data-converter", forClass=Calendar.class)
 public class DataConverter implements Converter{
 
 	@Override

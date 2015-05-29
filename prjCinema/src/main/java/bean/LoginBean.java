@@ -1,12 +1,18 @@
 package bean;
 
+import java.util.Calendar;
+
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
 
 import model.Funcionario;
+import model.Pessoa;
+import model.Setor;
 import util.JSFUtil;
 import util.SecurityUtil;
 import dao.FuncionarioDAO;
+import dao.PessoaDAO;
+import dao.SetorDAO;
 
 @ManagedBean(name="loginBean")
 @SessionScoped
@@ -54,6 +60,34 @@ public class LoginBean {
 
 	public void setSenha(String senha) {
 		this.senha = senha;
+	}
+	
+	private Setor createSetorAdmin(){
+		Setor s = new Setor(3, "Administrador");
+		SetorDAO dao = new SetorDAO();
+		return dao.save(s);
+	}
+	
+	private Pessoa createPessoaAdmin(){
+		Pessoa p = new Pessoa("111.111.111-10","Administrador",Calendar.getInstance());
+		PessoaDAO dao = new PessoaDAO();
+		return dao.save(p);
+	}
+
+	private void createFuncionarioAdmin(){
+		Setor s = createSetorAdmin();
+		Pessoa p = createPessoaAdmin();
+		
+		FuncionarioDAO dao = new FuncionarioDAO();
+		Funcionario f = new Funcionario("admin", s, p);
+		dao.save(f);
+	}
+	
+	private void alterarSenhaAdmin(){
+		FuncionarioDAO dao = new FuncionarioDAO();
+		Funcionario f = dao.findById(new Long(100));
+		f.setSenha("abc123");
+		dao.save(f);
 	}
 	
 	public String autenticar(){

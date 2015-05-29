@@ -9,4 +9,9 @@ public class GeneroBean extends BaseBean<Genero>{
 		// TODO Auto-generated constructor stub
 	}
 
+	@Override
+	protected Genero newInstance() {
+		return new Genero();
+	}
+
 }

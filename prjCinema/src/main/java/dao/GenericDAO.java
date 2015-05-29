@@ -72,7 +72,7 @@ public abstract class GenericDAO<T> implements IDAO<T> {
 		if (!transacaoAtiva)
 			this.begin();
 
-		this.getEntityManager().merge(object);
+		object = this.getEntityManager().merge(object);
 
 		if (!transacaoAtiva)
 			this.commit();
