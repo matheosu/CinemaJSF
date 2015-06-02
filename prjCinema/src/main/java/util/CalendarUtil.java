@@ -17,7 +17,7 @@ public abstract class CalendarUtil {
 	
 	/** O padrão usado para conversão de tempo.
 	/* 	hh:mm:ss	 */
-	private static final String TIME_PATTERN = "hh:mm:ss";
+	private static final String TIME_PATTERN = "HH:mm:ss";
 	
 	/** O formatador de data. 
 	 *  @see #DATE_PATTERN */
@@ -83,10 +83,10 @@ public abstract class CalendarUtil {
 		if (s == null)
 			return null;
 
-		if (!s.contains("/"))
+		if (!s.contains(":"))
 			return null;
 
-		String[] values = s.split("/");
+		String[] values = s.split(":");
 		if (values.length > 2) {
 			Integer hh = Integer.valueOf(values[0]);
 			Integer mm = Integer.valueOf(values[1]);

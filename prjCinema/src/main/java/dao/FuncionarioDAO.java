@@ -8,13 +8,23 @@ public class FuncionarioDAO extends GenericDAO<Funcionario>{
 
 	public FuncionarioDAO() {
 		super();
-		// TODO Auto-generated constructor stub
 	}
 
 	public FuncionarioDAO(EntityManager manager) {
 		super(manager);
-		// TODO Auto-generated constructor stub
 	}
 
+	@Override
+	public Funcionario save(Funcionario funcionario) {
+		
+		PessoaDAO dao = new PessoaDAO();
+		funcionario.setPessoa(dao.save(funcionario.getPessoa()));
+		
+		
+		return super.save(funcionario);
+	}
+
+	
+	
 	
 }

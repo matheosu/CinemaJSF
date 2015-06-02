@@ -19,6 +19,10 @@ public enum Sexo {
 		this.descricao = descricao;
 	}
 	
+	@Override
+	public String toString(){
+		return this.descricao;
+	}
 	
 	
 }

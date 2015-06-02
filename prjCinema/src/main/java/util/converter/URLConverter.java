@@ -1,35 +1,38 @@
 package util.converter;
 
+import java.net.MalformedURLException;
+import java.net.URL;
+
 import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
 import javax.faces.convert.Converter;
 import javax.faces.convert.FacesConverter;
 
-import model.enums.Classificacao;
-import util.ClassificacaoUtil;
+import util.URLUtil;
 
-@FacesConverter(value="classificacao-converter" , forClass=Classificacao.class)
-public class ClassificacaoConverter implements Converter{
-	
+@FacesConverter(value="url-converter", forClass=String.class)
+public class URLConverter implements Converter{
+
 	@Override
 	public Object getAsObject(FacesContext context, UIComponent component, String value) {
 		if(value == null || value.length() <=0)
 			return null;
-		
-		for(Classificacao c : ClassificacaoUtil.getClassificacoes()){
-			if(c.name().equals(value))
-				return c;
-		}
-		
-		return null;
+		try {
+			return new URL(URLUtil.convertURLToEmbed(value));
+		} catch (MalformedURLException e) {
+			e.printStackTrace();
+			return null;
+		} 
 	}
 
 	@Override
 	public String getAsString(FacesContext context, UIComponent component, Object obj) {
-
-		if(obj instanceof Classificacao)
-			return ((Classificacao)obj).toString();
 		
+		if(obj instanceof URL){
+			URL url = (URL) obj;
+
+			return URLUtil.convertEmbedToURL(url.getPath());
+		}
 		return null;
 	}
 

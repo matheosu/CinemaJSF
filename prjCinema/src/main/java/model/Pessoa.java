@@ -2,6 +2,7 @@ package model;
 
 import java.util.Calendar;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
@@ -46,10 +47,10 @@ public class Pessoa extends BaseModel{
 	@Temporal(TemporalType.DATE)
 	private Calendar dataNascimento;
 
-	@OneToOne(mappedBy="pessoa")
+	@OneToOne(mappedBy="pessoa",cascade=CascadeType.ALL)
 	private Cliente cliente;
 	
-	@OneToOne(mappedBy="pessoa")
+	@OneToOne(mappedBy="pessoa",cascade=CascadeType.MERGE)
 	private Funcionario funcionario;
 	
 	

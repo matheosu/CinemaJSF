@@ -8,16 +8,18 @@ import javax.persistence.Query;
 
 import model.Setor;
 
+import org.apache.log4j.Logger;
+
 public class SetorDAO extends GenericDAO<Setor>{
+	
+	private static final Logger logger = Logger.getLogger(Setor.class);
 
 	public SetorDAO() {
 		super();
-		// TODO Auto-generated constructor stub
 	}
 
 	public SetorDAO(EntityManager manager) {
 		super(manager);
-		// TODO Auto-generated constructor stub
 	}
 
 	

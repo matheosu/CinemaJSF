@@ -107,7 +107,7 @@ public abstract class BaseBean<T extends BaseModel> {
 	
 	public String create(){
 		this.setInstance(this.newInstance());
-		return this.action_edit;
+		return this.action_edit + REDIRECT;
 	}
 
 	public String save(){
@@ -136,7 +136,7 @@ public abstract class BaseBean<T extends BaseModel> {
 	
 	public String back(){
 		this.setInstance(this.newInstance());
-		return this.action_list;
+		return this.action_list + REDIRECT;
 	}
 	
 	/*

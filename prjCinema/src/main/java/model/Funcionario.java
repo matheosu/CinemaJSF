@@ -3,6 +3,7 @@ package model;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -29,7 +30,7 @@ public class Funcionario extends BaseModel{
 	@OneToOne
 	private Setor setor;
 	
-	@OneToOne(cascade=CascadeType.MERGE)
+	@OneToOne(cascade=CascadeType.MERGE,fetch=FetchType.LAZY,targetEntity=Pessoa.class)
 	private Pessoa pessoa;
 	
 	public Funcionario(){

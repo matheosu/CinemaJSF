@@ -74,6 +74,7 @@ public class LoginBean {
 		return dao.save(p);
 	}
 
+	@SuppressWarnings("unused")
 	private void createFuncionarioAdmin(){
 		Setor s = createSetorAdmin();
 		Pessoa p = createPessoaAdmin();
@@ -83,6 +84,7 @@ public class LoginBean {
 		dao.save(f);
 	}
 	
+	@SuppressWarnings("unused")
 	private void alterarSenhaAdmin(){
 		FuncionarioDAO dao = new FuncionarioDAO();
 		Funcionario f = dao.findById(new Long(100));

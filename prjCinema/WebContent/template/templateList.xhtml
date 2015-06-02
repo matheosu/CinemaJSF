@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core">
+
+<ui:composition template="/template/templateRestrito.xhtml">
+
+	<ui:define name="title">#{fullEntityName}s</ui:define>
+
+	<ui:define name="conteudo">
+		<h:form id="form#{entityName}s">
+
+			<!-- SubTitle -->
+			<div align="center" style="display: inline-block; margin-bottom: 20px;">
+				<p:outputLabel value="Lista de #{fullEntityName}s" />
+			</div>
+	
+			<!-- Button New -->
+			<div align="right" style="float: right;">
+			<p:commandButton action="#{bean.create}" type="push" immediate="true"
+				ajax="false" icon="fa fa-plus" id="btnCreate"
+				value="Novo #{nameEntity}"
+				style="text-shadow: none;background-image: none;background-color: #5cb85c;color: #ffffff;font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;" />
+			<p:tooltip id="toolTipoNovo" for="btnCreate"
+						value="Novo #{fullEntityName}" trackMouse="true" />
+			</div>
+
+
+			<!-- Messages -->
+			<p:messages autoUpdate="true" globalOnly="true" closable="true" />
+
+			<!-- List -->
+			<p:dataTable id="lista#{entityName}s" value="#{bean.instances}"
+				var="instance" paginator="true" rows="10"
+				rowsPerPageTemplate="10,15,20" selectionMode="single"
+				rowKey="#{instance.id}"
+				emptyMessage="Não há #{fullEntityName}s Cadastrados">
+
+				<ui:insert name="itensList">
+
+				</ui:insert>
+
+				<!-- Actions -->
+				<p:column headerText="Ações">
+					<h:panelGroup style="display:block; text-align:center">
+
+						<!-- Button Change -->
+						<p:commandButton ajax="false" type="push" id="btnAlterar"
+							action="#{bean.edit}" immediate="false"
+							style="text-shadow: none;background-image: none;background-color: #5bc0de;color: #ffffff;font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;"
+							icon="fa fa-pencil-square-o">
+							<f:param value="#{instance.id}" name="id" />
+						</p:commandButton>
+						<p:tooltip id="toolTipAlterar" for="btnAlterar"
+							value="Alterar #{fullEntityName}" trackMouse="true" />
+
+						<!-- Button Delete  -->
+						<p:commandButton type="button" id="btnExcluir"
+							style="text-shadow: none;background-image: none;background-color: #d9534f;color: #ffffff;font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;"
+							onclick="conf#{instance.id}.show()" icon="fa fa-trash-o">
+						</p:commandButton>
+						<p:tooltip id="toolTipExcluir" for="btnExcluir"
+							value="Excluir #{fullEntityName}" trackMouse="true" />
+
+						<p:confirmDialog message="Deseja excluir este registro?"
+							showEffect="bounce" hideEffect="explode"
+							header="Confirmação de Exclusão" severity="alert"
+							widgetVar="conf#{instance.id}">
+
+							<p:commandButton ajax="false" type="push" value="Sim"
+								action="#{bean.delete}" immediate="true" icon="fa fa-trash">
+								<f:param value="#{instance.id}" name="id" />
+							</p:commandButton>
+
+							<p:commandButton value="Não" onclick="conf#{instance.id}.hide()"
+								type="button" icon="fa fa-times" />
+						</p:confirmDialog>
+					</h:panelGroup>
+				</p:column>
+			</p:dataTable>
+		</h:form>
+	</ui:define>
+</ui:composition>
+</html>

@@ -9,14 +9,15 @@ import javax.persistence.NoResultException;
 import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
 
-import org.apache.log4j.LogManager;
+import model.BaseModel;
+
 import org.apache.log4j.Logger;
 
 import util.JPAUtil;
 
-public abstract class GenericDAO<T> implements IDAO<T> {
+public abstract class GenericDAO<T extends BaseModel> implements IDAO<T> {
 
-	protected final Logger logger = LogManager.getLogger(this.getPersistenceClass().getClass());
+	private static final Logger logger = Logger.getLogger(GenericDAO.class);
 	
 	private Class<T> persistentClass;
 	private EntityManager manager;
@@ -55,11 +56,10 @@ public abstract class GenericDAO<T> implements IDAO<T> {
 		try {
 			return this.getEntityManager().createQuery(c).getResultList();
 		} catch (NoResultException nrE) {
-			logger.error("Sem Resultados: " ,nrE);
+			logger.warn("Sem Resultados: " ,nrE);
 			return null;
 		} catch (Exception e){
 			logger.error("Ocorreu um erro ao recuperar todos os registros de " + this.getPersistenceClass().getSimpleName() +" : ",e);
-			e.printStackTrace();
 			return null;
 		}
 	}
@@ -72,6 +72,7 @@ public abstract class GenericDAO<T> implements IDAO<T> {
 		if (!transacaoAtiva)
 			this.begin();
 
+		
 		object = this.getEntityManager().merge(object);
 
 		if (!transacaoAtiva)

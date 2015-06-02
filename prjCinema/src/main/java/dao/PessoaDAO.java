@@ -8,7 +8,11 @@ import javax.persistence.Query;
 
 import model.Pessoa;
 
+import org.apache.log4j.Logger;
+
 public class PessoaDAO extends GenericDAO<Pessoa>{
+	
+	private static final Logger logger = Logger.getLogger(Pessoa.class);
 
 	public PessoaDAO() {
 		super();

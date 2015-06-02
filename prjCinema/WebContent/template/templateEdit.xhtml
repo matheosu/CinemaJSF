@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core">
+
+<ui:composition template="/template/templateRestrito.xhtml">
+
+	<ui:define name="title">Salvar #{fullEntityName}</ui:define>
+
+	<ui:define name="conteudo">
+		<h:form id="form#{entityName}">
+			
+			<!-- Messages -->
+			<p:messages autoUpdate="true" globalOnly="true" closable="true" />
+			
+			<!-- Panel -->
+			<p:panel id="panel#{entityName}" header="#{fullEntityName}"
+				style="margin-bottom:20px">
+				
+				<ui:insert name="fields">
+
+
+				</ui:insert>
+
+				<!-- Buttons -->
+				<f:facet name="footer">
+					<div align="left" style="display: inline-block;">
+						<p:commandButton icon="fa fa-check" value="Salvar"
+							action="#{bean.save}" type="push" imediate="false" ajax="false"
+							style="text-shadow: none;background-image: none;background-color: #5cb85c;color: #ffffff;font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;" />
+					</div>
+					<div align="right" style="float: right;">
+						<p:commandButton icon="fa fa-undo" value="Voltar"
+							action="#{bean.back}" type="push" immediate="true" ajax="false"
+							style="text-shadow: none;background-image: none;background-color: #f0ad4e;color: #ffffff;font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;" />
+					</div>
+				</f:facet>
+			</p:panel>
+		</h:form>
+	</ui:define>
+</ui:composition>
+</html>

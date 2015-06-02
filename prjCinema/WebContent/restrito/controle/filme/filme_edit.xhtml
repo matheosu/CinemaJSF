@@ -1,57 +1,62 @@
-<?xml version="1.0" encoding="UTF-8" ?>
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml"
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
 	xmlns:p="http://primefaces.org/ui"
 	xmlns:ui="http://java.sun.com/jsf/facelets"
 	xmlns:h="http://java.sun.com/jsf/html"
-	xmlns:f="http://java.sun.com/jsf/core">
+	xmlns:f="http://java.sun.com/jsf/core"
+	template="/template/templateEdit.xhtml">
 
-<ui:composition template="/template/templateRestrito.xhtml">
-	<ui:define name="titulo">Salvar Filme</ui:define>
+	<ui:param name="fullEntityName" value="Filme" />
+	<ui:param name="entityName" value="Filme" />
+	<ui:param name="bean" value="#{filmeBean}" />
+	<ui:param name="instance" value="#{bean.instance}" />
 
-	<ui:define name="conteudo">
-		<f:metadata>
-			<f:event type="preRenderView"
-				listener="#{funcionarioBean.pullInstance}" />
-		</f:metadata>
-		<h:form id="formFilme" enctype="multipart/form-data">
-			<p:panel id="panelFilme" header="Filme" style="margin-bottom:20px">
-				<h:panelGrid columns="1" cellpadding="5">
-					<p:inputText placeholder="Título"
-						value="#{filmeBean.instance.titulo}" required="true"
-						requiredMessage="Título é obrigatório" />
-						
-					<p:calendar id="duracao" value="#{filmeBean.instance.duracao}"
-						pattern="HH:mm" timeOnly="true" title="Duração" label="Duração"
-						placeholder="Duração" required="true"
-						requiredMessage="Duração é obrigatório" />
+	<ui:define name="fields">
+		<h:panelGrid columns="1" cellpadding="5">
 
-					<p:inputText placeholder="Sinpose"
-						value="#{filmeBean.instance.sinopse}" />
-					<p:inputText placeholder="Direção"
-						value="#{filmeBean.instance.direcao}" required="true"
-						requiredMessage="Direção é obrigatório" />
-					
-					<p:selectOneListbox id="classificacao" value="#{filmeBean.instance.classificacao}" 
-						size="1" converter="classificacao-converter" required="true" requiredMessage="Classificação é obrigatório">
-						<f:selectItems value="#{filmeBean.getClassificacoes()}" var="classificacao"
-							itemValue="#{classificacao}" itemLabel="#{classificacao.descricao}"/>
-					</p:selectOneListbox>
-					
-					<p:inputText placeholder="Status"
-						value="#{filmeBean.instance.status}" required="true"
-						requiredMessage="Status é obrigatório" />
-					<p:inputText type="url" placeholder="Trailer"
-						value="#{filmeBean.instance.trailer}" />
-				</h:panelGrid>
-				<f:facet name="footer">
-					<p:commandButton icon="fa fa-check" value="Salvar" action="#{filmeBean.save}" type="push" immediate="true" ajax="false"/>
-					<p:commandButton icon="fa fa-undo" value="Voltar" action="#{filmeBean.back}" type="push" immediate="true" ajax="false"/>
-				</f:facet>
-			</p:panel>
+			<!-- Título -->
+			<p:inputText id="titulo" placeholder="Título" value="#{instance.titulo}"
+				required="true" requiredMessage="Título é obrigatório" />
+			<p:message for="titulo"/>
 
-		</h:form>
+			<!-- Duração -->
+			<p:calendar id="duracao" value="#{instance.duracao}" pattern="HH:mm:ss"
+				timeOnly="true" title="Duração" label="Duração" 
+				placeholder="Duração" required="true" converter="time-converter"
+				converterMessage="Erro ao converter duração"
+				requiredMessage="Duração é obrigatório" />
+			<p:message for="duracao"/>
+
+			<!-- Sinopse -->
+			<p:inputText placeholder="Sinopse" value="#{instance.sinopse}" />
+
+			<!-- Direção -->
+			<p:inputText placeholder="Direção" id="direcao" value="#{instance.direcao}"
+				required="true" requiredMessage="Direção é obrigatório" />
+			<p:message for="direcao"/>
+
+			<!-- Classificação -->
+			<p:selectOneListbox id="classificacao"
+				value="#{instance.classificacao}" size="1"
+				converter="classificacao-converter" converterMessage="Erro ao converter classificação" 
+				required="true" requiredMessage="Classificação é obrigatório">
+				<f:selectItems value="#{bean.classificacoes}" var="classificacao"
+					itemValue="#{classificacao}" itemLabel="#{classificacao.descricao}" />
+			</p:selectOneListbox>
+			<p:message for="classificacao"/>
+
+			<!-- Status -->
+			<p:selectOneListbox id="status" value="#{instance.status}" size="1"
+				required="true" requiredMessage="Status é obrigatório" converter="status-converter"
+				converterMessage="Erro ao converter Status">
+ 				<f:selectItems value="#{bean.status}" var="status"
+ 					itemValue="#{status}" itemLabel="#{status.value}"/>
+			</p:selectOneListbox>
+			<p:message for="status"/>
+
+			<!-- Trailer -->
+			<p:inputText type="url" placeholder="Trailer" converter="url-converter"	
+				value="#{instance.trailer}" converterMessage="Erro ao converter URL"/>
+
+		</h:panelGrid>
 	</ui:define>
-
 </ui:composition>
-</html>

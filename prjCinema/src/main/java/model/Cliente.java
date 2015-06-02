@@ -41,7 +41,7 @@ public class Cliente extends BaseModel{
 	@OneToMany(fetch=FetchType.LAZY, mappedBy="cliente")
 	private List<CartaoCredito> cartoesCredito;
 
-	@OneToOne(cascade=CascadeType.MERGE)
+	@OneToOne(cascade=CascadeType.ALL,fetch=FetchType.LAZY)
 	private Pessoa pessoa;
 	
 	public Cliente() {
