@@ -8,8 +8,6 @@ public enum Classificacao {
 	DEZESSEIS_ANOS(16, "16 Anos"),
 	DEZOITO_ANOS(18, "18 Anos");
 	
-	private static final int MIN_VALUE = 0;
-	private static final int MAX_VALUE = 18;
 	private int idade;
 	private String descricao;
 	
@@ -23,12 +21,7 @@ public enum Classificacao {
 	}
 
 	public void setIdade(int idade) {
-		if(this.validValue(idade))
-			this.idade = idade;
-	}
-
-	private boolean validValue(int value) {
-		return value >= MIN_VALUE && value <= MAX_VALUE;
+		this.idade = idade;
 	}
 
 	public String getDescricao() {
@@ -39,6 +32,7 @@ public enum Classificacao {
 		this.descricao = descricao;
 	}
 	
+		
 	@Override
 	public String toString(){
 		return this.descricao;

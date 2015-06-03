@@ -8,7 +8,7 @@
 
 <ui:composition template="/template/templateRestrito.xhtml">
 
-	<ui:define name="title">#{fullEntityName}s</ui:define>
+	<ui:define name="titulo">#{fullEntityName}s</ui:define>
 
 	<ui:define name="conteudo">
 		<h:form id="form#{entityName}s">
@@ -22,7 +22,7 @@
 			<div align="right" style="float: right;">
 			<p:commandButton action="#{bean.create}" type="push" immediate="true"
 				ajax="false" icon="fa fa-plus" id="btnCreate"
-				value="Novo #{nameEntity}"
+				value="Novo #{nameEntity}" styleClass=".btn-new"
 				style="text-shadow: none;background-image: none;background-color: #5cb85c;color: #ffffff;font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;" />
 			<p:tooltip id="toolTipoNovo" for="btnCreate"
 						value="Novo #{fullEntityName}" trackMouse="true" />
@@ -39,6 +39,7 @@
 				rowKey="#{instance.id}"
 				emptyMessage="Não há #{fullEntityName}s Cadastrados">
 
+				<!-- Insert -->
 				<ui:insert name="itensList">
 
 				</ui:insert>
@@ -50,18 +51,24 @@
 						<!-- Button Change -->
 						<p:commandButton ajax="false" type="push" id="btnAlterar"
 							action="#{bean.edit}" immediate="false"
+							styleClass=".btn-edit"
 							style="text-shadow: none;background-image: none;background-color: #5bc0de;color: #ffffff;font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;"
 							icon="fa fa-pencil-square-o">
 							<f:param value="#{instance.id}" name="id" />
 						</p:commandButton>
-						<p:tooltip id="toolTipAlterar" for="btnAlterar"
+						
+						<!-- Tool tip Change -->
+						<p:tooltip id="toolTipAlterar" for="btnAlterar" 
 							value="Alterar #{fullEntityName}" trackMouse="true" />
 
 						<!-- Button Delete  -->
 						<p:commandButton type="button" id="btnExcluir"
 							style="text-shadow: none;background-image: none;background-color: #d9534f;color: #ffffff;font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;"
+							styleClass=".btn-delete"
 							onclick="conf#{instance.id}.show()" icon="fa fa-trash-o">
 						</p:commandButton>
+						
+						<!-- Tool tip Delete -->
 						<p:tooltip id="toolTipExcluir" for="btnExcluir"
 							value="Excluir #{fullEntityName}" trackMouse="true" />
 
@@ -78,6 +85,7 @@
 							<p:commandButton value="Não" onclick="conf#{instance.id}.hide()"
 								type="button" icon="fa fa-times" />
 						</p:confirmDialog>
+						
 					</h:panelGroup>
 				</p:column>
 			</p:dataTable>

@@ -62,8 +62,8 @@ public abstract class BaseBean<T extends BaseModel> {
 	private Class<? extends IDAO<T>> daoClazz;
 	
 	/* ActionFiles and AbsolutePath */
-	protected String action_list;
-	protected String action_edit;
+	protected static String action_list;
+	protected static String action_edit;
 	protected String absolutePath;
 	
 	/* Instance and Instances */
@@ -99,15 +99,25 @@ public abstract class BaseBean<T extends BaseModel> {
 		
 		return this.instances;
 	}
+	
+	/** Show Static URL 
+	 * Retorna o endereço completo do XHTML de List do Bean junto com o REDIRECT!!!
+	 * 
+	 * @return o endereço completo do XHTML;
+	 * @author matheuscastro
+	 * */
+	public static String show(){
+		return action_list + REDIRECT;
+	}
 
 	/* CRUD */
 	public String list(){
-		return this.action_list;
+		return action_list + REDIRECT;
 	}
 	
 	public String create(){
 		this.setInstance(this.newInstance());
-		return this.action_edit + REDIRECT;
+		return action_edit + REDIRECT;
 	}
 
 	public String save(){
@@ -123,7 +133,7 @@ public abstract class BaseBean<T extends BaseModel> {
 	public String edit(){
 		Long id = JSFUtil.getParametroLong("id");
 		this.setInstance(this.dao.findById(id));
-		return this.action_edit;
+		return action_edit;
 	}
 	
 	public String delete(){
@@ -136,7 +146,7 @@ public abstract class BaseBean<T extends BaseModel> {
 	
 	public String back(){
 		this.setInstance(this.newInstance());
-		return this.action_list + REDIRECT;
+		return action_list + REDIRECT;
 	}
 	
 	/*
@@ -152,8 +162,8 @@ public abstract class BaseBean<T extends BaseModel> {
 	 */
 	private void initPath(){
 		this.absolutePath = this.getAbsolutePath();
-		this.action_list = this.absolutePath + this.getClazz().getSimpleName().toLowerCase() + PATTERN_ACTION_LIST;
-		this.action_edit = this.absolutePath + this.getClazz().getSimpleName().toLowerCase() + PATTERN_ACTION_EDIT;
+		action_list = this.absolutePath + this.getClazz().getSimpleName().toLowerCase() + PATTERN_ACTION_LIST;
+		action_edit = this.absolutePath + this.getClazz().getSimpleName().toLowerCase() + PATTERN_ACTION_EDIT;
 	}
 	
 	/**

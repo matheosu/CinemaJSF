@@ -110,4 +110,14 @@ public class Funcionario extends BaseModel{
 	public void setId(Long id) {
 		this.setMatricula(id);		
 	}
+
+	public boolean isGerente() {
+		if(getSetor() != null){
+			if(getSetor().getGerente() != null){
+				if(getSetor().getGerente() == this)
+					return true;
+			}
+		}
+		return false;
+	}
 }

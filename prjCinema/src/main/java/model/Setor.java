@@ -14,6 +14,8 @@ import javax.persistence.OneToOne;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 
+import model.enums.NivelSetor;
+
 @Entity
 @Table(name = "setores")
 public class Setor extends BaseModel{
@@ -26,7 +28,7 @@ public class Setor extends BaseModel{
 	private Long id;
 
 	@Column(nullable = false)
-	private Integer nivel;
+	private NivelSetor nivel;
 	
 	@Column(nullable = false, unique = true, length = MAX_LENGTH_DESCRICAO)
 	private String descricao;
@@ -41,7 +43,7 @@ public class Setor extends BaseModel{
 		this.initCollections();
 	}
 
-	public Setor(Integer nivel, String descricao) {
+	public Setor(NivelSetor nivel, String descricao) {
 		this.setNivel(nivel);
 		this.setDescricao(descricao);
 		this.initCollections();
@@ -59,11 +61,11 @@ public class Setor extends BaseModel{
 		this.id = id;
 	}
 
-	public Integer getNivel() {
+	public NivelSetor getNivel() {
 		return nivel;
 	}
 
-	public void setNivel(Integer nivel) {
+	public void setNivel(NivelSetor nivel) {
 		this.nivel = nivel;
 	}
 

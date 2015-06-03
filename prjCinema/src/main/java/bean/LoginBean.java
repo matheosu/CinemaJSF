@@ -8,11 +8,13 @@ import javax.faces.bean.SessionScoped;
 import model.Funcionario;
 import model.Pessoa;
 import model.Setor;
+import model.enums.NivelSetor;
 import util.JSFUtil;
 import util.SecurityUtil;
 import dao.FuncionarioDAO;
 import dao.PessoaDAO;
 import dao.SetorDAO;
+import exception.BeanException;
 
 @ManagedBean(name="loginBean")
 @SessionScoped
@@ -63,7 +65,7 @@ public class LoginBean {
 	}
 	
 	private Setor createSetorAdmin(){
-		Setor s = new Setor(3, "Administrador");
+		Setor s = new Setor(NivelSetor.ADMINISTRACAO, "Administração do Cinema");
 		SetorDAO dao = new SetorDAO();
 		return dao.save(s);
 	}
@@ -87,7 +89,7 @@ public class LoginBean {
 	@SuppressWarnings("unused")
 	private void alterarSenhaAdmin(){
 		FuncionarioDAO dao = new FuncionarioDAO();
-		Funcionario f = dao.findById(new Long(100));
+		Funcionario f = dao.findById(new Long(1));
 		f.setSenha("abc123");
 		dao.save(f);
 	}
@@ -121,5 +123,63 @@ public class LoginBean {
 		return ACTION_LOGIN + REDIRECT;
 	}
 	
+	/**
+	 * Retorna qual é o setor do funcionário
+	 * @return
+	 * @throws BeanException 
+	 */
+	public Setor getSetorFuncionario() throws BeanException {
+		if(getFuncionario() == null)
+			throw new BeanException("Não há Funcionário Logado !");
+			
+		if(getFuncionario().getSetor() == null)
+			throw new BeanException("Funcionário Logado está sem setor!");
+		
+		return getFuncionario().getSetor();
+	}
 	
+	/**
+	 * Retorna o nível do setor do funcionário
+	 * @return
+	 */
+	public NivelSetor getNivelSetorFuncionario(){
+		try {
+			if(getSetorFuncionario() != null)
+				return getSetorFuncionario().getNivel();
+		} catch (BeanException e) {
+			JSFUtil.retornarMensagemErro("Erro ao descobrir o Nível do Setor do funcionário", e.getMessage(), null);
+		}
+		return null;
+	}
+	
+	public boolean isNivelOperacao(){
+		if(getNivelSetorFuncionario() != null){
+			if(getNivelSetorFuncionario() == NivelSetor.OPERACAO)
+				return true;
+		}
+		return false;
+	}
+	
+	public boolean isNivelControle(){
+		if(getNivelSetorFuncionario() != null){
+			if(getNivelSetorFuncionario() == NivelSetor.CONTROLE)
+				return true;
+		}
+		return false;
+	}
+	
+	public boolean isNivelAdministracao(){
+		if(getNivelSetorFuncionario() != null){
+			if(getNivelSetorFuncionario() == NivelSetor.ADMINISTRACAO)
+				return true;
+		}
+		return false;
+	}
+	
+	public boolean isGerente(){
+		if(getFuncionario()!=null)
+			return getFuncionario().isGerente();
+		
+		return false;
+	}
 }
