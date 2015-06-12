@@ -3,17 +3,18 @@ package bean;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
 
+import org.apache.log4j.Logger;
+
+import util.PathUtil;
+
 @ManagedBean(name="menuBean")
 @SessionScoped
 public class MenuBean {
-
-	private static final String RAIZ_PATH = "/";
-	private static final String RESTRICT_PATH = RAIZ_PATH + "restrito/";
-	private static final String ACTION_MENU = RESTRICT_PATH + "principal.action";
-	private static final String REDIRECT = "?faces-redirect=true";
 	
+	private static final Logger logger = Logger.getLogger(MenuBean.class);
+
 	public String getShow(){
-		return ACTION_MENU + REDIRECT;
+		return PathUtil.ACTION_MENU + PathUtil.REDIRECT;
 	}
 	
 	public String getShowGeneros(){

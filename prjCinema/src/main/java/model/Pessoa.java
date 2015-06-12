@@ -50,7 +50,7 @@ public class Pessoa extends BaseModel{
 	@OneToOne(mappedBy="pessoa",cascade=CascadeType.ALL)
 	private Cliente cliente;
 	
-	@OneToOne(mappedBy="pessoa",cascade=CascadeType.MERGE)
+	@OneToOne(mappedBy="pessoa",cascade=CascadeType.ALL)
 	private Funcionario funcionario;
 	
 	

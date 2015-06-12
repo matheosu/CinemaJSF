@@ -5,6 +5,8 @@ import java.util.List;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -28,6 +30,7 @@ public class Setor extends BaseModel{
 	private Long id;
 
 	@Column(nullable = false)
+	@Enumerated(EnumType.STRING)
 	private NivelSetor nivel;
 	
 	@Column(nullable = false, unique = true, length = MAX_LENGTH_DESCRICAO)

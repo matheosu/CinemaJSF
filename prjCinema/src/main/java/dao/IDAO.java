@@ -6,20 +6,20 @@ import javax.persistence.EntityManager;
 
 public interface IDAO<T> {
 
-	public EntityManager getEntityManager();
+	public abstract EntityManager getEntityManager();
 
-	public T findById(Long id);
+	public abstract T findById(Long id);
 
-	public List<T> getAll();
+	public abstract List<T> getAll();
 
-	public T save(T object);
+	public abstract T save(T object);
 
-	public void delete(T object);
+	public abstract void delete(T object);
 
-	public void begin();
+	public abstract void begin();
 
-	public void commit();
+	public abstract void commit();
 
-	public void rollback();
+	public abstract void rollback();
 
 }

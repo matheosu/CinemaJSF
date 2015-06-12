@@ -16,12 +16,10 @@ public class PessoaDAO extends GenericDAO<Pessoa>{
 
 	public PessoaDAO() {
 		super();
-		// TODO Auto-generated constructor stub
 	}
 
 	public PessoaDAO(EntityManager manager) {
 		super(manager);
-		// TODO Auto-generated constructor stub
 	}
 
 	public Pessoa findByCPF(String cpf){

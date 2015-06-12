@@ -10,21 +10,20 @@ import model.Pessoa;
 import model.Setor;
 import model.enums.NivelSetor;
 import util.JSFUtil;
+import util.PathUtil;
 import util.SecurityUtil;
 import dao.FuncionarioDAO;
 import dao.PessoaDAO;
 import dao.SetorDAO;
 import exception.BeanException;
 
+import org.apache.log4j.Logger;
+
 @ManagedBean(name="loginBean")
 @SessionScoped
 public class LoginBean {
-
-	private static final String RAIZ_PATH = "/";
-	private static final String RESTRICT_PATH = RAIZ_PATH + "restrito/";
-	private static final String ACTION_LOGIN = RAIZ_PATH + "login.action";
-	private static final String ACTION_MENU = RESTRICT_PATH + "principal.action";
-	private static final String REDIRECT = "?faces-redirect=true";
+	
+	private static final Logger logger = Logger.getLogger(LoginBean.class);
 	
 	private Funcionario funcionario;
 	private boolean autenticado;
@@ -100,16 +99,16 @@ public class LoginBean {
 		
 		if(func == null){
 			JSFUtil.retornarMensagemErro("Funcionário não existe", null, null);
-			return ACTION_LOGIN;
+			return PathUtil.ACTION_LOGIN;
 		} else if(func.getSenha().equals(SecurityUtil.criptografarSenha(this.getSenha()))){
 			this.setFuncionario(func);
 			this.setAutenticado(true);
 			this.matricula = null;
 			this.senha = null;
-			return ACTION_MENU + REDIRECT;
+			return PathUtil.ACTION_LOGIN + PathUtil.REDIRECT;
 		}else{
 			JSFUtil.retornarMensagemErro("Senha incorreta!",null,null);
-			return ACTION_LOGIN;
+			return PathUtil.ACTION_LOGIN;
 		}
 	}
 	
@@ -120,7 +119,7 @@ public class LoginBean {
 		this.senha = null;
 
 		JSFUtil.getHttpSession().invalidate();
-		return ACTION_LOGIN + REDIRECT;
+		return PathUtil.ACTION_LOGIN + PathUtil.REDIRECT;
 	}
 	
 	/**
@@ -146,8 +145,8 @@ public class LoginBean {
 		try {
 			if(getSetorFuncionario() != null)
 				return getSetorFuncionario().getNivel();
-		} catch (BeanException e) {
-			JSFUtil.retornarMensagemErro("Erro ao descobrir o Nível do Setor do funcionário", e.getMessage(), null);
+		} catch (BeanException beanE) {
+			logger.error("Erro ao descobrir o Nível do Setor do funcionário: ", beanE);
 		}
 		return null;
 	}
