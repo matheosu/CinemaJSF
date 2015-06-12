@@ -39,6 +39,11 @@ public class FuncionarioBean extends BaseBean<Funcionario>{
 		return new Funcionario();
 	}
 
+	@Override
+	public String save() {
+		return super.save();
+	}
+	
 	public static String show() {
 		return PathUtil.getActionList(Funcionario.class, true);
 	}

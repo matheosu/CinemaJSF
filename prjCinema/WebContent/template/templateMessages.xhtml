@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core">
+<h:head>
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+	<title>Cinema - <ui:insert name="titulo"></ui:insert></title>
+	<script type="text/javascript" src="../js/primefaces.js" />
+	<link rel="stylesheet" type="text/css"
+		href="/cinema/css/font-awesome.min.css" />
+</h:head>
+
+<h:body>
+	<style>
+<!--
+body {
+	background-color: #{color
+}
+}
+-->
+</style>
+	<div class="ui-grid ui-grid-responsive" style="border: none;"
+		id="pagina" align="center">
+		<div id="idConteudo" class="ui-grid-row"
+			style="position: absolute; top: 40%; left: 45%; margin-left: -110px; margin-top: -50px;">
+			<h:form>
+				<ui:insert name="conteudo"></ui:insert>
+			</h:form>
+		</div>
+	</div>
+</h:body>
+</html>

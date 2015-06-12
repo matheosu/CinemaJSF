@@ -7,15 +7,13 @@ import javax.faces.event.PhaseId;
 import javax.faces.event.PhaseListener;
 
 import util.JSFUtil;
+import util.PathUtil;
 import bean.LoginBean;
 
 public class LoginCheck implements PhaseListener{
 
 	private static final long serialVersionUID = -5477914621530878816L;
-	private static final String RAIZ_PATH = "/";
-	private static final String ERROR_FOLDER = RAIZ_PATH + "error/";
-	private static final String PAGE_ERROR_EXPIRED = ERROR_FOLDER + "expired.action";
-	
+
 	private static final String BEAN = "loginBean";
 
 	@Override
@@ -26,7 +24,6 @@ public class LoginCheck implements PhaseListener{
 		if (loginBean != null)
 			usuarioAutenticado = loginBean.isAutenticado();
 
-		// ------------------------------------
 		FacesContext contexto = event.getFacesContext();
 
 		// Check to see if they are on the login page.
@@ -37,7 +34,7 @@ public class LoginCheck implements PhaseListener{
 		if (!paginaLogin && !usuarioAutenticado)
 		{
 			NavigationHandler nh = contexto.getApplication().getNavigationHandler();
-			nh.handleNavigation(contexto, null, PAGE_ERROR_EXPIRED);
+			nh.handleNavigation(contexto, null, PathUtil.PAGE_ERROR_EXPIRED);
 		}
 	}
 

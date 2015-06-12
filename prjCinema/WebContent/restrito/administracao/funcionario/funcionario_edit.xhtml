@@ -13,6 +13,12 @@
 	<ui:define name="fields">
 		<h:panelGrid columns="1" cellpadding="5">
 
+			<!-- ID Funcionario -->
+			<h:inputHidden id="idFunc" value="#{instance.id}"/>
+
+			<!-- ID Funcionario -->
+			<h:inputHidden id="idPessoa" value="#{instance.pessoa.id}"/>
+			
 			<!--  CPF -->
 			<p:inputMask id="cpf" placeholder="CPF" value="#{instance.pessoa.cpf}"
 				required="true" requiredMessage="CPF é obrigatório"
@@ -54,7 +60,9 @@
 			<p:message for="setor"/>
 
 			<!--  Senha -->
-			<p:password placeholder="Senha" value="#{instance.senha}" />
+			<ui:remove> <!-- Alterar essa lógica -->
+				<p:password placeholder="Senha" value="#{instance.senha}" />
+			</ui:remove>
 
 		</h:panelGrid>
 	</ui:define>

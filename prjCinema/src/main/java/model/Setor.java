@@ -11,8 +11,9 @@ import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
-import javax.persistence.OneToOne;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 
@@ -39,7 +40,8 @@ public class Setor extends BaseModel{
 	@OneToMany(fetch = FetchType.LAZY, mappedBy = "setor")
 	private List<Funcionario> funcionarios;
 	
-	@OneToOne(mappedBy="setor")
+	@ManyToOne(fetch=FetchType.EAGER)
+	@JoinColumn(name="id_gerente",referencedColumnName="id_gerente")
 	private Funcionario gerente;
 
 	public Setor() {
@@ -98,7 +100,7 @@ public class Setor extends BaseModel{
 
 	@Override
 	public String toString() {
-		return "[" + nivel + "] " + descricao;
+		return descricao;
 	}
 
 	@Override

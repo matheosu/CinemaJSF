@@ -9,11 +9,10 @@
 	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
 	<title>Restrito - <ui:insert name="titulo"/> </title>
 	<script type="text/javascript" src="../js/primefaces.js" />
-
+	<link type="text/css" rel="stylesheet" href="/css/estilo.css" />
 </h:head>
 
 <h:body>
-	
 	<ui:insert name="header">
 		<ui:include src="/template/header.xhtml" />
 	</ui:insert>
@@ -27,7 +26,8 @@
 			</div>
 
 			<div class="ui-grid-col-9" id="idConteudo" align="center">
-				<ui:insert name="conteudo"> </ui:insert>
+				<ui:insert name="conteudo">
+				</ui:insert>
 			</div>
 		</div>
 

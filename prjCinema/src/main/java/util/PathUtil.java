@@ -16,7 +16,10 @@ public abstract class PathUtil {
 	public static final String RESTRICT_PATH = RAIZ_PATH + "restrito/";
 	public static final String ACTION_MENU = RESTRICT_PATH + "principal.action";
 	public static final String ACTION_LOGIN = RAIZ_PATH + "login.action";
-		
+	public static final String ERROR_FOLDER = RAIZ_PATH + "error/";
+	public static final String PAGE_ERROR_EXPIRED = ERROR_FOLDER + "expired.action";	
+	
+	
 	public static final String CONTROLE_PATH = RESTRICT_PATH + "controle/";
 	public static final String OPERACAO_PATH = RESTRICT_PATH + "operacao/";
 	public static final String ADMINISRACAO_PATH = RESTRICT_PATH + "administracao/";

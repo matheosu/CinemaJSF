@@ -1,33 +1,32 @@
 .ui-state-default, .ui-widget-content .ui-state-default,
 	.ui-widget-header .ui-state-default {
-	border: none;
+	border: none !important;
 }
 
-.ui-widget .ui-button {
-	text-shadow: none;
-	background-image: none;
-	color: #ffffff;
-	font-family: "Helvetica Neue, Helvetica, Arial, sans-serif";
+form .btn{
+	border: none !important;
+	text-shadow: none !important;
+	background-image: none !important;
+	color: #ffffff !important;
+	font-family: "Helvetica Neue, Helvetica, Arial, sans-serif" !important;
 }
 
-.ui-widget .ui-button .btn-back{
-	background-color: #f0ad4e;
+form .btn .btn-back{
+	background-color: #f0ad4e !important;
 }
 
-.ui-widget .ui-button .btn-save{
-	background-color: #5cb85c;
+form .btn .btn-save{
+	background-color: #5cb85c !important;
 }
 
-.ui-widget .ui-button .btn-new{
-	background-color: #5cb85c;
+form .btn .btn-new{
+	background-color: #5cb85c !important;
 }
 
-.ui-widget .ui-button .btn-edit{
-	background-color: #5bc0de;
+form .btn .btn-edit{
+	background-color: #5bc0de !important;
 }
 
-.ui-widget .ui-button .btn-delete{
-	background-color: #d9534f;
+form .btn .btn-delete{
+	background-color: #d9534f !important;
 }
-
-

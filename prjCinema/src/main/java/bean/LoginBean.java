@@ -88,7 +88,7 @@ public class LoginBean {
 	@SuppressWarnings("unused")
 	private void alterarSenhaAdmin(){
 		FuncionarioDAO dao = new FuncionarioDAO();
-		Funcionario f = dao.findById(new Long(1));
+		Funcionario f = dao.findById(new Long(100));
 		f.setSenha("abc123");
 		dao.save(f);
 	}
@@ -105,11 +105,15 @@ public class LoginBean {
 			this.setAutenticado(true);
 			this.matricula = null;
 			this.senha = null;
-			return PathUtil.ACTION_LOGIN + PathUtil.REDIRECT;
+			return PathUtil.ACTION_MENU + PathUtil.REDIRECT;
 		}else{
 			JSFUtil.retornarMensagemErro("Senha incorreta!",null,null);
 			return PathUtil.ACTION_LOGIN;
 		}
+	}
+	
+	public String login(){
+		return PathUtil.ACTION_LOGIN + PathUtil.REDIRECT;
 	}
 	
 	public String sair(){
@@ -146,7 +150,7 @@ public class LoginBean {
 			if(getSetorFuncionario() != null)
 				return getSetorFuncionario().getNivel();
 		} catch (BeanException beanE) {
-			logger.error("Erro ao descobrir o Nível do Setor do funcionário: ", beanE);
+			logger.error("Erro ao descobrir o Nível do Setor do funcionário: " + beanE.getMessage());
 		}
 		return null;
 	}

@@ -47,10 +47,10 @@ public class Pessoa extends BaseModel{
 	@Temporal(TemporalType.DATE)
 	private Calendar dataNascimento;
 
-	@OneToOne(mappedBy="pessoa",cascade=CascadeType.ALL)
+	@OneToOne(mappedBy="pessoa")
 	private Cliente cliente;
 	
-	@OneToOne(mappedBy="pessoa",cascade=CascadeType.ALL)
+	@OneToOne(mappedBy="pessoa")
 	private Funcionario funcionario;
 	
 	

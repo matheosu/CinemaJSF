@@ -12,6 +12,9 @@
 
 	<ui:define name="fields">
 		<h:panelGrid columns="1" cellpadding="5">
+	
+			<!-- ID Filme -->
+			<h:inputHidden id="idFilme" value="#{instance.id}"/>
 
 			<!-- Título -->
 			<p:inputText id="titulo" placeholder="Título" value="#{instance.titulo}"
