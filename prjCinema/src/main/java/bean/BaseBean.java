@@ -33,6 +33,7 @@ public abstract class BaseBean<T extends BaseModel> implements IBean<T> {
     /* Patterns */
 	private static final String PATTERN_DAO = "DAO";
 	private static final String PATH_DAO = "dao.";
+	private static final String PATTERN_BEAN = "Bean";
 
 	/* Class for Reflection and DAOClass for the Class Reflection */
 	private Class<T> clazz;
@@ -41,14 +42,13 @@ public abstract class BaseBean<T extends BaseModel> implements IBean<T> {
 	/* ActionFiles and AbsolutePath */
 	protected static String action_list;
 	protected static String action_edit;
-	protected String absolutePath;
 	
 	/* Instance and Instances */
 	private List<T> instances = new ArrayList<T>();
 	private T instance;
 	
 	/* DAO */
-	private IDAO<T> dao; 
+	protected IDAO<T> dao; 
 
 	public BaseBean() {
 		super();
@@ -78,6 +78,7 @@ public abstract class BaseBean<T extends BaseModel> implements IBean<T> {
 	
 	/* CRUD */
 	public String list(){
+		this.instances = null;
 		return PathUtil.getActionList(this.getClazz(), true);
 	}
 	
@@ -204,7 +205,7 @@ public abstract class BaseBean<T extends BaseModel> implements IBean<T> {
 
 	@Override
 	public String toString() {
-		return "BaseBean [instance=" + instance + "]";
+		return this.getClazz().getSimpleName() + PATTERN_BEAN + " [instance=" + instance + "]";
 	}
 	
 }

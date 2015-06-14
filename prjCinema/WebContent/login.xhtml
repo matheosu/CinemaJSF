@@ -14,7 +14,7 @@
 
 <h:body>
 	<div class="ui-grid ui-grid-responsive" id="pagina" align="center"
-		style="margin-top: 70px; margin-left:25px;">
+		style="margin-top: 70px; margin-left: 25px;">
 		<div id="idCabecalho" class="ui-grid-row">
 			<div class="ui-grid-col-12">
 				<p:toolbar
@@ -27,34 +27,35 @@
 		</div>
 
 		<h:form id="form">
-			<p:messages globalOnly="true" />
-
-			<p:panel header="Acesso ao Sistema"
-				style="position: absolute; left: 50%; top: 20%; margin-left: -110px; margin-top: -40px;">
-				<h:panelGrid columns="1" cellpadding="2" cellspacing="2">
-					<h:panelGroup>
-						<p:inputText id="txtMatricula" value="#{loginBean.matricula}"
-							required="true"
-							requiredMessage="O Campo Matricula é obrigatório."
-							placeholder="Matricula" tabindex="1" />
-						<p:focus for="txtMatricula" />
-					</h:panelGroup>
-					<h:panelGroup>
-						<p:password feedback="false" id="txtSenha"
-							value="#{loginBean.senha}" required="true"
-							requiredMessage="O Campo Senha é obrigatório."
-							placeholder="Senha" tabindex="2" />
-					</h:panelGroup>
-					<f:facet name="footer">
-						<h:panelGroup layout="block" style="text-align: center">
-							<p:commandButton ajax="false" id="btnEntrar"
-								action="#{loginBean.autenticar}" value="Entrar"
-								icon="fa fa-paper-plane" tabindex="3"
-								style="text-shadow: none;background-image: none;background-color: #428bca;color: #ffffff;font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;" />
+			<h:panelGrid>
+				<p:panel header="Acesso ao Sistema"
+					style="position: absolute; left: 50%; top: 20%; margin-left: -110px; margin-top: -40px;">
+					<h:panelGrid columns="1" cellpadding="2" cellspacing="2">
+					<p:messages globalOnly="true" />
+						<h:panelGroup>
+							<p:inputText id="txtMatricula" value="#{loginBean.matricula}"
+								required="true"
+								requiredMessage="O Campo Matricula é obrigatório."
+								placeholder="Matricula" tabindex="1" />
+							<p:focus for="txtMatricula" />
 						</h:panelGroup>
-					</f:facet>
-				</h:panelGrid>
-			</p:panel>
+						<h:panelGroup>
+							<p:password feedback="false" id="txtSenha"
+								value="#{loginBean.senha}" required="true"
+								requiredMessage="O Campo Senha é obrigatório."
+								placeholder="Senha" tabindex="2" />
+						</h:panelGroup>
+						<f:facet name="footer">
+							<h:panelGroup layout="block" style="text-align: center">
+								<p:commandButton ajax="false" id="btnEntrar"
+									action="#{loginBean.autenticar}" value="Entrar"
+									icon="fa fa-paper-plane" tabindex="3"
+									style="text-shadow: none;background-image: none;background-color: #428bca;color: #ffffff;font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;" />
+							</h:panelGroup>
+						</f:facet>
+					</h:panelGrid>
+				</p:panel>
+			</h:panelGrid>
 		</h:form>
 
 		<div id="idRodape" class="ui-grid-row">

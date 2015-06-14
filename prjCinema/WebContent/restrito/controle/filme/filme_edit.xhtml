@@ -9,56 +9,138 @@
 	<ui:param name="entityName" value="Filme" />
 	<ui:param name="bean" value="#{filmeBean}" />
 	<ui:param name="instance" value="#{bean.instance}" />
+	<ui:param name="meta" value="multipart/form-data" />
 
 	<ui:define name="fields">
-		<h:panelGrid columns="1" cellpadding="5">
-	
+		<h:panelGrid columns="1" cellpadding="1">
+
 			<!-- ID Filme -->
-			<h:inputHidden id="idFilme" value="#{instance.id}"/>
+			<h:inputHidden id="idFilme" value="#{instance.id}" />
 
+			<!-- Imagem -->
+			<p:graphicImage id="imagem" value="#{bean.imageBean.image}"/>
+			<p:fileUpload allowTypes="/(\.|\/)(gif|jpe?g|png)$/" value="#{bean.imageBean.file}" mode="advanced" label="Imagem" 
+				skinSimple="true" fileUploadListener="#{bean.imageBean.handleFileUpload}" fileLimit="1" auto="true"
+				sizeLimit="1000000" update="imagem"/>
+			
 			<!-- Título -->
-			<p:inputText id="titulo" placeholder="Título" value="#{instance.titulo}"
-				required="true" requiredMessage="Título é obrigatório" />
-			<p:message for="titulo"/>
+			<h:panelGroup>
+				<h:panelGrid columns="1" cellpadding="1">
+					<p:outputLabel for="titulo" value="Título" />
+					<p:inputText id="titulo" placeholder="Título"
+						value="#{instance.titulo}" required="true"
+						maxlength="#{instance.maxLengthTitulo}"
+						requiredMessage="Título é obrigatório" size="60" />
+					<p:message for="titulo" />
+				</h:panelGrid>
+			</h:panelGroup>
 
-			<!-- Duração -->
-			<p:calendar id="duracao" value="#{instance.duracao}" pattern="HH:mm:ss"
-				timeOnly="true" title="Duração" label="Duração" 
-				placeholder="Duração" required="true" converter="time-converter"
-				converterMessage="Erro ao converter duração"
-				requiredMessage="Duração é obrigatório" />
-			<p:message for="duracao"/>
+			<h:panelGroup>
+				<h:panelGrid columns="2" cellpadding="1">
+					<h:panelGroup>
+						<!-- Duração -->
+						<h:panelGrid columns="1" cellpadding="1">
+							<p:outputLabel for="duracao" value="Duração" />
+							<p:calendar id="duracao" value="#{instance.duracao}"
+								pattern="HH:mm:ss" timeOnly="true" title="Duração"
+								label="Duração" placeholder="Duração" required="true"
+								converterMessage="Erro ao converter duração"
+								requiredMessage="Duração é obrigatório" size="8" />
+							<p:message for="duracao" />
+						</h:panelGrid>
+					</h:panelGroup>
 
-			<!-- Sinopse -->
-			<p:inputText placeholder="Sinopse" value="#{instance.sinopse}" />
+					<h:panelGroup>
+						<!-- Direção -->
+						<h:panelGrid columns="1" cellpadding="1">
+							<p:outputLabel for="direcao" value="Direção" />
+							<p:inputText placeholder="Direção" id="direcao"
+								value="#{instance.direcao}" required="true"
+								maxlength="#{instance.maxLengthDirecao}"
+								requiredMessage="Direção é obrigatório" size="44" />
+							<p:message for="direcao" />
+						</h:panelGrid>
+					</h:panelGroup>
+				</h:panelGrid>
+			</h:panelGroup>
 
-			<!-- Direção -->
-			<p:inputText placeholder="Direção" id="direcao" value="#{instance.direcao}"
-				required="true" requiredMessage="Direção é obrigatório" />
-			<p:message for="direcao"/>
 
-			<!-- Classificação -->
-			<p:selectOneListbox id="classificacao"
-				value="#{instance.classificacao}" size="1"
-				converter="classificacao-converter" converterMessage="Erro ao converter classificação" 
-				required="true" requiredMessage="Classificação é obrigatório">
-				<f:selectItems value="#{bean.classificacoes}" var="classificacao"
-					itemValue="#{classificacao}" itemLabel="#{classificacao.descricao}" />
-			</p:selectOneListbox>
-			<p:message for="classificacao"/>
+			<h:panelGroup>
+				<h:panelGrid columns="3" cellpadding="1">
+					<h:panelGroup>
+						<!-- Classificação -->
+						<h:panelGrid columns="1" cellpadding="1">
+							<p:outputLabel for="classificacao" value="Classificação" />
+							<p:selectOneListbox id="classificacao"
+								value="#{instance.classificacao}" size="1"
+								converter="classificacao-converter" scrollHeight="100"
+								converterMessage="Erro ao converter classificação"
+								required="true" requiredMessage="Classificação é obrigatório">
+								<f:selectItems value="#{bean.classificacoes}"
+									var="classificacao" itemValue="#{classificacao}"
+									itemLabel="#{classificacao.descricao}" />
+							</p:selectOneListbox>
+							<p:message for="classificacao" />
+						</h:panelGrid>
+					</h:panelGroup>
 
-			<!-- Status -->
-			<p:selectOneListbox id="status" value="#{instance.status}" size="1"
-				required="true" requiredMessage="Status é obrigatório" converter="status-converter"
-				converterMessage="Erro ao converter Status">
- 				<f:selectItems value="#{bean.status}" var="status"
- 					itemValue="#{status}" itemLabel="#{status.value}"/>
-			</p:selectOneListbox>
-			<p:message for="status"/>
+					<h:panelGroup>
+						<!-- Status -->
+						<h:panelGrid columns="1" cellpadding="1">
+							<p:outputLabel for="status" value="Status" />
+							<p:selectOneListbox id="status" value="#{instance.status}"
+								scrollHeight="100" size="1" required="true"
+								requiredMessage="Status é obrigatório"
+								converter="status-converter"
+								converterMessage="Erro ao converter Status">
+								<f:selectItems value="#{bean.status}" var="status"
+									itemValue="#{status}" itemLabel="#{status.value}" />
+							</p:selectOneListbox>
+							<p:message for="status" />
+						</h:panelGrid>
+					</h:panelGroup>
+
+					<h:panelGroup>
+						<h:panelGrid>
+							<p:outputLabel for="generos" value="Gêneros" />
+							<p:selectManyMenu id="generos" required="true"
+								requiredMessage="Gênero é obrigatório"
+								value="#{instance.generos}" converter="genero-converter"
+								scrollHeight="70" var="g" filter="true"
+								filterMatchMode="contains" showCheckbox="true">
+
+								<f:selectItems value="#{bean.generoBean.instances}" var="genero"
+									itemLabel="#{genero}" itemValue="#{genero}" />
+
+								<p:column>
+									<h:outputText value="#{g}" />
+								</p:column>
+							</p:selectManyMenu>
+						</h:panelGrid>
+					</h:panelGroup>
+
+				</h:panelGrid>
+			</h:panelGroup>
 
 			<!-- Trailer -->
-			<p:inputText type="url" placeholder="Trailer" converter="url-converter"	
-				value="#{instance.trailer}" converterMessage="Erro ao converter URL"/>
+			<h:panelGroup>
+				<h:panelGrid columns="1" cellpadding="1">
+					<p:outputLabel for="trailer" value="Trailer" />
+					<p:inputText type="url" id="trailer" placeholder="Cole aqui a URL"
+						converter="url-converter" value="#{instance.trailer}"
+						converterMessage="Erro ao converter URL" size="60" />
+				</h:panelGrid>
+			</h:panelGroup>
+
+			<!-- Sinopse -->
+			<h:panelGroup>
+				<h:panelGrid columns="1" cellpadding="1">
+					<p:outputLabel for="sinopse" value="Sinopse" />
+					<p:editor id="sinopse" widgetVar="sinopseVar"
+						value="#{instance.sinopse}" width="600"
+						maxlength="#{instance.maxLengthSinopse}" />
+				</h:panelGrid>
+			</h:panelGroup>
 
 		</h:panelGrid>
 	</ui:define>

@@ -5,26 +5,20 @@
 	xmlns:f="http://java.sun.com/jsf/core"
 	template="/template/templateList.xhtml">
 
-	<ui:param name="fullEntityName" value="Filme" />
-	<ui:param name="entityName" value="Filme" />
-	<ui:param name="bean" value="#{filmeBean}" />
+	<ui:param name="fullEntityName" value="Sala" />
+	<ui:param name="entityName" value="Sala" />
+	<ui:param name="bean" value="#{salaBean}" />
 
 
 	<ui:define name="itensList">
-		<p:column headerText="Titulo">
-			<h:outputText value="#{instance.titulo}" />
+		<p:column headerText="Número">
+			<h:outputText value="#{instance.numero}" />
 		</p:column>
-		<p:column headerText="Duração">
-			<h:outputText value="#{instance.duracao}" converter="time-converter" />
+		<p:column headerText="Capacidade">
+			<h:outputText value="#{instance.capacidade}"/>
 		</p:column>
-		<p:column headerText="Direção">
-			<h:outputText value="#{instance.direcao}" />
-		</p:column>
-		<p:column headerText="Classificação">
-			<h:outputText value="#{instance.classificacao}" converter="classificacao-converter"  />
-		</p:column>
-		<p:column headerText="Status">
-			<h:outputText value="#{instance.status}" converter="status-converter" />
+		<p:column headerText="Lugares">
+			<h:outputText value="#{instance.quantidadeLugares}" />
 		</p:column>
 	</ui:define>
 </ui:composition>

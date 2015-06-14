@@ -24,5 +24,7 @@ public class GeneroBean extends BaseBean<Genero>{
 	public static String show() {
 		return PathUtil.getActionList(Genero.class, true);
 	}
+	
+	
 
 }

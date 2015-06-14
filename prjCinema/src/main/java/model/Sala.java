@@ -89,6 +89,10 @@ public class Sala extends BaseModel{
 		this.lugares = lugar;
 	}
 
+	public int getQuantidadeLugares(){
+		return this.getLugares().size();
+	}
+	
 	@Override
 	public String toString() {
 		return numero + "[" + capacidade + "]";

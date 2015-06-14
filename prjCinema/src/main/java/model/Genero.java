@@ -66,6 +66,14 @@ public class Genero extends BaseModel{
 	public void setFilmes(List<Filme> filmes) {
 		this.filmes = filmes;
 	}
+	
+	public int getQuantidadeFilmes(){
+		return this.getFilmes().size();
+	}
+	
+	public int getMaxLengthDescricao() {
+		return MAX_LENGTH_DESCRICAO;
+	}
 
 	@Override
 	public String toString() {

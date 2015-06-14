@@ -17,7 +17,7 @@ public class ClassificacaoConverter implements Converter{
 			return null;
 		
 		for(Classificacao c : ClassificacaoUtil.getClassificacoes()){
-			if(c.name().equals(value))
+			if(c.toString().equals(value))
 				return c;
 		}
 		

@@ -1,13 +1,15 @@
 package model.enums;
 
-public enum StatusFilme {
-	
-	EM_CARTAZ("Em Cartaz"),
-	EM_BREVE("Em Breve");
+public enum StatusSessao {
+
+	CRIADA("Criada"),
+	DISPONIVEL("Disponível"), 
+	EXIBICAO("Exibição"),
+	FINALIZADA("Finalizada");
 	
 	private String value;
 	
-	StatusFilme(String value){
+	StatusSessao(String value){
 		this.setValue(value);
 	}
 
@@ -21,6 +23,6 @@ public enum StatusFilme {
 	
 	@Override
 	public String toString(){
-		return this.value;
+		return this.getValue();
 	}
 }

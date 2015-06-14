@@ -42,4 +42,8 @@ public class MenuBean {
 	public String getShowSetores(){
 		return SetorBean.show();
 	}
+	
+	public String login(){
+		return PathUtil.ACTION_LOGIN + PathUtil.REDIRECT;
+	}
 }

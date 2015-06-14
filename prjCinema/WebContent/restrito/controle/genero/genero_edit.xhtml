@@ -5,60 +5,23 @@
 	xmlns:f="http://java.sun.com/jsf/core"
 	template="/template/templateEdit.xhtml">
 
-	<ui:param name="fullEntityName" value="Filme" />
-	<ui:param name="entityName" value="Filme" />
-	<ui:param name="bean" value="#{filmeBean}" />
+	<ui:param name="fullEntityName" value="Gênero" />
+	<ui:param name="entityName" value="Genero" />
+	<ui:param name="bean" value="#{generoBean}" />
 	<ui:param name="instance" value="#{bean.instance}" />
 
 	<ui:define name="fields">
-		<h:panelGrid columns="1" cellpadding="5">
+		<h:panelGrid columns="1" cellpadding="3">
 	
-			<!-- ID Filme -->
-			<h:inputHidden id="idFilme" value="#{instance.id}"/>
+			<!-- ID Genero -->
+			<h:inputHidden id="idGenero" value="#{instance.id}"/>
 
-			<!-- Título -->
-			<p:inputText id="titulo" placeholder="Título" value="#{instance.titulo}"
-				required="true" requiredMessage="Título é obrigatório" />
-			<p:message for="titulo"/>
-
-			<!-- Duração -->
-			<p:calendar id="duracao" value="#{instance.duracao}" pattern="HH:mm:ss"
-				timeOnly="true" title="Duração" label="Duração" 
-				placeholder="Duração" required="true" converter="time-converter"
-				converterMessage="Erro ao converter duração"
-				requiredMessage="Duração é obrigatório" />
-			<p:message for="duracao"/>
-
-			<!-- Sinopse -->
-			<p:inputText placeholder="Sinopse" value="#{instance.sinopse}" />
-
-			<!-- Direção -->
-			<p:inputText placeholder="Direção" id="direcao" value="#{instance.direcao}"
-				required="true" requiredMessage="Direção é obrigatório" />
-			<p:message for="direcao"/>
-
-			<!-- Classificação -->
-			<p:selectOneListbox id="classificacao"
-				value="#{instance.classificacao}" size="1"
-				converter="classificacao-converter" converterMessage="Erro ao converter classificação" 
-				required="true" requiredMessage="Classificação é obrigatório">
-				<f:selectItems value="#{bean.classificacoes}" var="classificacao"
-					itemValue="#{classificacao}" itemLabel="#{classificacao.descricao}" />
-			</p:selectOneListbox>
-			<p:message for="classificacao"/>
-
-			<!-- Status -->
-			<p:selectOneListbox id="status" value="#{instance.status}" size="1"
-				required="true" requiredMessage="Status é obrigatório" converter="status-converter"
-				converterMessage="Erro ao converter Status">
- 				<f:selectItems value="#{bean.status}" var="status"
- 					itemValue="#{status}" itemLabel="#{status.value}"/>
-			</p:selectOneListbox>
-			<p:message for="status"/>
-
-			<!-- Trailer -->
-			<p:inputText type="url" placeholder="Trailer" converter="url-converter"	
-				value="#{instance.trailer}" converterMessage="Erro ao converter URL"/>
+			<!-- Descricao -->
+			<p:outputLabel for="descricao" value="Descrição"/>
+			<p:inputText id="descricao" placeholder="Insira a descrição do gênero" value="#{instance.descricao}" size="60"
+				required="true" requiredMessage="Descrição é obrigatório" maxlength="#{instance.maxLengthDescricao}" />
+			<p:message for="descricao"/>
+			<p:focus for="descricao" />
 
 		</h:panelGrid>
 	</ui:define>

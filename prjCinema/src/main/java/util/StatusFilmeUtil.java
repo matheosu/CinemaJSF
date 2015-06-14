@@ -13,10 +13,8 @@ public class StatusFilmeUtil {
 	
 	public static List<StatusFilme> getStatusFilme() {
 		if(statusFilme.isEmpty()){
-			statusFilme.add(StatusFilme.EXIBICAO);
-			statusFilme.add(StatusFilme.LANCAMENTO);
-			statusFilme.add(StatusFilme.PRE_LANCAMENTO);
-			statusFilme.add(StatusFilme.INATIVO);
+			statusFilme.add(StatusFilme.EM_BREVE);
+			statusFilme.add(StatusFilme.EM_CARTAZ);
 		}
 		return statusFilme;
 	}

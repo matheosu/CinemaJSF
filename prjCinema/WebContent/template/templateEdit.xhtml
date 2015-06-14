@@ -11,7 +11,7 @@
 	<ui:define name="titulo">Salvar #{fullEntityName}</ui:define>
 
 	<ui:define name="conteudo">
-		<h:form id="form#{entityName}">
+		<h:form id="form#{entityName}" enctype="#{meta}">
 			
 			<!-- Messages -->
 			<p:messages autoUpdate="true" globalOnly="true" closable="true" />

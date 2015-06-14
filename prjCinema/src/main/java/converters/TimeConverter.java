@@ -23,8 +23,11 @@ public class TimeConverter implements Converter{
 	@Override
 	public String getAsString(FacesContext context, UIComponent component, Object obj) {
 		
-		if(obj instanceof Calendar)
-			return CalendarUtil.formatCalendarToTime((Calendar)obj);
+		if(obj instanceof Calendar){
+//			return ((Calendar)obj).getTime().toString();
+			String string = CalendarUtil.formatCalendarToStringTime((Calendar)obj);
+			return string;
+		}
 					
 		return null;
 	}

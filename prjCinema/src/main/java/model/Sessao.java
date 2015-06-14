@@ -6,6 +6,8 @@ import java.util.List;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -16,6 +18,9 @@ import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
+
+import util.CalendarUtil;
+import model.enums.StatusSessao;
 
 @Entity
 @Table(name = "sessoes")
@@ -34,17 +39,21 @@ public class Sessao extends BaseModel{
 	private float valor;
 
 	@Temporal(TemporalType.DATE)
+	@Column(nullable = false)
 	private Calendar validade;
 
-	@ManyToOne
+	@ManyToOne(optional=false)
 	private Sala sala;
 	
-	@ManyToOne
+	@ManyToOne(optional=false)
 	private Filme filme;
 
 	@OneToMany(fetch = FetchType.LAZY, mappedBy = "sessao")
 	private List<Ingresso> ingressos;
 
+	@Enumerated(EnumType.STRING)
+	private StatusSessao status;
+	
 	public Sessao() {
 		this.initCollections();
 	}
@@ -56,6 +65,7 @@ public class Sessao extends BaseModel{
 		this.setDataHora(dataHora);
 		this.setValor(valor);
 		this.setValidade(validade);
+		this.setStatus(StatusSessao.CRIADA);
 		this.initCollections();
 	}
 
@@ -118,10 +128,22 @@ public class Sessao extends BaseModel{
 	public void setFilme(Filme filme) {
 		this.filme = filme;
 	}
+	
+	public StatusSessao getStatus() {
+		return status;
+	}
+
+	public void setStatus(StatusSessao status) {
+		this.status = status;
+	}
+	
+	public String getDataHoraConvertida(){
+		return CalendarUtil.formatCalendarToTimeAndDate(this.getDataHora());
+	}
 
 	@Override
 	public String toString() {
-		return "Data/Hora: " + dataHora + " - " + "Sala: " + sala
+		return getDataHoraConvertida() + " - " + "Sala: " + sala
 				+ " - " + "Filme: " + filme;
 	}
 

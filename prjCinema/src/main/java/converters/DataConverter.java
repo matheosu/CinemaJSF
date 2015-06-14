@@ -1,6 +1,7 @@
 package converters;
 
 import java.util.Calendar;
+import java.util.Date;
 
 import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
@@ -24,7 +25,12 @@ public class DataConverter implements Converter{
 	public String getAsString(FacesContext context, UIComponent component, Object obj) {
 		
 		if(obj instanceof Calendar){
-			return CalendarUtil.formatCalendarToDate((Calendar)obj);
+			return CalendarUtil.formatCalendarToStringDate((Calendar)obj);
+		}else if(obj instanceof Date){
+			Date date = (Date)obj;
+			Calendar c = Calendar.getInstance();
+			c.setTime(date);
+			return CalendarUtil.formatCalendarToStringDate(c);
 		}
 		return null;
 	}

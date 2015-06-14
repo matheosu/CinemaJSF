@@ -2,7 +2,7 @@ package model;
 
 import java.net.URL;
 import java.util.ArrayList;
-import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
 
 import javax.persistence.Column;
@@ -28,9 +28,10 @@ import model.enums.StatusFilme;
 @Table(name="filmes")
 public class Filme extends BaseModel{
 
-	public static final int MAX_LENGTH_TITULO = 150;
-	public static final int MAX_LENGTH_SINOPSE = 1000;
 	public static final int MAX_LENGTH_DIRECAO = 100;
+	public static final int MAX_LENGTH_TITULO = 150;
+	public static final int MAX_LENGTH_URL = 500;
+	public static final int MAX_LENGTH_SINOPSE = 1000;
 		
 	@Id
 	@GeneratedValue(generator = "FILME_ID", strategy = GenerationType.SEQUENCE)
@@ -41,8 +42,8 @@ public class Filme extends BaseModel{
 	private String titulo;
 	
 	@Column(nullable = false)
-	@Temporal(TemporalType.DATE)
-	private Calendar duracao;
+	@Temporal(TemporalType.TIME)
+	private Date duracao;
 	
 	@Column(length = MAX_LENGTH_SINOPSE)
 	private String sinopse;
@@ -60,6 +61,7 @@ public class Filme extends BaseModel{
 	@Lob
 	private Byte[] imagem;
 	
+	@Column(length=MAX_LENGTH_URL)
 	private URL trailer;
 	
 	@OneToMany(fetch=FetchType.LAZY, mappedBy="filme")
@@ -72,7 +74,7 @@ public class Filme extends BaseModel{
 		this.initCollections();
 	}
 
-	public Filme(String titulo, String direcao, Calendar duracao, Classificacao classificacao, StatusFilme status){
+	public Filme(String titulo, String direcao, Date duracao, Classificacao classificacao, StatusFilme status){
 		this.setTitulo(titulo);
 		this.setDirecao(direcao);
 		this.setDuracao(duracao);
@@ -81,7 +83,7 @@ public class Filme extends BaseModel{
 		this.initCollections();
 	}
 	
-	public Filme(String titulo, Calendar duracao, String sinopse,
+	public Filme(String titulo, Date duracao, String sinopse,
 			String direcao, Classificacao classificacao, StatusFilme status,
 			Byte[] imagem, URL trailer) {
 		this.setTitulo(titulo);
@@ -92,7 +94,6 @@ public class Filme extends BaseModel{
 		this.setStatus(status);
 		this.setImagem(imagem);
 		this.setTrailer(trailer);
-		
 		this.initCollections();
 	}
 
@@ -117,14 +118,14 @@ public class Filme extends BaseModel{
 		this.titulo = titulo;
 	}
 
-	public Calendar getDuracao() {
+	public Date getDuracao() {
 		return duracao;
 	}
 
-	public void setDuracao(Calendar duracao) {
+	public void setDuracao(Date duracao) {
 		this.duracao = duracao;
 	}
-
+	
 	public String getSinopse() {
 		return sinopse;
 	}
@@ -187,6 +188,18 @@ public class Filme extends BaseModel{
 
 	public void setGeneros(List<Genero> generos) {
 		this.generos = generos;
+	}
+	
+	public int getMaxLengthTitulo() {
+		return MAX_LENGTH_TITULO;
+	}
+
+	public int getMaxLengthSinopse() {
+		return MAX_LENGTH_SINOPSE;
+	}
+
+	public int getMaxLengthDirecao() {
+		return MAX_LENGTH_DIRECAO;
 	}
 
 	@Override
