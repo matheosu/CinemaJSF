@@ -1,24 +1,24 @@
-package util.converter;
+package converters;
 
 import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
 import javax.faces.convert.Converter;
 import javax.faces.convert.FacesConverter;
 
-import model.enums.Sexo;
-import util.SexoUtil;
+import model.enums.Classificacao;
+import util.ClassificacaoUtil;
 
-@FacesConverter(value="sexo-converter", forClass=Sexo.class)
-public class SexoConverter implements Converter{
-
+@FacesConverter(value="classificacao-converter" , forClass=Classificacao.class)
+public class ClassificacaoConverter implements Converter{
+	
 	@Override
 	public Object getAsObject(FacesContext context, UIComponent component, String value) {
 		if(value == null || value.length() <=0)
 			return null;
 		
-		for(Sexo s : SexoUtil.getSexos()){
-			if(s.name().equals(value))
-				return s;
+		for(Classificacao c : ClassificacaoUtil.getClassificacoes()){
+			if(c.name().equals(value))
+				return c;
 		}
 		
 		return null;
@@ -26,13 +26,11 @@ public class SexoConverter implements Converter{
 
 	@Override
 	public String getAsString(FacesContext context, UIComponent component, Object obj) {
-		
-		if(obj instanceof Sexo){
-			return ((Sexo)obj).name();
-		}
+
+		if(obj instanceof Classificacao)
+			return ((Classificacao)obj).toString();
 		
 		return null;
 	}
 
-	
 }

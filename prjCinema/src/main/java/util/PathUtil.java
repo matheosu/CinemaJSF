@@ -1,6 +1,8 @@
 package util;
 
 import model.BaseModel;
+import model.Sessao;
+import model.Setor;
 
 public abstract class PathUtil {
 
@@ -38,12 +40,18 @@ public abstract class PathUtil {
 	 */
 	public static String getActionList(Class<? extends BaseModel> clazz, boolean redirect){
 		String classLower = clazz.getSimpleName().toLowerCase();
+
+		String urlPage = getAbsolutePath(classLower) + classLower + PATTERN_ACTION_LIST;
 		
-		if(redirect){
-			return getAbsolutePath(classLower) + classLower + PATTERN_ACTION_LIST + REDIRECT;
-		} else {
-			return getAbsolutePath(classLower) + classLower + PATTERN_ACTION_LIST;
-		}
+		if (clazz.equals(Setor.class))
+			urlPage = urlPage.replace("setors", "setores");
+		else if (clazz.equals(Sessao.class))
+			urlPage = urlPage.replace("sessaos", "sessoes");
+		
+		if(redirect)
+			return urlPage + REDIRECT;
+		
+		return urlPage;
 	}
 	
 	/**
@@ -54,13 +62,14 @@ public abstract class PathUtil {
 	 * @author matheuscastro
 	 */
 	public static String getActionEdit(Class<? extends BaseModel> clazz, boolean redirect){
-		String classLower = clazz.getSimpleName().toLowerCase();
+		String classLower = clazz.getSimpleName().toLowerCase();;
 		
-		if(redirect){
-			return getAbsolutePath(classLower) + classLower + PATTERN_ACTION_EDIT + REDIRECT;
-		} else {
-			return getAbsolutePath(classLower) + classLower + PATTERN_ACTION_EDIT;
-		}
+		String urlPage = getAbsolutePath(classLower) + classLower + PATTERN_ACTION_EDIT;
+		
+		if(redirect)
+			return urlPage + REDIRECT;
+		
+		return urlPage;
 	}
 	
 	/**
@@ -71,6 +80,7 @@ public abstract class PathUtil {
 	 * @return String com o caminho absoluto
 	 */
 	private static String getAbsolutePath(String nameClass){
+		
 		for(String clazz : CLASSES_CONTROLE){
 			if(clazz.equals(nameClass)){
 				return CONTROLE_PATH + nameClass + "/";
@@ -91,5 +101,4 @@ public abstract class PathUtil {
 		
 		return RESTRICT_PATH;
 	}
-	
 }

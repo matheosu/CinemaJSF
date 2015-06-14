@@ -14,7 +14,7 @@
 		<h:form id="form#{entityName}s">
 
 			<!-- SubTitle -->
-			<div align="center" style="display: inline-block; margin-bottom: 20px;">
+			<div align="left" style="display: inline-block; margin-bottom: 20px;">
 				<p:outputLabel value="Lista de #{fullEntityName}s" />
 			</div>
 	
@@ -60,32 +60,32 @@
 						<!-- Tool tip Change -->
 						<p:tooltip id="toolTipAlterar" for="btnAlterar" 
 							value="Alterar #{fullEntityName}" trackMouse="true" />
-
+						
 						<!-- Button Delete  -->
 						<p:commandButton type="button" id="btnExcluir"
 							style="text-shadow: none;background-image: none;background-color: #d9534f;color: #ffffff;font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;"
 							styleClass=".btn-delete"
-							onclick="conf#{instance.id}.show()" icon="fa fa-trash-o">
+							onclick="confirmation#{instance.id}.show()" icon="fa fa-trash-o">
 						</p:commandButton>
 						
-						<!-- Tool tip Delete -->
-						<p:tooltip id="toolTipExcluir" for="btnExcluir"
-							value="Excluir #{fullEntityName}" trackMouse="true" />
-
 						<p:confirmDialog message="Deseja excluir este registro?"
 							showEffect="bounce" hideEffect="explode"
 							header="Confirmação de Exclusão" severity="alert"
-							widgetVar="conf#{instance.id}">
+							widgetVar="confirmation#{instance.id}" >
 
-							<p:commandButton ajax="false" type="push" value="Sim"
+							<p:commandButton ajax="false" type="push" value="Sim" oncomplete="confirmation#{instance.id}.hide()"
 								action="#{bean.delete}" immediate="true" icon="fa fa-trash">
 								<f:param value="#{instance.id}" name="id" />
 							</p:commandButton>
 
-							<p:commandButton value="Não" onclick="conf#{instance.id}.hide()"
+							<p:commandButton value="Não" onclick="confirmation#{instance.id}.hide()"
 								type="button" icon="fa fa-times" />
 						</p:confirmDialog>
 						
+						<!-- Tool tip Delete -->
+						<p:tooltip id="toolTipExcluir" for="btnExcluir"
+							value="Excluir #{fullEntityName}" trackMouse="true" />
+							
 					</h:panelGroup>
 				</p:column>
 			</p:dataTable>

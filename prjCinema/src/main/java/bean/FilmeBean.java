@@ -8,9 +8,6 @@ import javax.faces.bean.RequestScoped;
 import model.Filme;
 import model.enums.Classificacao;
 import model.enums.StatusFilme;
-
-import org.apache.log4j.Logger;
-
 import util.ClassificacaoUtil;
 import util.PathUtil;
 import util.StatusFilmeUtil;
@@ -19,7 +16,7 @@ import util.StatusFilmeUtil;
 @RequestScoped
 public class FilmeBean extends BaseBean<Filme>{
 
-	private static final Logger logger = Logger.getLogger(FilmeBean.class);
+//	private static final Logger logger = Logger.getLogger(FilmeBean.class);
 	
 	public FilmeBean() {
 		super();

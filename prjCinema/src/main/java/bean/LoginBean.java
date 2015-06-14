@@ -9,6 +9,9 @@ import model.Funcionario;
 import model.Pessoa;
 import model.Setor;
 import model.enums.NivelSetor;
+
+import org.apache.log4j.Logger;
+
 import util.JSFUtil;
 import util.PathUtil;
 import util.SecurityUtil;
@@ -16,8 +19,6 @@ import dao.FuncionarioDAO;
 import dao.PessoaDAO;
 import dao.SetorDAO;
 import exception.BeanException;
-
-import org.apache.log4j.Logger;
 
 @ManagedBean(name="loginBean")
 @SessionScoped
@@ -111,7 +112,7 @@ public class LoginBean {
 			return PathUtil.ACTION_LOGIN;
 		}
 	}
-	
+
 	public String login(){
 		return PathUtil.ACTION_LOGIN + PathUtil.REDIRECT;
 	}

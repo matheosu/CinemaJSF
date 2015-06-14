@@ -1,0 +1,35 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	template="/template/templateList.xhtml">
+
+	<ui:param name="fullEntityName" value="Setore" />
+	<ui:param name="entityName" value="Setor" />
+	<ui:param name="bean" value="#{setorBean}" />
+
+	<ui:define name="itensList">
+	
+		<!-- Nivel -->
+		<p:column headerText="Nível">
+			<h:outputText value="#{instance.nivel}" />
+		</p:column>
+
+		<!-- Descricao -->
+		<p:column headerText="Descrição">
+			<h:outputText value="#{instance.descricao}" />
+		</p:column>
+
+		<!-- Gerente -->
+		<p:column headerText="Gerente">
+			<h:outputText value="#{instance.gerente}" />
+		</p:column>
+
+		<!-- Quantidade de Funcionarios -->
+		<p:column headerText="Funcionarios">
+			<h:outputText value="#{instance.quantidadeFuncionarios}"/>
+		</p:column>
+		
+	</ui:define>
+</ui:composition>

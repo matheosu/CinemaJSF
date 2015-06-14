@@ -1,0 +1,30 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	template="/template/templateList.xhtml">
+
+	<ui:param name="fullEntityName" value="Filme" />
+	<ui:param name="entityName" value="Filme" />
+	<ui:param name="bean" value="#{filmeBean}" />
+
+
+	<ui:define name="itensList">
+		<p:column headerText="Titulo">
+			<h:outputText value="#{instance.titulo}" />
+		</p:column>
+		<p:column headerText="Duração">
+			<h:outputText value="#{instance.duracao}" converter="time-converter" />
+		</p:column>
+		<p:column headerText="Direção">
+			<h:outputText value="#{instance.direcao}" />
+		</p:column>
+		<p:column headerText="Classificação">
+			<h:outputText value="#{instance.classificacao}" converter="classificacao-converter"  />
+		</p:column>
+		<p:column headerText="Status">
+			<h:outputText value="#{instance.status}" converter="status-converter" />
+		</p:column>
+	</ui:define>
+</ui:composition>

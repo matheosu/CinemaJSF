@@ -1,0 +1,49 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	template="/template/templateEdit.xhtml">
+
+	<ui:param name="fullEntityName" value="Setor" />
+	<ui:param name="entityName" value="Setor" />
+	<ui:param name="bean" value="#{setorBean}" />
+	<ui:param name="instance" value="#{bean.instance}" />
+
+	<ui:define name="fields">
+		<h:panelGrid columns="1" cellpadding="3">
+			<h:panelGroup>
+				<!-- ID Setor -->
+				<h:inputHidden id="idSetor" value="#{instance.id}" />
+			</h:panelGroup>
+
+			<!--  Nivel -->
+			<h:outputLabel for="nivel" value="Nível" style="margin-left:2px;" />
+			<h:selectOneListbox id="nivel" value="#{instance.nivel}" size="1"
+				converter="nivelsetor-converter" required="true"
+				requiredMessage="Nível é obrigatório">
+				<f:selectItems value="#{bean.niveis}" var="nivel"
+					itemLabel="#{nivel}" itemValue="#{nivel}"/>
+			</h:selectOneListbox>
+			<p:message for="nivel" />
+
+			<!--  Gerente -->
+			<h:outputLabel for="gerente" value="Gerente" style="margin-left:2px;" />
+			<h:selectOneListbox id="gerente" value="#{instance.gerente}" size="1"
+				converter="funcionario-converter">
+				<f:selectItems value="#{instance.funcionarios}" var="funcionario"
+					itemLabel="#{funcionario.pessoa.nome}" itemValue="#{funcionario.id}"/>
+			</h:selectOneListbox>
+			<p:message for="gerente" />
+
+			<!--  Descrição -->
+			<h:outputLabel for="descricao" value="Descrição" />
+			<p:inputText id="descricao" placeholder="Descrição"
+				value="#{instance.descricao}"
+				required="true" requiredMessage="Descrição é obrigatório" size="66"
+				maxlength="#{instance.maxLengthDescricao}" />
+			<p:message for="descricao" />
+
+		</h:panelGrid>
+	</ui:define>
+</ui:composition>

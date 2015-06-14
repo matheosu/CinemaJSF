@@ -39,4 +39,17 @@
 		<param-value>true</param-value>
 	</context-param>
 
+	<error-page>
+		<error-code>500</error-code>
+		<location>/error/500.action</location>
+	</error-page>
+	<error-page>
+		<error-code>404</error-code>
+		<location>/error/404.action</location>
+	</error-page>
+	
+	<error-page>
+		<exception-type>java.lang.Exception</exception-type>
+    	<location>/error/exception.action</location>
+	</error-page>
 </web-app>

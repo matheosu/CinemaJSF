@@ -21,7 +21,7 @@ import model.enums.NivelSetor;
 
 @Entity
 @Table(name = "setores")
-public class Setor extends BaseModel{
+public class Setor extends BaseModel {
 
 	public static final int MAX_LENGTH_DESCRICAO = 100;
 
@@ -33,15 +33,15 @@ public class Setor extends BaseModel{
 	@Column(nullable = false)
 	@Enumerated(EnumType.STRING)
 	private NivelSetor nivel;
-	
+
 	@Column(nullable = false, unique = true, length = MAX_LENGTH_DESCRICAO)
 	private String descricao;
 
-	@OneToMany(fetch = FetchType.LAZY, mappedBy = "setor")
+	@OneToMany(fetch = FetchType.EAGER, mappedBy = "setor")
 	private List<Funcionario> funcionarios;
-	
-	@ManyToOne(fetch=FetchType.EAGER)
-	@JoinColumn(name="id_gerente",referencedColumnName="id_gerente")
+
+	@ManyToOne(fetch = FetchType.EAGER)
+	@JoinColumn(name = "gerente_id")
 	private Funcionario gerente;
 
 	public Setor() {
@@ -96,6 +96,14 @@ public class Setor extends BaseModel{
 
 	public void setGerente(Funcionario gerente) {
 		this.gerente = gerente;
+	}
+
+	public int getMaxLengthDescricao() {
+		return MAX_LENGTH_DESCRICAO;
+	}
+
+	public int getQuantidadeFuncionarios() {
+		return this.getFuncionarios().size();
 	}
 
 	@Override

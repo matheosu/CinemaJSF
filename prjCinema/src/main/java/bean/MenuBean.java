@@ -3,18 +3,20 @@ package bean;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
 
-import org.apache.log4j.Logger;
-
 import util.PathUtil;
 
 @ManagedBean(name="menuBean")
 @SessionScoped
 public class MenuBean {
 	
-	private static final Logger logger = Logger.getLogger(MenuBean.class);
+//	private static final Logger logger = Logger.getLogger(MenuBean.class);
 
-	public String getShow(){
+	public String show(){
 		return PathUtil.ACTION_MENU + PathUtil.REDIRECT;
+	}
+	
+	public String getShow(){
+		return show();
 	}
 	
 	public String getShowGeneros(){

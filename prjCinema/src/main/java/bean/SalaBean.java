@@ -1,14 +1,16 @@
 package bean;
 
+import javax.faces.bean.ManagedBean;
+import javax.faces.bean.RequestScoped;
+
 import model.Sala;
-
-import org.apache.log4j.Logger;
-
 import util.PathUtil;
 
+@ManagedBean(name="salaBean")
+@RequestScoped
 public class SalaBean extends BaseBean<Sala>{
 
-	private static final Logger logger = Logger.getLogger(SalaBean.class);
+//	private static final Logger logger = Logger.getLogger(SalaBean.class);
 	
 	public SalaBean() {
 		super();

@@ -7,22 +7,22 @@
 	xmlns:f="http://java.sun.com/jsf/core">
 
 <ui:composition template="/template/templateMessages.xhtml">
-	<ui:define name="titulo">Usuário Não Autenticado</ui:define>
+	<ui:define name="titulo">Error 404 - Página Não Encontrada</ui:define>
 
 	<ui:param name="color" value="#d9534f" />
-	<ui:param name="icon" value="fa-user-times" />
+	<ui:param name="icon" value="fa-frown-o" />
 
 	<ui:define name="conteudo">
 		<h:panelGrid columns="1" cellpadding="5" style="text-align:center;">
 			<h:outputLabel styleClass="fa #{icon} fa-5x" style="color: #ffffff;" />
 			<h:outputText
 				style="color: #ffffff;font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif; font-size:28px;"
-				value="Usuário Não Autenticado" />
+				value="Página Não Encontrada" />
 			<h:outputText
 				style="color: #ffffff;font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif; font-size:18px;"
-				value="Por favor realize uma nova autenticação!" />
-			<p:commandButton value="Login" ajax="false" immediate="true"
-				action="login" icon="fa fa-lock" id="btnLogin"
+				value="A página solicitada não foi encontrada" />
+			<p:commandButton value="Menu" ajax="false" immediate="true"
+				action="#{menuBean.show}" icon="fa fa-tachometer" id="btnMenu"
 				style="text-shadow: none;background-image: none;background-color: #428bca;color: #ffffff;font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;" />
 		</h:panelGrid>
 	</ui:define>

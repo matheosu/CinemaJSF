@@ -2,7 +2,6 @@ package model;
 
 import java.util.Calendar;
 
-import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
@@ -118,6 +117,18 @@ public class Pessoa extends BaseModel{
 
 	public void setDataNascimento(Calendar dataNascimento) {
 		this.dataNascimento = dataNascimento;
+	}
+	
+	public int getMaxLengthRg() {
+		return MAX_LENGTH_RG;
+	}
+
+	public int getMaxLengthCpf() {
+		return MAX_LENGTH_CPF;
+	}
+
+	public int getMaxLengthNome() {
+		return MAX_LENGTH_NOME;
 	}
 
 	@Override

@@ -1,14 +1,16 @@
 package bean;
 
+import javax.faces.bean.ManagedBean;
+import javax.faces.bean.RequestScoped;
+
 import model.Sessao;
-
-import org.apache.log4j.Logger;
-
 import util.PathUtil;
 
+@ManagedBean(name="sessaoBean")
+@RequestScoped
 public class SessaoBean extends BaseBean<Sessao>{
 
-	private static final Logger logger = Logger.getLogger(SessaoBean.class);
+//	private static final Logger logger = Logger.getLogger(SessaoBean.class);
 	
 	public SessaoBean() {
 		super();

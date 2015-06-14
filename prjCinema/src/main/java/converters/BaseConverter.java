@@ -1,4 +1,4 @@
-package util.converter;
+package converters;
 
 import java.lang.reflect.ParameterizedType;
 import java.lang.reflect.Type;
@@ -9,7 +9,6 @@ import javax.faces.convert.Converter;
 
 import model.BaseModel;
 
-import org.apache.log4j.LogManager;
 import org.apache.log4j.Logger;
 
 import dao.IDAO;
@@ -17,7 +16,7 @@ import dao.IDAO;
 public class BaseConverter<T extends BaseModel> implements Converter{
 
 	/* Logger */
-    protected final Logger logger = LogManager.getLogger(BaseConverter.class);	
+    protected final Logger logger = Logger.getLogger(BaseConverter.class);	
     /* Patterns */
    	private static final String PATTERN_DAO = "DAO";
    	private static final String PATH_DAO = "dao.";
@@ -27,7 +26,7 @@ public class BaseConverter<T extends BaseModel> implements Converter{
 	private Class<? extends IDAO<T>> daoClazz;
 	
 	/* DAO */
-	private IDAO<T> dao; 
+	protected IDAO<T> dao; 
 	
 	public BaseConverter(){
 		this.dao = newInstanceDAO(getDAOClazz());
@@ -83,7 +82,7 @@ public class BaseConverter<T extends BaseModel> implements Converter{
 		if(value == null || value.length() <= 0)
 			return null;
 		
-		return dao.findById(new Long(value));
+		return dao.findById(converterValueToLong(value));
 	}
 
 	@SuppressWarnings("unchecked")
@@ -96,5 +95,29 @@ public class BaseConverter<T extends BaseModel> implements Converter{
 		return null;
 	}
 
+	/**
+	 * Método que verifica se o valor passado é apenas número e converte para Long;
+	 * Caso não seja apenas número converte para um Long de 0
+	 * @param value
+	 * @return Valor convertido em Long
+	 * @author matheuscastro
+	 */
+	private Long converterValueToLong(String value){
+		if(value == null || value.trim().length()<=0){
+			logger.error("Value is null or empty");
+			return new Long(0);
+		}
+		
+		char[] chars = value.toCharArray();
+		
+		for(char c : chars){
+			if(!Character.isDigit(c)){
+				logger.warn("Value contains Letters then was convert to new Long(0)");
+				return new Long(0);
+			}
+		}
+		
+		return Long.valueOf(value);
+	}
 	
 }

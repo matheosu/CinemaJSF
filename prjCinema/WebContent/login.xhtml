@@ -6,39 +6,65 @@
 	xmlns:h="http://java.sun.com/jsf/html"
 	xmlns:f="http://java.sun.com/jsf/core">
 
-<ui:composition template="/template/templateGeneric.xhtml">
-	<ui:define name="titulo">Acesso ao Sistema</ui:define>
+<h:head>
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+	<title>Cinema - Acesso ao Sistema</title>
+	<script type="text/javascript" src="../js/primefaces.js" />
+</h:head>
 
-	<ui:define name="conteudo">
-		<div class="ui-grid-row" align="center">
-			<div class="ui-grid-col-12" align="center">
-				<h:form id="form">
-					<p:messages globalOnly="true"/>
-					<p:panel header="Digite sua matricula e senha"
-						styleClass="align:center;">
-						<h:panelGrid columns="1">
-							<p:inputText id="txtMatricula" value="#{loginBean.matricula}"
-								required="true" requiredMessage="O Campo Matricula é obrigatório."
-								placeholder="Matricula" tabindex="1"/>
-							<p:focus for="txtMatricula"/>
-							<p:password feedback="false" id="txtSenha"
-								value="#{loginBean.senha}" required="true"
-								requiredMessage="O Campo Senha é obrigatório."
-								placeholder="Senha" tabindex="2"/>
-
-							<f:facet name="footer">
-								<h:panelGroup layout="block" style="text-align: center">
-									<p:commandButton ajax="false" id="btnEntrar"
-										action="#{loginBean.autenticar}" value="Entrar"
-										icon="fa fa-paper-plane"  tabindex="3"/>
-								</h:panelGroup>
-							</f:facet>
-						</h:panelGrid>
-					</p:panel>
-				</h:form>
+<h:body>
+	<div class="ui-grid ui-grid-responsive" id="pagina" align="center"
+		style="margin-top: 70px; margin-left:25px;">
+		<div id="idCabecalho" class="ui-grid-row">
+			<div class="ui-grid-col-12">
+				<p:toolbar
+					style="border:none; background:#FFFFFF; align:center;text-align:center;">
+					<p:toolbarGroup align="center">
+						<h:graphicImage url="/img/logo_nome.png" width="220" />
+					</p:toolbarGroup>
+				</p:toolbar>
 			</div>
 		</div>
-	</ui:define>
 
-</ui:composition>
+		<h:form id="form">
+			<p:messages globalOnly="true" />
+
+			<p:panel header="Acesso ao Sistema"
+				style="position: absolute; left: 50%; top: 20%; margin-left: -110px; margin-top: -40px;">
+				<h:panelGrid columns="1" cellpadding="2" cellspacing="2">
+					<h:panelGroup>
+						<p:inputText id="txtMatricula" value="#{loginBean.matricula}"
+							required="true"
+							requiredMessage="O Campo Matricula é obrigatório."
+							placeholder="Matricula" tabindex="1" />
+						<p:focus for="txtMatricula" />
+					</h:panelGroup>
+					<h:panelGroup>
+						<p:password feedback="false" id="txtSenha"
+							value="#{loginBean.senha}" required="true"
+							requiredMessage="O Campo Senha é obrigatório."
+							placeholder="Senha" tabindex="2" />
+					</h:panelGroup>
+					<f:facet name="footer">
+						<h:panelGroup layout="block" style="text-align: center">
+							<p:commandButton ajax="false" id="btnEntrar"
+								action="#{loginBean.autenticar}" value="Entrar"
+								icon="fa fa-paper-plane" tabindex="3"
+								style="text-shadow: none;background-image: none;background-color: #428bca;color: #ffffff;font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;" />
+						</h:panelGroup>
+					</f:facet>
+				</h:panelGrid>
+			</p:panel>
+		</h:form>
+
+		<div id="idRodape" class="ui-grid-row">
+			<ui:insert name="rodape"></ui:insert>
+			<f:facet name="footer">
+				<h:outputText
+					value="2015 CineUnigranrio - &copy; Todos os direitos reservados." />
+			</f:facet>
+		</div>
+	</div>
+</h:body>
+
 </html>

@@ -7,20 +7,19 @@
 	xmlns:f="http://java.sun.com/jsf/core">
 
 <ui:composition>
-	<div id="idFooter" class="ui-grid-row">
-<!-- 	<div class="ui-grid ui-grid-responsive"> --> 
-<!-- 				<div class="ui-grid-row"> -->
-<!-- 					<div class="ui-grid-col-4">4</div> -->
-<!-- 					<div class="ui-grid-col-4">4</div> -->
-<!-- 					<div class="ui-grid-col-4">4</div> -->
-<!-- 				</div> -->
-<!-- 			</div> -->
-	
-		<br />
-		<f:facet name="footer">
-			<h:outputText
-				value="2015 CineUnigranrio - &copy; Todos os direitos reservados." />
-		</f:facet>
+	<div id="idFooter" class="ui-grid-row"
+		style="margin: 20px 20px 20px 20px; text-align: center;">
+		<div class="ui-grid ui-grid-responsive">
+
+			<h:outputText style="text-align:center;align:center; color:#737373"
+				value="&copy; CineUnigranrio - Todos os direitos reservados." />
+			<br />
+			<h:outputLink target="_blank" style="text-decoration:none;"
+				value="http:///www.twitter.com/matheosu">
+				<h:outputText style="text-align:center;align:center; color:#737373"
+					value="Matheus Castro" />
+			</h:outputLink>
+		</div>
 	</div>
 </ui:composition>
 </html>

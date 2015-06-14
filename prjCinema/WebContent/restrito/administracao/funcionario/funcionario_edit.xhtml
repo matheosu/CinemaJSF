@@ -1,5 +1,5 @@
-<ui:composition
-	xmlns="http://www.w3.org/1999/xhtml" xmlns:p="http://primefaces.org/ui"
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:p="http://primefaces.org/ui"
 	xmlns:ui="http://java.sun.com/jsf/facelets"
 	xmlns:h="http://java.sun.com/jsf/html"
 	xmlns:f="http://java.sun.com/jsf/core"
@@ -11,56 +11,97 @@
 	<ui:param name="instance" value="#{bean.instance}" />
 
 	<ui:define name="fields">
-		<h:panelGrid columns="1" cellpadding="5">
+		<h:panelGrid columns="1" cellpadding="3">
+			<h:panelGroup>
+				<!-- ID Funcionario -->
+				<h:inputHidden id="idFunc" value="#{instance.id}" />
 
-			<!-- ID Funcionario -->
-			<h:inputHidden id="idFunc" value="#{instance.id}"/>
+				<!-- ID Funcionario -->
+				<h:inputHidden id="idPessoa" value="#{instance.pessoa.id}" />
+			</h:panelGroup>
 
-			<!-- ID Funcionario -->
-			<h:inputHidden id="idPessoa" value="#{instance.pessoa.id}"/>
-			
-			<!--  CPF -->
-			<p:inputMask id="cpf" placeholder="CPF" value="#{instance.pessoa.cpf}"
-				required="true" requiredMessage="CPF é obrigatório"
-				mask="999.999.999-99" />
-			<p:message for="cpf"/>
+			<h:panelGroup>
+				<h:panelGrid columns="2">
+					<h:panelGroup>
+						<!--  CPF -->
+						<h:panelGrid columns="1">
+							<h:outputLabel for="cpf" value="CPF" style="margin-left:2px;" />
+							<p:inputMask id="cpf" placeholder="CPF"
+								value="#{instance.pessoa.cpf}" required="true"
+								maxlength="#{instance.pessoa.maxLengthCpf}"
+								requiredMessage="CPF é obrigatório" mask="999.999.999-99" />
+							<p:message for="cpf" />
+						</h:panelGrid>
+					</h:panelGroup>
+					<h:panelGroup>
+						<!--  RG -->
+						<h:panelGrid columns="1" style="margin-top:-5px;">
+							<h:outputLabel for="rg" value="RG" />
+							<p:inputMask placeholder="RG" id="rg"
+								maxlength="#{instance.pessoa.maxLengthRg}"
+								value="#{instance.pessoa.rg}" mask="99.999.999-9*" />
+						</h:panelGrid>
+					</h:panelGroup>
+				</h:panelGrid>
+			</h:panelGroup>
 
-			<!--  RG -->
-			<p:inputMask placeholder="RG" value="#{instance.pessoa.rg}"
-				mask="99.999.999-9*" />
 
 			<!--  Nome -->
-			<p:inputText id="nome" placeholder="Nome" value="#{instance.pessoa.nome}"
-				required="true" requiredMessage="Nome é obrigatório" />
-			<p:message for="nome"/>
-			
-			<!--  Data de Nascimento -->
-			<p:calendar id="dataNascimento"
-				value="#{instance.pessoa.dataNascimento}" pattern="dd/MM/yyyy"
-				placeholder="Data de Nascimento" required="true"
-				converter="data-converter"
-				requiredMessage="Data de Nascimento é obrigatório" 
-				showOtherMonths="true"/>
-			<p:message for="dataNascimento"/>
+			<h:outputLabel for="nome" value="Nome" style="margin-left:8px;"/>
+			<p:inputText id="nome" placeholder="Nome" style="margin-left:8px;"
+				value="#{instance.pessoa.nome}" required="true"
+				requiredMessage="Nome é obrigatório" size="66"
+				maxlength="#{instance.pessoa.maxLengthNome}" />
+			<p:message for="nome" />
 
-			<!--  Sexo -->
-			<p:selectOneRadio id="sexo" value="#{instance.pessoa.sexo}"
-				converter="sexo-converter">
-				<f:selectItems value="#{bean.sexos}" var="sexo"
-					itemLabel="#{sexo.descricao}" itemValue="#{sexo}" />
-			</p:selectOneRadio>
+			<h:panelGroup>
+				<h:panelGrid columns="3">
 
-			<!--  Setor -->
-			<h:selectOneListbox id="setor" value="#{instance.setor}" size="1"
-				converter="setor-converter" required="true"
-				requiredMessage="Setor é obrigatório">
-				<f:selectItems value="#{bean.setores}" var="setor"
-					itemLabel="#{setor}" />
-			</h:selectOneListbox>
-			<p:message for="setor"/>
+					<h:panelGroup>
+						<h:panelGrid columns="1">
+							<!--  Data de Nascimento -->
+							<h:outputLabel for="dataNascimento" value="Data de Nascimento" />
+							<p:calendar id="dataNascimento"
+								value="#{instance.pessoa.dataNascimento}" pattern="dd/MM/yyyy"
+								placeholder="Data de Nascimento" required="true"
+								converter="data-converter"
+								requiredMessage="Data de Nascimento é obrigatório"
+								showOtherMonths="true" />
+							<p:message for="dataNascimento" />
+						</h:panelGrid>
+					</h:panelGroup>
+
+					<h:panelGroup>
+						<h:panelGrid columns="1">
+							<!--  Sexo -->
+							<h:outputLabel for="sexo" value="Sexo" />
+							<p:selectOneRadio id="sexo" value="#{instance.pessoa.sexo}"
+								converter="sexo-converter">
+								<f:selectItems value="#{bean.sexos}" var="sexo"
+									itemLabel="#{sexo.descricao}" itemValue="#{sexo}" />
+							</p:selectOneRadio>
+						</h:panelGrid>
+					</h:panelGroup>
+
+					<h:panelGroup>
+						<h:panelGrid columns="1">
+							<!--  Setor -->
+							<h:outputLabel for="setor" value="Setor" />
+							<h:selectOneListbox id="setor" value="#{instance.setor}" size="1"
+								converter="setor-converter" required="true"
+								requiredMessage="Setor é obrigatório">
+								<f:selectItems value="#{bean.setores}" var="setor"
+									itemLabel="#{setor}" />
+							</h:selectOneListbox>
+							<p:message for="setor" />
+						</h:panelGrid>
+					</h:panelGroup>
+				</h:panelGrid>
+			</h:panelGroup>
 
 			<!--  Senha -->
-			<ui:remove> <!-- Alterar essa lógica -->
+			<ui:remove>
+				<!-- Alterar essa lógica -->
 				<p:password placeholder="Senha" value="#{instance.senha}" />
 			</ui:remove>
 
