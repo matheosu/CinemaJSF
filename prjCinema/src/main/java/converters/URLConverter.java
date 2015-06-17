@@ -8,19 +8,23 @@ import javax.faces.context.FacesContext;
 import javax.faces.convert.Converter;
 import javax.faces.convert.FacesConverter;
 
+import org.apache.log4j.Logger;
+
 import util.URLUtil;
 
 @FacesConverter(value="url-converter", forClass=String.class)
 public class URLConverter implements Converter{
 
+	private static final Logger logger = Logger.getLogger(URLConverter.class);
+	
 	@Override
 	public Object getAsObject(FacesContext context, UIComponent component, String value) {
 		if(value == null || value.length() <=0)
 			return null;
 		try {
 			return new URL(URLUtil.convertURLToEmbed(value));
-		} catch (MalformedURLException e) {
-			e.printStackTrace();
+		} catch (MalformedURLException mURLe) {
+			logger.error("Erro ao converter URL [" + mURLe.getMessage() + "]: ", mURLe);
 			return null;
 		} 
 	}

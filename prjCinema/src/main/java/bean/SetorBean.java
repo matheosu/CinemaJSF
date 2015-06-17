@@ -7,8 +7,8 @@ import javax.faces.bean.RequestScoped;
 
 import model.Setor;
 import model.enums.NivelSetor;
-import util.NivelSetorUtil;
 import util.PathUtil;
+import util.converters.NivelSetorUtil;
 
 @ManagedBean(name="setorBean")
 @RequestScoped

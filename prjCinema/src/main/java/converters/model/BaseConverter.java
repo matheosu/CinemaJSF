@@ -1,4 +1,4 @@
-package converters;
+package converters.model;
 
 import java.lang.reflect.ParameterizedType;
 import java.lang.reflect.Type;

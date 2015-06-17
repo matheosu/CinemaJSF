@@ -9,7 +9,7 @@ import model.Funcionario;
 import model.Setor;
 import model.enums.Sexo;
 import util.PathUtil;
-import util.SexoUtil;
+import util.converters.SexoUtil;
 import dao.SetorDAO;
 
 @ManagedBean(name="funcionarioBean")

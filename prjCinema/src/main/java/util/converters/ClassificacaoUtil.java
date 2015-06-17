@@ -1,15 +1,15 @@
-package util;
+package util.converters;
 
 import java.util.ArrayList;
 import java.util.List;
 
 import model.enums.Classificacao;
 
-public class ClassificacaoUtil {
+public class ClassificacaoUtil implements EnumsUtil<Classificacao>{
 
 	private static List<Classificacao> classificacoes = new ArrayList<Classificacao>();
 	
-	private ClassificacaoUtil(){}
+	public ClassificacaoUtil(){}
 	
 	public static List<Classificacao> getClassificacoes() {
 		if(classificacoes.isEmpty()){
@@ -21,6 +21,11 @@ public class ClassificacaoUtil {
 		}
 		
 		return classificacoes;
+	}
+
+	@Override
+	public List<Classificacao> getList() {
+		return ClassificacaoUtil.getClassificacoes();
 	}
 	
 }

@@ -1,15 +1,15 @@
-package util;
+package util.converters;
 
 import java.util.ArrayList;
 import java.util.List;
 
 import model.enums.Sexo;
 
-public class SexoUtil {
+public class SexoUtil implements EnumsUtil<Sexo>{
 
 	private static List<Sexo> sexos = new ArrayList<Sexo>();
 	
-	private SexoUtil(){}
+	public SexoUtil(){}
 	
 	public static List<Sexo> getSexos(){
 		
@@ -20,6 +20,11 @@ public class SexoUtil {
 		
 		return sexos;
 		
+	}
+
+	@Override
+	public List<Sexo> getList() {
+		return SexoUtil.getSexos();
 	}
 	
 	

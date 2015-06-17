@@ -1,15 +1,15 @@
-package util;
+package util.converters;
 
 import java.util.ArrayList;
 import java.util.List;
 
 import model.enums.NivelSetor;
 
-public class NivelSetorUtil {
+public class NivelSetorUtil implements EnumsUtil<NivelSetor>{
 
 	private static List<NivelSetor> niveisSetor = new ArrayList<NivelSetor>();
 	
-	private NivelSetorUtil(){}
+	public NivelSetorUtil(){}
 	
 	public static List<NivelSetor> getNiveisSetor() {
 		if(niveisSetor.isEmpty()){
@@ -18,6 +18,11 @@ public class NivelSetorUtil {
 			niveisSetor.add(NivelSetor.ADMINISTRACAO);
 		}
 		return niveisSetor;
+	}
+
+	@Override
+	public List<NivelSetor> getList() {
+		return NivelSetorUtil.getNiveisSetor();
 	}
 	
 }

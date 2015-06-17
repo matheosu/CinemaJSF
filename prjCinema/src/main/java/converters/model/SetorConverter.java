@@ -1,4 +1,4 @@
-package converters;
+package converters.model;
 
 import javax.faces.convert.FacesConverter;
 

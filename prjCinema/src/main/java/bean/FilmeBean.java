@@ -13,10 +13,10 @@ import model.Filme;
 import model.enums.Classificacao;
 import model.enums.StatusFilme;
 import util.ByteConverterUtil;
-import util.ClassificacaoUtil;
 import util.JSFUtil;
 import util.PathUtil;
-import util.StatusFilmeUtil;
+import util.converters.ClassificacaoUtil;
+import util.converters.StatusFilmeUtil;
 
 @ManagedBean(name = "filmeBean")
 @RequestScoped

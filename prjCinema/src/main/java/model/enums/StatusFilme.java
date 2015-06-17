@@ -2,8 +2,8 @@ package model.enums;
 
 public enum StatusFilme {
 	
-	EM_CARTAZ("Em Cartaz"),
-	EM_BREVE("Em Breve");
+	LANCAMENTO("Lançamento"),
+	EXIBICAO("Em Exibição");
 	
 	private String value;
 	
