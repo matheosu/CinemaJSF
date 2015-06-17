@@ -32,7 +32,7 @@
 			<h:selectOneListbox id="gerente" value="#{instance.gerente}" size="1"
 				converter="funcionario-converter">
 				<f:selectItems value="#{instance.funcionarios}" var="funcionario"
-					itemLabel="#{funcionario}"/>
+					itemLabel="#{funcionario}" itemValue="#{funcionario}"/>
 			</h:selectOneListbox>
 			<p:message for="gerente" />
 

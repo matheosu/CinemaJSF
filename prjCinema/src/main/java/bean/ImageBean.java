@@ -1,9 +1,9 @@
 package bean;
 
-import java.io.ByteArrayInputStream;
+import java.io.IOException;
 
-import javax.annotation.ManagedBean;
-import javax.faces.bean.RequestScoped;
+import javax.faces.bean.ManagedBean;
+import javax.faces.view.ViewScoped;
 
 import org.apache.log4j.Logger;
 import org.primefaces.event.FileUploadEvent;
@@ -13,8 +13,8 @@ import org.primefaces.model.UploadedFile;
 
 import util.ByteConverterUtil;
 
-@ManagedBean(value = "imageBean")
-@RequestScoped
+@ManagedBean(name = "imageBean")
+@ViewScoped
 public class ImageBean {
 
 	private static final Logger logger = Logger.getLogger(ImageBean.class);
@@ -44,8 +44,11 @@ public class ImageBean {
 
 	public void upload() {
 		if (file != null && file.getContents() != null) {
-			this.setImage(new DefaultStreamedContent(new ByteArrayInputStream(
-					file.getContents()), file.getContentType()));
+			try {
+				this.setImage(new DefaultStreamedContent(file.getInputstream(), file.getContentType()));
+			} catch (IOException e) {
+				logger.error("Error in upload " + e.getMessage() + " :",e);
+			}
 		}
 	}
 

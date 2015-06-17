@@ -65,20 +65,22 @@
 						<p:commandButton type="button" id="btnExcluir"
 							style="text-shadow: none;background-image: none;background-color: #d9534f;color: #ffffff;font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;"
 							styleClass=".btn-delete"
-							onclick="confirmation#{instance.id}.show()" icon="fa fa-trash-o">
+							onclick="PF('conf#{instance.id}').show()" icon="fa fa-trash-o">
 						</p:commandButton>
 						
-						<p:confirmDialog message="Deseja excluir este registro?"
-							showEffect="bounce" hideEffect="explode"
+						<p:confirmDialog message="Deseja excluir este #{fullEntityName} ?"
+							showEffect="shake" hideEffect="drop"
 							header="Confirmação de Exclusão" severity="alert"
-							widgetVar="confirmation#{instance.id}" >
-
-							<p:commandButton ajax="false" type="push" value="Sim" oncomplete="confirmation#{instance.id}.hide()"
-								action="#{bean.delete}" immediate="true" icon="fa fa-trash">
+							widgetVar="conf#{instance.id}" >
+							
+							<p:commandButton ajax="false" type="push" value="Sim" oncomplete="PF('conf#{instance.id}').hide()"
+								style="text-shadow: none;background-image: none;background-color: #5cb85c;color: #ffffff;font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;"
+								action="#{bean.delete}" immediate="true" icon="fa fa-check">
 								<f:param value="#{instance.id}" name="id" />
 							</p:commandButton>
 
-							<p:commandButton value="Não" onclick="confirmation#{instance.id}.hide()"
+							<p:commandButton value="Não" onclick="PF('conf#{instance.id}').hide()"
+								style="text-shadow: none;background-image: none;background-color: #d9534f;color: #ffffff;font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;"
 								type="button" icon="fa fa-times" />
 						</p:confirmDialog>
 						

@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
+import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
@@ -25,56 +26,58 @@ import model.enums.Classificacao;
 import model.enums.StatusFilme;
 
 @Entity
-@Table(name="filmes")
-public class Filme extends BaseModel{
+@Table(name = "filmes")
+public class Filme extends BaseModel {
 
 	public static final int MAX_LENGTH_DIRECAO = 100;
 	public static final int MAX_LENGTH_TITULO = 150;
 	public static final int MAX_LENGTH_URL = 500;
 	public static final int MAX_LENGTH_SINOPSE = 1000;
-		
+
 	@Id
 	@GeneratedValue(generator = "FILME_ID", strategy = GenerationType.SEQUENCE)
 	@SequenceGenerator(name = "FILME_ID", sequenceName = "SEQ_FILME", allocationSize = 1)
 	private Long id;
-	
-	@Column(nullable = false, unique = true, length=MAX_LENGTH_TITULO)
+
+	@Column(nullable = false, unique = true, length = MAX_LENGTH_TITULO)
 	private String titulo;
-	
+
 	@Column(nullable = false)
 	@Temporal(TemporalType.TIME)
 	private Date duracao;
-	
+
 	@Column(length = MAX_LENGTH_SINOPSE)
 	private String sinopse;
-	
+
 	@Column(nullable = false, length = MAX_LENGTH_DIRECAO)
 	private String direcao;
-	
+
 	@Enumerated(EnumType.ORDINAL)
 	private Classificacao classificacao;
-	
+
 	@Column(nullable = false)
 	@Enumerated(EnumType.STRING)
 	private StatusFilme status;
-	
+
 	@Lob
+	@Basic(fetch = FetchType.LAZY, optional = true)
 	private Byte[] imagem;
-	
-	@Column(length=MAX_LENGTH_URL)
+
+	@Column(length = MAX_LENGTH_URL)
 	private URL trailer;
-	
-	@OneToMany(fetch=FetchType.LAZY, mappedBy="filme")
+
+	@OneToMany(fetch = FetchType.LAZY, mappedBy = "filme")
 	private List<Sessao> sessoes;
-	
-	@ManyToMany(fetch=FetchType.LAZY)
+
+	@ManyToMany(fetch = FetchType.LAZY)
 	private List<Genero> generos;
 
-	public Filme(){
+	public Filme() {
 		this.initCollections();
 	}
 
-	public Filme(String titulo, String direcao, Date duracao, Classificacao classificacao, StatusFilme status){
+	public Filme(String titulo, String direcao, Date duracao,
+			Classificacao classificacao, StatusFilme status) {
 		this.setTitulo(titulo);
 		this.setDirecao(direcao);
 		this.setDuracao(duracao);
@@ -82,10 +85,10 @@ public class Filme extends BaseModel{
 		this.setStatus(status);
 		this.initCollections();
 	}
-	
-	public Filme(String titulo, Date duracao, String sinopse,
-			String direcao, Classificacao classificacao, StatusFilme status,
-			Byte[] imagem, URL trailer) {
+
+	public Filme(String titulo, Date duracao, String sinopse, String direcao,
+			Classificacao classificacao, StatusFilme status, Byte[] imagem,
+			URL trailer) {
 		this.setTitulo(titulo);
 		this.setDuracao(duracao);
 		this.setSinopse(sinopse);
@@ -97,11 +100,11 @@ public class Filme extends BaseModel{
 		this.initCollections();
 	}
 
-	private void initCollections(){
+	private void initCollections() {
 		this.setSessoes(new ArrayList<Sessao>());
 		this.setGeneros(new ArrayList<Genero>());
 	}
-	
+
 	public Long getId() {
 		return id;
 	}
@@ -125,7 +128,7 @@ public class Filme extends BaseModel{
 	public void setDuracao(Date duracao) {
 		this.duracao = duracao;
 	}
-	
+
 	public String getSinopse() {
 		return sinopse;
 	}
@@ -189,7 +192,7 @@ public class Filme extends BaseModel{
 	public void setGeneros(List<Genero> generos) {
 		this.generos = generos;
 	}
-	
+
 	public int getMaxLengthTitulo() {
 		return MAX_LENGTH_TITULO;
 	}
@@ -204,7 +207,7 @@ public class Filme extends BaseModel{
 
 	@Override
 	public String toString() {
-		return titulo + " - " + direcao + "["+ status + "]";
+		return titulo + " - " + direcao + "[" + status + "]";
 	}
 
 	@Override
@@ -231,6 +234,5 @@ public class Filme extends BaseModel{
 			return false;
 		return true;
 	}
-	
-	
+
 }

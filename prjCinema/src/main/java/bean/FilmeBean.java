@@ -1,15 +1,20 @@
 package bean;
 
+import java.io.ByteArrayInputStream;
 import java.util.List;
 
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ManagedProperty;
 import javax.faces.bean.RequestScoped;
 
+import org.primefaces.model.DefaultStreamedContent;
+
 import model.Filme;
 import model.enums.Classificacao;
 import model.enums.StatusFilme;
+import util.ByteConverterUtil;
 import util.ClassificacaoUtil;
+import util.JSFUtil;
 import util.PathUtil;
 import util.StatusFilmeUtil;
 
@@ -21,7 +26,7 @@ public class FilmeBean extends BaseBean<Filme> {
 
 	@ManagedProperty(value = "#{generoBean}")
 	private GeneroBean generoBean;
-	
+
 	@ManagedProperty(value = "#{imageBean}")
 	private ImageBean imageBean;
 
@@ -68,4 +73,22 @@ public class FilmeBean extends BaseBean<Filme> {
 		return super.save();
 	}
 
+	@Override
+	public String edit() {
+		Long id = JSFUtil.getParametroLong("id");
+		Filme filme = dao.findById(id);
+		if(filme !=null ){
+			this.setInstance(filme);
+			
+			if (filme.getImagem()!=null) {
+				byte[] byteImage = ByteConverterUtil.parsetByteToPrimite(filme.getImagem());
+				imageBean.setImage(new DefaultStreamedContent(new ByteArrayInputStream(byteImage),"image/jpg",filme.getTitulo()+"_IMAGEM"));
+			}
+			return PathUtil.getActionEdit(Filme.class, false);
+		}
+		
+		return PathUtil.getActionList(Filme.class, true);
+	}
+	
+	
 }

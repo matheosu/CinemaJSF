@@ -18,7 +18,7 @@
 			<h:inputHidden id="idFilme" value="#{instance.id}" />
 
 			<!-- Imagem -->
-			<p:graphicImage id="imagem" value="#{bean.imageBean.image}"/>
+			<p:graphicImage id="imagem" value="#{bean.imageBean.image}" width="100" height="100"/>
 			<p:fileUpload allowTypes="/(\.|\/)(gif|jpe?g|png)$/" value="#{bean.imageBean.file}" mode="advanced" label="Imagem" 
 				skinSimple="true" fileUploadListener="#{bean.imageBean.handleFileUpload}" fileLimit="1" auto="true"
 				sizeLimit="1000000" update="imagem"/>
