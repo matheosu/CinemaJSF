@@ -16,7 +16,7 @@ import javax.persistence.Table;
 
 @Entity
 @Table(name = "lugares")
-public class Lugar extends BaseModel{
+public class Lugar implements BaseModel{
 
 	@Id
 	@GeneratedValue(generator = "LUGAR_ID", strategy = GenerationType.SEQUENCE)

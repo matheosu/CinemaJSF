@@ -4,17 +4,17 @@ import java.util.List;
 
 import javax.persistence.EntityManager;
 
-public interface IDAO<T> {
+public interface IDAO<M> {
 
 	public abstract EntityManager getEntityManager();
 
-	public abstract T findById(Long id);
+	public abstract M findById(Long id);
 
-	public abstract List<T> getAll();
+	public abstract List<M> getAll();
 
-	public abstract T save(T object);
+	public abstract M save(M object);
 
-	public abstract void delete(T object);
+	public abstract void delete(M object);
 
 	public abstract void begin();
 

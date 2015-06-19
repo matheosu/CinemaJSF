@@ -19,7 +19,7 @@ import model.enums.Bandeira;
 
 @Entity
 @Table(name="cartoesCredito")
-public class CartaoCredito extends BaseModel{
+public class CartaoCredito implements BaseModel{
 
 	public static final int MAX_LENGTH_NOME_CARTAO_CREDITO = 200;
 	

@@ -1,6 +1,6 @@
 package model;
 
-public abstract class BaseModel {
+public interface BaseModel {
 
 	public abstract Long getId();
 	

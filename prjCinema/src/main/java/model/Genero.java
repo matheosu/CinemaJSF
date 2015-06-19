@@ -15,7 +15,7 @@ import javax.persistence.Table;
 
 @Entity
 @Table(name = "generos")
-public class Genero extends BaseModel{
+public class Genero implements BaseModel{
 
 	public static final int MAX_LENGTH_DESCRICAO = 100;
 

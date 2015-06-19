@@ -23,9 +23,9 @@ import dao.IDAO;
  * 		<blockquote> Exemplo: Classe Model = Pessoa; Classe DAO = PessoaDAO; </blockquote> 
  * @author matheuscastro
  *
- * @param <T> Model a ter o CRUD implementado;
+ * @param <M> Model a ter o CRUD implementado;
  */
-public abstract class BaseBean<T extends BaseModel> implements IBean<T> {
+public abstract class BaseBean<M extends BaseModel> implements IBean<M> {
 	
 	/* Logger */
     private static final Logger logger = Logger.getLogger(BaseBean.class);
@@ -36,19 +36,19 @@ public abstract class BaseBean<T extends BaseModel> implements IBean<T> {
 	private static final String PATTERN_BEAN = "Bean";
 
 	/* Class for Reflection and DAOClass for the Class Reflection */
-	private Class<T> clazz;
-	private Class<? extends IDAO<T>> daoClazz;
+	private Class<M> clazz;
+	private Class<? extends IDAO<M>> daoClazz;
 	
 	/* ActionFiles and AbsolutePath */
 	protected static String action_list;
 	protected static String action_edit;
 	
 	/* Instance and Instances */
-	private List<T> instances = new ArrayList<T>();
-	private T instance;
+	private List<M> instances = new ArrayList<M>();
+	private M instance;
 	
 	/* DAO */
-	protected IDAO<T> dao; 
+	protected IDAO<M> dao; 
 
 	public BaseBean() {
 		super();
@@ -61,15 +61,15 @@ public abstract class BaseBean<T extends BaseModel> implements IBean<T> {
 	}
 	
 	/* Getters and Setters */
-	public T getInstance() {
+	public M getInstance() {
 		return instance;
 	}
 
-	public void setInstance(T instance) {
+	public void setInstance(M instance) {
 		this.instance = instance;
 	}
 
-	public List<T> getInstances() {
+	public List<M> getInstances() {
 		if(this.instances == null || this.instances.isEmpty())
 			this.instances = this.dao.getAll();
 		
@@ -123,7 +123,7 @@ public abstract class BaseBean<T extends BaseModel> implements IBean<T> {
 	 * @return T new instance for the clazz
 	 * @author matheuscastro
 	 */
-	protected abstract T newInstance();
+	protected abstract M newInstance();
 	
 	/*
 	 * ########################################################################
@@ -132,7 +132,7 @@ public abstract class BaseBean<T extends BaseModel> implements IBean<T> {
 	 * ########################################################################
 	 * ########################################################################
 	 */
-	private IDAO<T> newInstanceDAO(Class<? extends IDAO<T>> clazzDAO){
+	private IDAO<M> newInstanceDAO(Class<? extends IDAO<M>> clazzDAO){
 		try{
 			return clazzDAO.newInstance();
 		} catch (InstantiationException ie) {
@@ -152,11 +152,11 @@ public abstract class BaseBean<T extends BaseModel> implements IBean<T> {
 	 * @author mauro
 	 */
 	@SuppressWarnings("unchecked")
-	private Class<T> getClazz() {
+	private Class<M> getClazz() {
 		if(this.clazz == null){
 			Type tipo = ((ParameterizedType) getClass().getGenericSuperclass())
 					.getActualTypeArguments()[0];
-			this.clazz = (Class<T>) tipo;
+			this.clazz = (Class<M>) tipo;
 		}
 		return this.clazz;
 	}
@@ -166,10 +166,10 @@ public abstract class BaseBean<T extends BaseModel> implements IBean<T> {
 	 * @return Class
 	 */
 	@SuppressWarnings("unchecked")
-	private Class<? extends IDAO<T>> getDAOClazz(){
+	private Class<? extends IDAO<M>> getDAOClazz(){
 		if(this.daoClazz == null){
 			try {
-				this.daoClazz = (Class<? extends IDAO<T>>) Class.forName(PATH_DAO + this.getClazz().getSimpleName() + PATTERN_DAO);
+				this.daoClazz = (Class<? extends IDAO<M>>) Class.forName(PATH_DAO + this.getClazz().getSimpleName() + PATTERN_DAO);
 			} catch (ClassNotFoundException cnfE) {
 				logger.error("DAO not found for this class" + this.getClazz().getSimpleName() + ": ", cnfE);
 			}	

@@ -21,7 +21,7 @@ import model.enums.NivelSetor;
 
 @Entity
 @Table(name = "setores")
-public class Setor extends BaseModel {
+public class Setor implements BaseModel {
 
 	public static final int MAX_LENGTH_DESCRICAO = 100;
 

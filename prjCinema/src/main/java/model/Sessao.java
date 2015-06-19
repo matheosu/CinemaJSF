@@ -24,7 +24,7 @@ import model.enums.StatusSessao;
 
 @Entity
 @Table(name = "sessoes")
-public class Sessao extends BaseModel{
+public class Sessao implements BaseModel{
 
 	@Id
 	@GeneratedValue(generator = "SESSAO_ID", strategy = GenerationType.SEQUENCE)

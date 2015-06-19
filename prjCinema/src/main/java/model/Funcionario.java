@@ -17,7 +17,7 @@ import util.SecurityUtil;
 
 @Entity
 @Table(name="funcionarios")
-public class Funcionario extends BaseModel{
+public class Funcionario implements BaseModel{
 
 	public static final int MAX_LENGTH_SENHA = 200;
 	

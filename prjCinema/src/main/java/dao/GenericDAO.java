@@ -16,11 +16,11 @@ import org.apache.log4j.Logger;
 
 import util.JPAUtil;
 
-public abstract class GenericDAO<T extends BaseModel> implements IDAO<T> {
+public abstract class GenericDAO<M extends BaseModel> implements IDAO<M> {
 
 	private static final Logger logger = Logger.getLogger(GenericDAO.class);
 	
-	private Class<T> persistentClass;
+	private Class<M> persistentClass;
 	private EntityManager manager;
 
 	public GenericDAO() {
@@ -44,7 +44,7 @@ public abstract class GenericDAO<T extends BaseModel> implements IDAO<T> {
 	}
 
 	@Override
-	public T findById(Long id) {
+	public M findById(Long id) {
 		try {
 			return this.getEntityManager().find(getPersistenceClass(), id);
 		} catch (PersistenceException pe) {
@@ -54,9 +54,9 @@ public abstract class GenericDAO<T extends BaseModel> implements IDAO<T> {
 	}
 
 	@Override
-	public List<T> getAll() {
+	public List<M> getAll() {
 		CriteriaBuilder cb = this.getEntityManager().getCriteriaBuilder();
-		CriteriaQuery<T> c = cb.createQuery(getPersistenceClass());
+		CriteriaQuery<M> c = cb.createQuery(getPersistenceClass());
 		c.select(c.from(getPersistenceClass()));
 
 		try {
@@ -71,7 +71,7 @@ public abstract class GenericDAO<T extends BaseModel> implements IDAO<T> {
 	}
 
 	@Override
-	public T save(T object) {
+	public M save(M object) {
 
 		boolean transacaoAtiva = this.getEntityManager().getTransaction().isActive();
 
@@ -88,7 +88,7 @@ public abstract class GenericDAO<T extends BaseModel> implements IDAO<T> {
 	}
 
 	@Override
-	public void delete(T object) {
+	public void delete(M object) {
 		boolean transacaoAtiva = this.getEntityManager().getTransaction().isActive();
 
 		if (!transacaoAtiva)
@@ -118,11 +118,11 @@ public abstract class GenericDAO<T extends BaseModel> implements IDAO<T> {
 
 	
 	@SuppressWarnings("unchecked")
-	public Class<T> getPersistenceClass(){
+	public Class<M> getPersistenceClass(){
 		if(this.persistentClass == null){
 			Type tipo = ((ParameterizedType) getClass().getGenericSuperclass())
 					.getActualTypeArguments()[0];
-			this.persistentClass = (Class<T>) tipo;
+			this.persistentClass = (Class<M>) tipo;
 		}
 		return this.persistentClass;
 	}

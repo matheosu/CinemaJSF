@@ -4,14 +4,14 @@ import java.util.List;
 
 import model.BaseModel;
 
-public interface IBean<T extends BaseModel> {
+public interface IBean<M extends BaseModel> {
 	
 	/* Getters and Setters */
-	public abstract T getInstance();
+	public abstract M getInstance();
 
-	public abstract void setInstance(T instance);
+	public abstract void setInstance(M instance);
 
-	public abstract List<T> getInstances();
+	public abstract List<M> getInstances();
 
 	
 	/* CRUD */

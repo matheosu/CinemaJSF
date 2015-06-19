@@ -14,7 +14,7 @@ import javax.persistence.TemporalType;
 
 @Entity
 @Table(name="ingressos")
-public class Ingresso extends BaseModel{
+public class Ingresso implements BaseModel{
 	
 	@Id
 	@GeneratedValue(generator = "INGRESSO_ID", strategy = GenerationType.SEQUENCE)

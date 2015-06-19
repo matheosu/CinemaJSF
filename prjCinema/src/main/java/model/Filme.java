@@ -27,7 +27,7 @@ import model.enums.StatusFilme;
 
 @Entity
 @Table(name = "filmes")
-public class Filme extends BaseModel {
+public class Filme implements BaseModel {
 
 	public static final int MAX_LENGTH_DIRECAO = 100;
 	public static final int MAX_LENGTH_TITULO = 150;

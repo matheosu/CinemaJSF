@@ -19,7 +19,7 @@ import model.enums.Sexo;
 
 @Entity
 @Table(name="pessoas")
-public class Pessoa extends BaseModel{
+public class Pessoa implements BaseModel{
 
 	public static final int MAX_LENGTH_RG = 13;
 	public static final int MAX_LENGTH_CPF = 14;

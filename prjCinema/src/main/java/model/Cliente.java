@@ -19,7 +19,7 @@ import util.SecurityUtil;
 
 @Entity
 @Table(name = "clientes")
-public class Cliente extends BaseModel{
+public class Cliente implements BaseModel{
 
 	public static final int MAX_LENGTH_EMAIl = 200;
 	public static final int MAX_LENGTH_SENHA = 200;
