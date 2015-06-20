@@ -9,6 +9,7 @@ import javax.faces.convert.Converter;
 
 import org.apache.log4j.Logger;
 
+import util.ClassBaseFactory;
 import util.converters.EnumsUtil;
 import converters.model.BaseConverter;
 
@@ -16,65 +17,16 @@ public class BaseEnumConverter<E extends Enum<?>> implements Converter{
 
 	/* Logger */
     protected final Logger logger = Logger.getLogger(BaseConverter.class);
+	
+    /* Class Reflection */
+    private Class<E> classEnum;
     
-    /* Patterns */
-   	private static final String PATTERN_UTIL = "Util";
-   	private static final String PATH_UTIL = "util.converters.";
-	
-   	/* Enum */
-	private Class<E> enums;
-	
-	/* Class Util */
-	private Class<? extends EnumsUtil<E>> utilClazz;
-	
 	/* Util*/
 	private EnumsUtil<E> util;
 	
 	public BaseEnumConverter(){
-		this.setUtil(newInstanceUtil(getUtilClazz()));
+		this.setUtil(ClassBaseFactory.getEnumUtil(getGeneric()));
 	}
-	
-	@SuppressWarnings("unchecked")
-	private Class<? extends EnumsUtil<E>> getUtilClazz() {
-		if(this.utilClazz == null){
-			try{
-				this.utilClazz = (Class<? extends EnumsUtil<E>>) Class.forName(PATH_UTIL + this.getEnum().getSimpleName() + PATTERN_UTIL);
-			} catch (ClassNotFoundException cnfE){
-				logger.error("Util not found for this Enum" + this.getEnum().getSimpleName() + ": ",cnfE);
-			}
-		}
-		return this.utilClazz;
-	}
-
-	/**
-	 * Método que descobre qual é a classe por reflection do generics
-	 * @author matheuscastro
-	 * @author mauro
-	 * @return Enum 
-	 */
-	@SuppressWarnings("unchecked")
-	private Class<E> getEnum() {
-		if(this.enums == null){
-			Type tipo = ((ParameterizedType) getClass().getGenericSuperclass())
-					.getActualTypeArguments()[0];
-			this.enums = (Class<E>) tipo;
-		}
-		return this.enums;
-	}
-	
-	public EnumsUtil<E> newInstanceUtil(Class<? extends EnumsUtil<E>> clazzUtil){
-		try{
-			return clazzUtil.newInstance();
-		} catch (InstantiationException ie) {
-			logger.error("Error in create a newInstanceUtil for the " + clazzUtil.getSimpleName() + ": ", ie);
-		} catch (IllegalAccessException iae) {
-			logger.error("Error in create a newInstanceUtil for the " + clazzUtil.getSimpleName() + ": ", iae);
-		} catch (Exception e){
-			logger.error("Some error is occurred: ", e);
-		}
-		return null;
-	}
-
 
 	public EnumsUtil<E> getUtil() {
 		return util;
@@ -100,10 +52,19 @@ public class BaseEnumConverter<E extends Enum<?>> implements Converter{
 	@Override
 	public String getAsString(FacesContext context, UIComponent component, Object object) {
 		
-		if(object.getClass().equals(enums))
+		if(object.getClass().equals(getGeneric()))
 			return ((E)object).toString();
 		
 		return null;
 	}
 	
+	@SuppressWarnings("unchecked")
+	public Class<E> getGeneric(){
+		if(classEnum == null){
+			Type type = ((ParameterizedType) getClass().getGenericSuperclass())
+					.getActualTypeArguments()[0];
+			classEnum = (Class<E>) type;
+		}
+		return classEnum;
+	}
 }

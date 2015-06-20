@@ -9,6 +9,7 @@ import model.BaseModel;
 
 import org.apache.log4j.Logger;
 
+import util.ClassBaseFactory;
 import util.JSFUtil;
 import util.PathUtil;
 import dao.IDAO;
@@ -31,21 +32,18 @@ public abstract class BaseBean<M extends BaseModel> implements IBean<M> {
     private static final Logger logger = Logger.getLogger(BaseBean.class);
    
     /* Patterns */
-	private static final String PATTERN_DAO = "DAO";
-	private static final String PATH_DAO = "dao.";
 	private static final String PATTERN_BEAN = "Bean";
 
-	/* Class for Reflection and DAOClass for the Class Reflection */
-	private Class<M> clazz;
-	private Class<? extends IDAO<M>> daoClazz;
-	
-	/* ActionFiles and AbsolutePath */
-	protected static String action_list;
-	protected static String action_edit;
+	/* Class Reflection */
+	private Class<M> classModel;
 	
 	/* Instance and Instances */
 	private List<M> instances = new ArrayList<M>();
 	private M instance;
+
+	/* ActionFiles and AbsolutePath */
+	protected static String action_list;
+	protected static String action_edit;
 	
 	/* DAO */
 	protected IDAO<M> dao; 
@@ -53,11 +51,10 @@ public abstract class BaseBean<M extends BaseModel> implements IBean<M> {
 	public BaseBean() {
 		super();
 
-		if(getClazz() != null)
+		if(getGeneric() != null){
 			this.setInstance(newInstance());
-		
-		if(getDAOClazz() != null)
-			this.dao = newInstanceDAO(getDAOClazz());
+			this.dao = ClassBaseFactory.getDAO(getGeneric());
+		}
 	}
 	
 	/* Getters and Setters */
@@ -79,12 +76,12 @@ public abstract class BaseBean<M extends BaseModel> implements IBean<M> {
 	/* CRUD */
 	public String list(){
 		this.instances = null;
-		return PathUtil.getActionList(this.getClazz(), true);
+		return PathUtil.getActionList(this.getGeneric(), true);
 	}
 	
 	public String create(){
 		this.setInstance(this.newInstance());
-		return PathUtil.getActionEdit(this.getClazz(), true);
+		return PathUtil.getActionEdit(this.getGeneric(), true);
 	}
 
 	public String save(){
@@ -100,7 +97,7 @@ public abstract class BaseBean<M extends BaseModel> implements IBean<M> {
 	public String edit(){
 		Long id = JSFUtil.getParametroLong("id");
 		this.setInstance(this.dao.findById(id));
-		return PathUtil.getActionEdit(this.getClazz(), false);
+		return PathUtil.getActionEdit(this.getGeneric(), false);
 	}
 	
 	public String delete(){
@@ -113,13 +110,13 @@ public abstract class BaseBean<M extends BaseModel> implements IBean<M> {
 	
 	public String back(){
 		this.setInstance(this.newInstance());
-		return PathUtil.getActionList(this.getClazz(), true);
+		return PathUtil.getActionList(this.getGeneric(), true);
 	}
 	
 	
 	/**
 	 * Method that create a new instance for the class pass in parameter;
-	 * @param clazz Class that a create a new instance;
+	 * @param classModel Class that a create a new instance;
 	 * @return T new instance for the clazz
 	 * @author matheuscastro
 	 */
@@ -127,23 +124,9 @@ public abstract class BaseBean<M extends BaseModel> implements IBean<M> {
 	
 	/*
 	 * ########################################################################
-	 * ########################################################################
 	 * ######################### PRIVATE METHODS ##############################
 	 * ########################################################################
-	 * ########################################################################
 	 */
-	private IDAO<M> newInstanceDAO(Class<? extends IDAO<M>> clazzDAO){
-		try{
-			return clazzDAO.newInstance();
-		} catch (InstantiationException ie) {
-			logger.error("Error in create a newInstanceDAO for the " + clazzDAO.getSimpleName() + ": ", ie);
-		} catch (IllegalAccessException iae) {
-			logger.error("Error in create a newInstanceDAO for the " + clazzDAO.getSimpleName() + ": ", iae);
-		} catch (Exception e){
-			logger.error("Some error is occurred: ", e);
-		}
-		return null;
-	}
 	
 	/**
 	 * Método que descobre qual é a classe por reflection no generics
@@ -152,29 +135,13 @@ public abstract class BaseBean<M extends BaseModel> implements IBean<M> {
 	 * @author mauro
 	 */
 	@SuppressWarnings("unchecked")
-	private Class<M> getClazz() {
-		if(this.clazz == null){
+	private Class<M> getGeneric() {
+		if(this.classModel == null){
 			Type tipo = ((ParameterizedType) getClass().getGenericSuperclass())
 					.getActualTypeArguments()[0];
-			this.clazz = (Class<M>) tipo;
+			this.classModel = (Class<M>) tipo;
 		}
-		return this.clazz;
-	}
-
-	/**
-	 * Método que devolve a Classe DAO da classe que foi passada por reflection no generics;
-	 * @return Class
-	 */
-	@SuppressWarnings("unchecked")
-	private Class<? extends IDAO<M>> getDAOClazz(){
-		if(this.daoClazz == null){
-			try {
-				this.daoClazz = (Class<? extends IDAO<M>>) Class.forName(PATH_DAO + this.getClazz().getSimpleName() + PATTERN_DAO);
-			} catch (ClassNotFoundException cnfE) {
-				logger.error("DAO not found for this class" + this.getClazz().getSimpleName() + ": ", cnfE);
-			}	
-		}
-		return this.daoClazz;
+		return this.classModel;
 	}
 
 	@Override
@@ -205,7 +172,7 @@ public abstract class BaseBean<M extends BaseModel> implements IBean<M> {
 
 	@Override
 	public String toString() {
-		return this.getClazz().getSimpleName() + PATTERN_BEAN + " [instance=" + instance + "]";
+		return this.getGeneric().getSimpleName() + PATTERN_BEAN + " [instance=" + instance + "]";
 	}
 	
 }
