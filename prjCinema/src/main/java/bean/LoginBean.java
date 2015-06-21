@@ -13,10 +13,10 @@ import model.enums.NivelSetor;
 import org.apache.log4j.Logger;
 
 import annotations.DAO;
+import annotations.InjectDAO;
 import util.JSFUtil;
 import util.PathUtil;
 import util.SecurityUtil;
-import dao.FuncionarioDAO;
 import dao.IDAO;
 import dao.PessoaDAO;
 import dao.SetorDAO;
@@ -28,15 +28,20 @@ public class LoginBean {
 	
 	private static final Logger logger = Logger.getLogger(LoginBean.class);
 	
+	@DAO(Funcionario.class)
+	private IDAO<Funcionario> dao;
+	
 	private Funcionario funcionario;
 	private boolean autenticado;
-	
-	@DAO(model=Funcionario.class)
-	private IDAO<Funcionario> dao;
 	
 	private Long matricula;
 	private String senha;
 	
+	public LoginBean() {
+		super();
+		InjectDAO.doInjection(this);
+	}
+
 	public Funcionario getFuncionario() {
 		return funcionario;
 	}
@@ -86,22 +91,19 @@ public class LoginBean {
 		Setor s = createSetorAdmin();
 		Pessoa p = createPessoaAdmin();
 		
-		FuncionarioDAO dao = new FuncionarioDAO();
 		Funcionario f = new Funcionario("admin", s, p);
 		dao.save(f);
 	}
 	
 	@SuppressWarnings("unused")
 	private void alterarSenhaAdmin(){
-		FuncionarioDAO dao = new FuncionarioDAO();
 		Funcionario f = dao.findById(new Long(100));
 		f.setSenha("abc123");
 		dao.save(f);
 	}
 	
 	public String autenticar(){
-		FuncionarioDAO daoF = new FuncionarioDAO();
-		Funcionario func = daoF.findById(this.getMatricula());
+		Funcionario func = dao.findById(this.getMatricula());
 		
 		if(func == null){
 			JSFUtil.retornarMensagemErro("Funcionário não existe", null, null);
@@ -199,5 +201,6 @@ public class LoginBean {
 	public void setDao(IDAO<Funcionario> dao) {
 		this.dao = dao;
 	}
+
 	
 }

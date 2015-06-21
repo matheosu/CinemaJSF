@@ -7,7 +7,7 @@ import model.BaseModel;
 
 import org.apache.log4j.Logger;
 
-import util.converters.EnumsUtil;
+import util.converters.EnumUtil;
 import dao.IDAO;
 import exception.ClassFactoryException;
 
@@ -36,7 +36,7 @@ public class ClassBaseFactory {
 	 * @param clazz
 	 * @return EnumsUtil do Enum
 	 */
-	public static <E extends Enum<?>> EnumsUtil<E> getEnumUtil(Class<E> clazzEnum){
+	public static <E extends Enum<?>> EnumUtil<E> getEnumUtil(Class<E> clazzEnum){
 		return getEnumUtil(clazzEnum,DEFAULT_PATH_UTIL,DEFAULT_PATTERN_UTIL);
 	}
 	
@@ -49,9 +49,9 @@ public class ClassBaseFactory {
 	 * @param pattern padrão associado ao utilitário
 	 * @return
 	 */
-	public static <E extends Enum<?>> EnumsUtil<E> getEnumUtil(
+	public static <E extends Enum<?>> EnumUtil<E> getEnumUtil(
 			Class<E> enumerator, String path, String pattern) {
-		Class<EnumsUtil<E>> utilClass = getUtilClass(enumerator, path, pattern);
+		Class<EnumUtil<E>> utilClass = getUtilClass(enumerator, path, pattern);
 		return newInstanceUtil(utilClass);
 	}
 
@@ -62,7 +62,7 @@ public class ClassBaseFactory {
 	 * @param classEnum
 	 * @return retorna uma nova instância do utilitário
 	 */
-	private static final <E extends Enum<?>, U extends EnumsUtil<E>> EnumsUtil<E> newInstanceUtil(
+	private static final <E extends Enum<?>, U extends EnumUtil<E>> EnumUtil<E> newInstanceUtil(
 			Class<U> utilClass) {
 		try {
 			return utilClass.newInstance();
@@ -87,7 +87,7 @@ public class ClassBaseFactory {
 	 * @return
 	 */
 	@SuppressWarnings("unchecked")
-	private static final <E extends Enum<?>, U extends EnumsUtil<E>> Class<U> getUtilClass(
+	private static final <E extends Enum<?>, U extends EnumUtil<E>> Class<U> getUtilClass(
 			Class<E> classEnum, String path, String pattern) {
 		try {
 			if (validClass(classEnum) && validPathUtil(path)

@@ -8,7 +8,7 @@ import java.util.List;
  *
  * @param <E> Enumerado
  */
-public interface EnumsUtil<E extends Enum<?>> {
+public interface EnumUtil<E extends Enum<?>> {
 
 	public abstract List<E> getList();
 }

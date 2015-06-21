@@ -5,14 +5,12 @@ import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
 import java.lang.annotation.Target;
 
-import model.BaseModel;
-
 @Retention(RetentionPolicy.RUNTIME)
 @Target(ElementType.FIELD)
-public @interface DAO {
+public @interface Util {
 	/**
-	 * Clase Model
+	 * Classe do Enum
 	 * @return
 	 */
-	Class<? extends BaseModel> value();
+	Class<? extends Enum<?>> value();
 }

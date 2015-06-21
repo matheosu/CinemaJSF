@@ -53,7 +53,7 @@ public abstract class BaseBean<M extends BaseModel> implements IBean<M> {
 
 		if(getGeneric() != null){
 			this.setInstance(newInstance());
-			this.dao = ClassBaseFactory.getDAO(getGeneric());
+			dao = ClassBaseFactory.getDAO(getGeneric());
 		}
 	}
 	
@@ -68,7 +68,7 @@ public abstract class BaseBean<M extends BaseModel> implements IBean<M> {
 
 	public List<M> getInstances() {
 		if(this.instances == null || this.instances.isEmpty())
-			this.instances = this.dao.getAll();
+			this.instances = dao.getAll();
 		
 		return this.instances;
 	}
@@ -88,7 +88,7 @@ public abstract class BaseBean<M extends BaseModel> implements IBean<M> {
 		if((this.getInstance().getId() != null) && (this.getInstance().getId().longValue() == 0))
 			this.getInstance().setId(null);
 		
-		this.dao.save(this.getInstance());
+		dao.save(this.getInstance());
 		this.instances = null;
 		
 		return this.back();
@@ -96,13 +96,13 @@ public abstract class BaseBean<M extends BaseModel> implements IBean<M> {
 
 	public String edit(){
 		Long id = JSFUtil.getParametroLong("id");
-		this.setInstance(this.dao.findById(id));
+		this.setInstance(dao.findById(id));
 		return PathUtil.getActionEdit(this.getGeneric(), false);
 	}
 	
 	public String delete(){
 		Long id = JSFUtil.getParametroLong("id");
-		this.dao.delete(this.dao.findById(id));
+		dao.delete(dao.findById(id));
 		this.instances = null;
 		
 		return this.back();

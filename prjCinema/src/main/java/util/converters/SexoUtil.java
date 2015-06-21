@@ -5,7 +5,7 @@ import java.util.List;
 
 import model.enums.Sexo;
 
-public class SexoUtil implements EnumsUtil<Sexo>{
+public class SexoUtil implements EnumUtil<Sexo>{
 
 	private static List<Sexo> sexos = new ArrayList<Sexo>();
 	

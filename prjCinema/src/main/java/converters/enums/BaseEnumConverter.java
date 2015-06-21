@@ -10,7 +10,7 @@ import javax.faces.convert.Converter;
 import org.apache.log4j.Logger;
 
 import util.ClassBaseFactory;
-import util.converters.EnumsUtil;
+import util.converters.EnumUtil;
 import converters.model.BaseConverter;
 
 public class BaseEnumConverter<E extends Enum<?>> implements Converter{
@@ -22,18 +22,10 @@ public class BaseEnumConverter<E extends Enum<?>> implements Converter{
     private Class<E> classEnum;
     
 	/* Util*/
-	private EnumsUtil<E> util;
+	private EnumUtil<E> util;
 	
 	public BaseEnumConverter(){
 		this.setUtil(ClassBaseFactory.getEnumUtil(getGeneric()));
-	}
-
-	public EnumsUtil<E> getUtil() {
-		return util;
-	}
-
-	public void setUtil(EnumsUtil<E> util) {
-		this.util = util;
 	}
 	
 	@Override
@@ -67,4 +59,13 @@ public class BaseEnumConverter<E extends Enum<?>> implements Converter{
 		}
 		return classEnum;
 	}
+	
+	public EnumUtil<E> getUtil() {
+		return util;
+	}
+
+	public void setUtil(EnumUtil<E> util) {
+		this.util = util;
+	}
+	
 }

@@ -5,7 +5,7 @@ import java.util.List;
 
 import model.enums.StatusFilme;
 
-public class StatusFilmeUtil implements EnumsUtil<StatusFilme>{
+public class StatusFilmeUtil implements EnumUtil<StatusFilme>{
 
 	private static List<StatusFilme> statusFilme = new ArrayList<StatusFilme>();
 	

@@ -5,7 +5,7 @@ import java.util.List;
 
 import model.enums.Classificacao;
 
-public class ClassificacaoUtil implements EnumsUtil<Classificacao>{
+public class ClassificacaoUtil implements EnumUtil<Classificacao>{
 
 	private static List<Classificacao> classificacoes = new ArrayList<Classificacao>();
 	

@@ -5,7 +5,7 @@ import java.util.List;
 
 import model.enums.NivelSetor;
 
-public class NivelSetorUtil implements EnumsUtil<NivelSetor>{
+public class NivelSetorUtil implements EnumUtil<NivelSetor>{
 
 	private static List<NivelSetor> niveisSetor = new ArrayList<NivelSetor>();
 	
