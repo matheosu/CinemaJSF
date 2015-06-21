@@ -15,15 +15,16 @@ public class ClassBaseFactory {
 
 	private static final Logger log = Logger.getLogger(ClassBaseFactory.class);
 	
-	private static final String DEFAULT_PATTERN_DAO = "DAO";
-	private static final String DEFAULT_PATH_DAO = "dao.";
-	private static final String DEFAULT_PATTERN_UTIL = "Util";
-	private static final String DEFAULT_PATH_UTIL = "util.converters.";
+	public static final String DEFAULT_PATTERN_DAO = "DAO";
+	public static final String DEFAULT_PATH_DAO = "dao.";
+	public static final String DEFAULT_PATTERN_UTIL = "Util";
+	public static final String DEFAULT_PATH_UTIL = "util.converters.";
 
-	// TODO Cache de DAOS já carregados
-	// private static List<Class<?>> cacheDAOS = new ArrayList<Class<?>>();
-	// TODO Cache de EnumsUtil já carregados
-	// private static List<Class<?>> cacheEnumsUtil = new ArrayList<Class<?>>();
+	// TODO Cache de Class dos DAOS já carregados
+	//private static Map<Class<? extends BaseModel>, Class<? extends IDAO<? extends BaseModel>>> cacheDAOS = new HashMap<Class<? extends BaseModel>, Class<? extends IDAO<? extends BaseModel>>>();
+	
+	// TODO Cache de Class dos EnumsUtil já carregados
+	//private static Map<Class<? extends Enum<?>>, Class<EnumsUtil<? extends Enum<?>>>> cacheEnumsUtil = new HashMap<Class<? extends Enum<?>>, Class<EnumsUtil<? extends Enum<?>>>>();
 
 	public ClassBaseFactory(){}
 	

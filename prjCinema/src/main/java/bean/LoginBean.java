@@ -12,10 +12,12 @@ import model.enums.NivelSetor;
 
 import org.apache.log4j.Logger;
 
+import annotations.DAO;
 import util.JSFUtil;
 import util.PathUtil;
 import util.SecurityUtil;
 import dao.FuncionarioDAO;
+import dao.IDAO;
 import dao.PessoaDAO;
 import dao.SetorDAO;
 import exception.BeanException;
@@ -28,6 +30,9 @@ public class LoginBean {
 	
 	private Funcionario funcionario;
 	private boolean autenticado;
+	
+	@DAO(model=Funcionario.class)
+	private IDAO<Funcionario> dao;
 	
 	private Long matricula;
 	private String senha;
@@ -186,4 +191,13 @@ public class LoginBean {
 		
 		return false;
 	}
+
+	public IDAO<Funcionario> getDao() {
+		return dao;
+	}
+
+	public void setDao(IDAO<Funcionario> dao) {
+		this.dao = dao;
+	}
+	
 }

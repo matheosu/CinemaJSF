@@ -29,9 +29,9 @@ import dao.IDAO;
 public abstract class BaseBean<M extends BaseModel> implements IBean<M> {
 	
 	/* Logger */
-    private static final Logger logger = Logger.getLogger(BaseBean.class);
+    protected static final Logger logger = Logger.getLogger(BaseBean.class);
    
-    /* Patterns */
+    /* Pattern */
 	private static final String PATTERN_BEAN = "Bean";
 
 	/* Class Reflection */
