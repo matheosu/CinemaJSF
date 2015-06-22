@@ -25,10 +25,10 @@
 					<h:panelGroup>
 						<!--  CPF -->
 						<h:panelGrid columns="1">
-							<h:outputLabel for="cpf" value="CPF" style="margin-left:2px;" />
+							<p:outputLabel for="cpf" value="CPF" style="margin-left:2px;" />
 							<p:inputMask id="cpf" placeholder="CPF"
 								value="#{instance.pessoa.cpf}" required="true"
-								maxlength="#{instance.pessoa.maxLengthCpf}"
+								maxlength="#{instance.pessoa.maxLengthCpf}" validator="cpf-validator"
 								requiredMessage="CPF é obrigatório" mask="999.999.999-99" />
 							<p:message for="cpf" />
 						</h:panelGrid>
@@ -37,7 +37,7 @@
 					<h:panelGroup>
 						<!--  RG -->
 						<h:panelGrid columns="1" style="margin-top:-5px;">
-							<h:outputLabel for="rg" value="RG" />
+							<p:outputLabel for="rg" value="RG" />
 							<p:inputMask placeholder="RG" id="rg"
 								maxlength="#{instance.pessoa.maxLengthRg}"
 								value="#{instance.pessoa.rg}" mask="99.999.999-9*" />
@@ -48,7 +48,7 @@
 
 
 			<!--  Nome -->
-			<h:outputLabel for="nome" value="Nome" style="margin-left:8px;"/>
+			<p:outputLabel for="nome" value="Nome" style="margin-left:8px;"/>
 			<p:inputText id="nome" placeholder="Nome" style="margin-left:8px;"
 				value="#{instance.pessoa.nome}" required="true"
 				requiredMessage="Nome é obrigatório" size="66"
@@ -61,7 +61,7 @@
 					<h:panelGroup>
 						<h:panelGrid columns="1">
 							<!--  Data de Nascimento -->
-							<h:outputLabel for="dataNascimento" value="Data de Nascimento" />
+							<p:outputLabel for="dataNascimento" value="Data de Nascimento" />
 							<p:calendar id="dataNascimento"
 								value="#{instance.pessoa.dataNascimento}" pattern="dd/MM/yyyy"
 								placeholder="Data de Nascimento" required="true"
@@ -75,7 +75,7 @@
 					<h:panelGroup>
 						<h:panelGrid columns="1">
 							<!--  Sexo -->
-							<h:outputLabel for="sexo" value="Sexo" />
+							<p:outputLabel for="sexo" value="Sexo" />
 							<p:selectOneRadio id="sexo" value="#{instance.pessoa.sexo}"
 								converter="sexo-converter">
 								<f:selectItems value="#{bean.sexos}" var="sexo"
@@ -87,7 +87,7 @@
 					<h:panelGroup>
 						<h:panelGrid columns="1">
 							<!--  Setor -->
-							<h:outputLabel for="setor" value="Setor" />
+							<p:outputLabel for="setor" value="Setor" />
 							<h:selectOneListbox id="setor" value="#{instance.setor}" size="1"
 								converter="setor-converter" required="true"
 								requiredMessage="Setor é obrigatório">

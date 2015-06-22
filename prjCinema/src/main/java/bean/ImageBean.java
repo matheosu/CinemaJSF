@@ -1,6 +1,6 @@
 package bean;
 
-import java.io.IOException;
+import java.io.ByteArrayInputStream;
 
 import javax.faces.bean.ManagedBean;
 import javax.faces.view.ViewScoped;
@@ -44,11 +44,8 @@ public class ImageBean {
 
 	public void upload() {
 		if (file != null && file.getContents() != null) {
-			try {
-				this.setImage(new DefaultStreamedContent(file.getInputstream(), file.getContentType()));
-			} catch (IOException e) {
-				logger.error("Error in upload " + e.getMessage() + " :",e);
-			}
+			this.setImage(new DefaultStreamedContent(new ByteArrayInputStream(
+					file.getContents())));
 		}
 	}
 
@@ -63,10 +60,10 @@ public class ImageBean {
 		if (file != null && file.getContents() != null) {
 			byteImage = ByteConverterUtil.parseByteToObject(file.getContents());
 		}
-		
-		if(byteImage == null)
+
+		if (byteImage == null)
 			logger.warn("ByteImage is null");
-		
+
 		return byteImage;
 	}
 

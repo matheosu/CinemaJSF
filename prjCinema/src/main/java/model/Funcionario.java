@@ -23,7 +23,7 @@ public class Funcionario implements BaseModel{
 	
 	@Id
 	@GeneratedValue(generator = "FUNCIONARIO_MATRICULA", strategy = GenerationType.SEQUENCE)
-	@SequenceGenerator(name = "FUNCIONARIO_MATRICULA", sequenceName = "SEQ_FUNCIONARIO", allocationSize=1, initialValue=100)
+	@SequenceGenerator(name = "FUNCIONARIO_MATRICULA", sequenceName = "SEQ_FUNCIONARIO", allocationSize=1)
 	private Long matricula;
 	
 	@Column(length = MAX_LENGTH_SENHA)

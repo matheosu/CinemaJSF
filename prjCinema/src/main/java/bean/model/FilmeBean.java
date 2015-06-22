@@ -1,4 +1,4 @@
-package bean;
+package bean.model;
 
 import java.io.ByteArrayInputStream;
 import java.util.List;
@@ -9,6 +9,7 @@ import javax.faces.bean.RequestScoped;
 
 import org.primefaces.model.DefaultStreamedContent;
 
+import bean.ImageBean;
 import model.Filme;
 import model.enums.Classificacao;
 import model.enums.StatusFilme;

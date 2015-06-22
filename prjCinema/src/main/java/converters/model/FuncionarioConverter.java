@@ -8,6 +8,7 @@ import model.Funcionario;
 public class FuncionarioConverter extends BaseConverter<Funcionario>{
 
 	public FuncionarioConverter() {
+		
 		super();
 	}
 

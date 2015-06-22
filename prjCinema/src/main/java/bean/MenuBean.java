@@ -3,6 +3,12 @@ package bean;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
 
+import bean.model.FilmeBean;
+import bean.model.FuncionarioBean;
+import bean.model.GeneroBean;
+import bean.model.SalaBean;
+import bean.model.SessaoBean;
+import bean.model.SetorBean;
 import util.PathUtil;
 
 @ManagedBean(name="menuBean")

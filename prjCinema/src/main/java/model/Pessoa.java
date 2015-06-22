@@ -92,7 +92,8 @@ public class Pessoa implements BaseModel{
 	}
 
 	public void setCpf(String cpf) {
-		this.cpf = cpf;
+		if(validarCPF(cpf))
+			this.cpf = cpf;
 	}
 
 	public String getNome() {
@@ -129,6 +130,82 @@ public class Pessoa implements BaseModel{
 
 	public int getMaxLengthNome() {
 		return MAX_LENGTH_NOME;
+	}
+	
+	/**
+	 * Valida uma String de cpf sem traços e sem pontos
+	 * @param cpf
+	 * @return
+	 */
+	public static boolean validarCPF(String cpf) {
+		if (cpf == null || cpf.trim().length() == 0 || cpf.trim().length() > MAX_LENGTH_CPF)
+			return false;
+
+		if(cpf.contains("."))
+			cpf = removePontos(cpf);
+		
+		if(cpf.contains("-"))
+			cpf = removeTracos(cpf);
+		
+		int c1 = 0, c2 = 0, dv1, dv2, i, j = 0;
+
+		for (i = 1; i <= 9; i++) {
+			c1 += i * Integer.parseInt(String.valueOf(cpf.charAt(j)));
+			j++;
+		}
+
+		dv1 = c1 % 11;
+		if (dv1 == 10)
+			dv1 = 0;
+
+		j = 0;
+
+		for (i = 0; i <= 9; i++) {
+			c2 += i * Integer.parseInt(String.valueOf(cpf.charAt(j)));
+			j++;
+		}
+
+		dv2 = c2 % 11;
+		if (dv2 == 10)
+			dv2 = 0;
+
+		if ((dv1 == Integer.parseInt(String.valueOf(cpf.charAt(9))) && (dv2 == Integer
+				.parseInt(String.valueOf(cpf.charAt(10))))))
+			return true;
+		
+		return false;
+	}
+	
+	private static String removePontos(String cpf){
+		if(cpf.contains(".")){
+			String[] arrayCpf = cpf.split("\\.");
+			cpf = "";
+			for(int i =0; i< arrayCpf.length;i++){
+				cpf += arrayCpf[i];
+			}
+		}
+		
+		return cpf;
+	}
+	
+	private static String removeTracos(String cpf){
+		if(cpf.contains("-")){
+			String[] arrayCpf = cpf.split("-");
+			cpf = "";
+			for(int i =0; i< arrayCpf.length;i++){
+				cpf += arrayCpf[i];
+			}
+		}
+		
+		return cpf;
+	}
+	
+	public static boolean validarRG(String rg){
+		return true;
+	}
+	
+	public static boolean validarNascimento(String nascimento){
+		return true;
 	}
 
 	@Override

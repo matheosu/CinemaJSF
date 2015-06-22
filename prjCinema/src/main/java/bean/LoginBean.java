@@ -12,11 +12,11 @@ import model.enums.NivelSetor;
 
 import org.apache.log4j.Logger;
 
-import annotations.DAO;
-import annotations.InjectDAO;
 import util.JSFUtil;
 import util.PathUtil;
 import util.SecurityUtil;
+import annotations.DAO;
+import annotations.InjectDAO;
 import dao.IDAO;
 import dao.PessoaDAO;
 import dao.SetorDAO;

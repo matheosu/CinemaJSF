@@ -1,4 +1,4 @@
-package bean;
+package bean.model;
 
 import java.util.List;
 
