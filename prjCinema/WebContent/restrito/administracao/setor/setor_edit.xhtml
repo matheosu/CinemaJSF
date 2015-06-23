@@ -20,17 +20,17 @@
 			<!--  Nivel -->
 			<h:outputLabel for="nivel" value="Nível" style="margin-left:2px;" />
 			<h:selectOneListbox id="nivel" value="#{instance.nivel}" size="1"
-				converter="nivelsetor-converter" required="true"
+				converter="enum-converter" required="true"
 				requiredMessage="Nível é obrigatório">
 				<f:selectItems value="#{bean.niveis}" var="nivel"
-					itemLabel="#{nivel}" itemValue="#{nivel}"/>
+					itemLabel="#{nivel}" />
 			</h:selectOneListbox>
 			<p:message for="nivel" />
 
 			<!--  Gerente -->
 			<h:outputLabel for="gerente" value="Gerente" style="margin-left:2px;" rendered="#{instance.funcionarios.size() > 0}"/>
 			<h:selectOneListbox id="gerente" value="#{instance.gerente}" size="1" required="false"
-				converter="funcionario-converter" rendered="#{instance.funcionarios.size() > 0}" >
+				converter="model-converter" rendered="#{instance.funcionarios.size() > 0}" >
 				<f:selectItems value="#{instance.funcionarios}" var="funcionario" itemValue="#{funcionario}"/>
 			</h:selectOneListbox>
 			<p:message for="gerente" />

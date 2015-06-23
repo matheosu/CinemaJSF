@@ -16,7 +16,6 @@ import util.JSFUtil;
 import util.PathUtil;
 import util.SecurityUtil;
 import annotations.DAO;
-import annotations.InjectDAO;
 import dao.IDAO;
 import dao.PessoaDAO;
 import dao.SetorDAO;
@@ -28,7 +27,7 @@ public class LoginBean {
 	
 	private static final Logger logger = Logger.getLogger(LoginBean.class);
 	
-	@DAO(Funcionario.class)
+	@DAO
 	private IDAO<Funcionario> dao;
 	
 	private Funcionario funcionario;
@@ -39,7 +38,6 @@ public class LoginBean {
 	
 	public LoginBean() {
 		super();
-		InjectDAO.doInjection(this);
 	}
 
 	public Funcionario getFuncionario() {

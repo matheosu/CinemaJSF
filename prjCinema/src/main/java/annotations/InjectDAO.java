@@ -3,13 +3,16 @@ package annotations;
 import java.lang.reflect.Field;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
+import java.lang.reflect.ParameterizedType;
+import java.lang.reflect.Type;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Set;
 
+import model.BaseModel;
+
 import org.apache.log4j.Logger;
 
-import model.BaseModel;
 import util.ClassBaseFactory;
 import dao.IDAO;
 
@@ -17,10 +20,8 @@ public class InjectDAO extends GenericInject {
 
 	private static final Logger logger = Logger.getLogger(InjectDAO.class);
 	
-	
 	private InjectDAO(){}
 	
-	@SuppressWarnings("unchecked")
 	private static <M extends BaseModel> Map<Field,IDAO<M>> getInjectionFields(Field[] declaredFields) {
 		Map<Field, IDAO<M>> fields = null;
 		
@@ -31,7 +32,7 @@ public class InjectDAO extends GenericInject {
 					fields = new HashMap<Field, IDAO<M>>();
 				}
 				
-				Class<M> model = (Class<M>) daoAnnotation.value();
+				Class<M> model = getGenericTypeFromField(f);
 				if(model!=null){
 					IDAO<M> dao = ClassBaseFactory.getDAO(model);
 					if(dao!=null){
@@ -44,8 +45,18 @@ public class InjectDAO extends GenericInject {
 		return fields;
 	}
 	
+	@SuppressWarnings("unchecked")
+	private static <M extends BaseModel> Class<M> getGenericTypeFromField(Field f) {
+		if(f!=null){
+			Type tipogenerics = ((ParameterizedType) f.getAnnotatedType().getType()).getActualTypeArguments()[0];
+			return (Class<M>) tipogenerics;
+		}
+		return null;
+	}
+
 	public static <M extends BaseModel> void doInjection(Object target) {
 		Class<?> classe = target.getClass();
+		
 		Field[] declaredFields = classe.getDeclaredFields();
 
 		Map<Field, IDAO<M>> map = getInjectionFields(declaredFields);
@@ -80,6 +91,4 @@ public class InjectDAO extends GenericInject {
 			}
 		}
 	}
-
-	
 }

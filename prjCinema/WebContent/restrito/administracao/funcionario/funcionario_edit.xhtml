@@ -77,9 +77,9 @@
 							<!--  Sexo -->
 							<p:outputLabel for="sexo" value="Sexo" />
 							<p:selectOneRadio id="sexo" value="#{instance.pessoa.sexo}"
-								converter="sexo-converter">
+								converter="enum-converter">
 								<f:selectItems value="#{bean.sexos}" var="sexo"
-									itemLabel="#{sexo.descricao}" itemValue="#{sexo}" />
+									itemLabel="#{sexo.descricao}" />
 							</p:selectOneRadio>
 						</h:panelGrid>
 					</h:panelGroup>
@@ -89,7 +89,7 @@
 							<!--  Setor -->
 							<p:outputLabel for="setor" value="Setor" />
 							<h:selectOneListbox id="setor" value="#{instance.setor}" size="1"
-								converter="setor-converter" required="true"
+								converter="model-converter" required="true"
 								requiredMessage="Setor é obrigatório">
 								<f:selectItems value="#{bean.setores}" var="setor"
 									itemLabel="#{setor}" />

@@ -73,7 +73,7 @@
 							<p:outputLabel for="classificacao" value="Classificação" />
 							<p:selectOneListbox id="classificacao"
 								value="#{instance.classificacao}" size="1"
-								converter="classificacao-converter" scrollHeight="100"
+								converter="enum-converter" scrollHeight="100"
 								converterMessage="Erro ao converter classificação"
 								required="true" requiredMessage="Classificação é obrigatório">
 								<f:selectItems value="#{bean.classificacoes}"
@@ -91,7 +91,7 @@
 							<p:selectOneListbox id="status" value="#{instance.status}"
 								scrollHeight="100" size="1" required="true"
 								requiredMessage="Status é obrigatório"
-								converter="status-converter"
+								converter="enum-converter"
 								converterMessage="Erro ao converter Status">
 								<f:selectItems value="#{bean.status}" var="status"
 									itemValue="#{status}" itemLabel="#{status.value}" />
@@ -105,7 +105,7 @@
 							<p:outputLabel for="generos" value="Gêneros" />
 							<p:selectManyMenu id="generos" required="true"
 								requiredMessage="Gênero é obrigatório"
-								value="#{instance.generos}" converter="genero-converter"
+								value="#{instance.generos}" converter="model-converter"
 								scrollHeight="70" var="g" filter="true"
 								filterMatchMode="contains" showCheckbox="true">
 

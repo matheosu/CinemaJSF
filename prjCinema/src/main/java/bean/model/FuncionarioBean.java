@@ -3,6 +3,7 @@ package bean.model;
 import java.util.List;
 
 import javax.faces.bean.ManagedBean;
+import javax.faces.bean.ManagedProperty;
 import javax.faces.bean.RequestScoped;
 
 import model.Funcionario;
@@ -10,13 +11,13 @@ import model.Setor;
 import model.enums.Sexo;
 import util.PathUtil;
 import util.converters.SexoUtil;
-import dao.SetorDAO;
 
 @ManagedBean(name="funcionarioBean")
 @RequestScoped
 public class FuncionarioBean extends BaseBean<Funcionario>{
 
-//	private static final Logger logger = Logger.getLogger(FuncionarioBean.class);
+	@ManagedProperty("#{setorBean}")
+	private SetorBean setorBean;
 	
 	public FuncionarioBean() {
 		super();
@@ -27,8 +28,7 @@ public class FuncionarioBean extends BaseBean<Funcionario>{
 	}
 	
 	public List<Setor> getSetores(){
-		SetorDAO daoS = new SetorDAO();
-		return daoS.getAll();
+		return setorBean.getInstances();
 	}
 
 	@Override
@@ -36,13 +36,17 @@ public class FuncionarioBean extends BaseBean<Funcionario>{
 		return new Funcionario();
 	}
 
-	@Override
-	public String save() {
-		return super.save();
-	}
-	
 	public static String show() {
 		return PathUtil.getActionList(Funcionario.class, true);
 	}
+
+	public SetorBean getSetorBean() {
+		return setorBean;
+	}
+
+	public void setSetorBean(SetorBean setorBean) {
+		this.setorBean = setorBean;
+	}
+	
 	
 }
