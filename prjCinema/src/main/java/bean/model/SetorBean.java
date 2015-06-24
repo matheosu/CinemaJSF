@@ -33,4 +33,11 @@ public class SetorBean extends BaseBean<Setor>{
 	public List<NivelSetor> getNiveis(){
 		return NivelSetorUtil.getNiveisSetor();
 	}
+	
+	public boolean getRenderGerente(){
+		if(this.getInstance().getFuncionarios()!=null && this.getInstance().getFuncionarios().size() >0)
+			return true;
+		
+		return false;
+	}
 }

@@ -12,7 +12,7 @@ import org.apache.log4j.Logger;
 
 import util.URLUtil;
 
-@FacesConverter(value="url-converter", forClass=String.class)
+@FacesConverter("url-converter")
 public class URLConverter implements Converter{
 
 	private static final Logger logger = Logger.getLogger(URLConverter.class);

@@ -28,9 +28,9 @@
 			<p:message for="nivel" />
 
 			<!--  Gerente -->
-			<h:outputLabel for="gerente" value="Gerente" style="margin-left:2px;" rendered="#{instance.funcionarios.size() > 0}"/>
+			<h:outputLabel for="gerente" value="Gerente" style="margin-left:2px;" rendered="#{bean.renderGerente}"/>
 			<h:selectOneListbox id="gerente" value="#{instance.gerente}" size="1" required="false"
-				converter="model-converter" rendered="#{instance.funcionarios.size() > 0}" >
+				converter="model-converter" rendered="#{bean.renderGerente}" >
 				<f:selectItems value="#{instance.funcionarios}" var="funcionario" itemValue="#{funcionario}"/>
 			</h:selectOneListbox>
 			<p:message for="gerente" />

@@ -41,10 +41,6 @@ public abstract class BaseBean<M extends BaseModel> implements IBean<M> {
 	private List<M> instances = new ArrayList<M>();
 	private M instance;
 
-	/* ActionFiles and AbsolutePath */
-	protected static String action_list;
-	protected static String action_edit;
-	
 	/* DAO */
 	protected IDAO<M> dao; 
 

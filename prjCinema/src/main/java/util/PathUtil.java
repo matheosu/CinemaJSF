@@ -14,17 +14,19 @@ public abstract class PathUtil {
 	private static final String PATTERN_ACTION_EDIT = "_edit.action";
 	
 	/* Paths */
-	public static final String RAIZ_PATH = "/";
-	public static final String RESTRICT_PATH = RAIZ_PATH + "restrito/";
-	public static final String ACTION_MENU = RESTRICT_PATH + "principal.action";
-	public static final String ACTION_LOGIN = RAIZ_PATH + "login.action";
-	public static final String ERROR_FOLDER = RAIZ_PATH + "error/";
-	public static final String PAGE_ERROR_EXPIRED = ERROR_FOLDER + "expired.action";	
+	private static final String RAIZ_PATH = "/";
+	private static final String RESTRICT_PATH = RAIZ_PATH + "restrito/";
+	private static final String ACTION_MENU = RESTRICT_PATH + "principal.action";
+	private static final String ACTION_LOGIN = RAIZ_PATH + "login.action";
+	private static final String ERROR_FOLDER = RAIZ_PATH + "error/";
 	
-	
+	/* Restrict Folders*/
 	public static final String CONTROLE_PATH = RESTRICT_PATH + "controle/";
 	public static final String OPERACAO_PATH = RESTRICT_PATH + "operacao/";
 	public static final String ADMINISRACAO_PATH = RESTRICT_PATH + "administracao/";
+
+	/* Error Pages */
+	public static final String PAGE_ERROR_EXPIRED = ERROR_FOLDER + "expired.action";
 	
 	/* Class Controller */
 	private static final String[] CLASSES_CONTROLE = {"filme","genero"};
@@ -48,10 +50,7 @@ public abstract class PathUtil {
 		else if (clazz.equals(Sessao.class))
 			urlPage = urlPage.replace("sessaos", "sessoes");
 		
-		if(redirect)
-			return urlPage + REDIRECT;
-		
-		return urlPage;
+		return urlPage + (redirect ? REDIRECT : "");
 	}
 	
 	/**
@@ -66,10 +65,15 @@ public abstract class PathUtil {
 		
 		String urlPage = getAbsolutePath(classLower) + classLower + PATTERN_ACTION_EDIT;
 		
-		if(redirect)
-			return urlPage + REDIRECT;
-		
-		return urlPage;
+		return urlPage + (redirect ? REDIRECT : "");
+	}
+	
+	public static String actionLogin(boolean redirect){
+		return ACTION_LOGIN + (redirect ? REDIRECT : "");
+	}
+	
+	public static String actionMenu(boolean redirect){
+		return ACTION_MENU + (redirect ? REDIRECT : "");
 	}
 	
 	/**

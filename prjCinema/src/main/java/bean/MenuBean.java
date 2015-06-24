@@ -3,22 +3,22 @@ package bean;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
 
+import util.PathUtil;
 import bean.model.FilmeBean;
 import bean.model.FuncionarioBean;
 import bean.model.GeneroBean;
 import bean.model.SalaBean;
 import bean.model.SessaoBean;
 import bean.model.SetorBean;
-import util.PathUtil;
 
 @ManagedBean(name="menuBean")
 @SessionScoped
 public class MenuBean {
 	
 //	private static final Logger logger = Logger.getLogger(MenuBean.class);
-
+	
 	public String show(){
-		return PathUtil.ACTION_MENU + PathUtil.REDIRECT;
+		return PathUtil.actionMenu(true);
 	}
 	
 	public String getShow(){
@@ -50,6 +50,6 @@ public class MenuBean {
 	}
 	
 	public String login(){
-		return PathUtil.ACTION_LOGIN + PathUtil.REDIRECT;
+		return PathUtil.actionLogin(true);
 	}
 }
