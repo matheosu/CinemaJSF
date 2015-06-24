@@ -7,6 +7,7 @@ import javax.faces.validator.FacesValidator;
 import javax.faces.validator.Validator;
 import javax.faces.validator.ValidatorException;
 
+import exception.ModelException;
 import model.Pessoa;
 
 @FacesValidator("cpf-validator")
@@ -18,8 +19,11 @@ public class CPFValidator implements Validator{
 		if(object instanceof String){
 			String cpf = (String) object;
 
-			if(!Pessoa.validarCPF(cpf)){
-				throw new ValidatorException(new FacesMessage(FacesMessage.SEVERITY_ERROR,"CPF inválido!",null));
+			try {
+				Pessoa.validarCPF(cpf);
+			} catch (ModelException e) {
+				throw new ValidatorException(new FacesMessage(
+						FacesMessage.SEVERITY_ERROR, e.getMessage(), null));
 			}
 		}
 	}

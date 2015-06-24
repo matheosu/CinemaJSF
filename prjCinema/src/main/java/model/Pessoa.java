@@ -15,6 +15,7 @@ import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
+import exception.ModelException;
 import model.enums.Sexo;
 
 @Entity
@@ -24,6 +25,7 @@ public class Pessoa implements BaseModel{
 	public static final int MAX_LENGTH_RG = 13;
 	public static final int MAX_LENGTH_CPF = 14;
 	public static final int MAX_LENGTH_NOME = 200;
+	public static final int IDADE_MINIMA = 18;
 
 	@Id
 	@GeneratedValue(generator = "PESSOA_ID", strategy = GenerationType.SEQUENCE)
@@ -56,14 +58,14 @@ public class Pessoa implements BaseModel{
 	public Pessoa() {
 	}
 
-	public Pessoa(String cpf, String nome, Calendar dataNascimento) {
+	public Pessoa(String cpf, String nome, Calendar dataNascimento) throws ModelException {
 		this.setCpf(cpf);
 		this.setNome(nome);
 		this.setDataNascimento(dataNascimento);
 	}
 
 	public Pessoa(String rg, String cpf, String nome, Sexo sexo,
-			Calendar dataNascimento) {
+			Calendar dataNascimento) throws ModelException {
 		this.setRg(rg);
 		this.setCpf(cpf);
 		this.setNome(nome);
@@ -83,15 +85,16 @@ public class Pessoa implements BaseModel{
 		return rg;
 	}
 
-	public void setRg(String rg) {
-		this.rg = rg;
+	public void setRg(String rg) throws ModelException {
+		if(validarRG(rg))
+			this.rg = rg;
 	}
 
 	public String getCpf() {
 		return cpf;
 	}
 
-	public void setCpf(String cpf) {
+	public void setCpf(String cpf) throws ModelException {
 		if(validarCPF(cpf))
 			this.cpf = cpf;
 	}
@@ -101,7 +104,8 @@ public class Pessoa implements BaseModel{
 	}
 
 	public void setNome(String nome) {
-		this.nome = nome;
+		if(validarNome(nome))
+			this.nome = nome;
 	}
 
 	public Sexo getSexo() {
@@ -116,8 +120,9 @@ public class Pessoa implements BaseModel{
 		return dataNascimento;
 	}
 
-	public void setDataNascimento(Calendar dataNascimento) {
-		this.dataNascimento = dataNascimento;
+	public void setDataNascimento(Calendar dataNascimento) throws ModelException {
+		if(validarNascimento(dataNascimento))
+			this.dataNascimento = dataNascimento;
 	}
 	
 	public int getMaxLengthRg() {
@@ -132,14 +137,25 @@ public class Pessoa implements BaseModel{
 		return MAX_LENGTH_NOME;
 	}
 	
+	public static boolean validarNome(String nome) {
+		if(nome == null)
+			return false;
+		
+		if(nome.trim().length() > MAX_LENGTH_NOME)
+			return false;
+		return true;
+	}
+	
+	
 	/**
 	 * Valida uma String de cpf sem traços e sem pontos
 	 * @param cpf
 	 * @return
+	 * @throws ModelException 
 	 */
-	public static boolean validarCPF(String cpf) {
+	public static boolean validarCPF(String cpf) throws ModelException {
 		if (cpf == null || cpf.trim().length() == 0 || cpf.trim().length() > MAX_LENGTH_CPF)
-			return false;
+			throw new ModelException(Pessoa.class.getSimpleName()+": CPF Nulo ou Maior que o permitido");
 
 		if(cpf.contains("."))
 			cpf = removePontos(cpf);
@@ -173,7 +189,7 @@ public class Pessoa implements BaseModel{
 				.parseInt(String.valueOf(cpf.charAt(10))))))
 			return true;
 		
-		return false;
+		throw new ModelException(Pessoa.class.getSimpleName()+": CPF Inválido");
 	}
 	
 	private static String removePontos(String cpf){
@@ -200,13 +216,24 @@ public class Pessoa implements BaseModel{
 		return cpf;
 	}
 	
-	public static boolean validarRG(String rg){
+	public static boolean validarRG(String rg) throws ModelException{
+		if(rg == null || rg.trim().length() == 0 || rg.trim().length() > MAX_LENGTH_RG)
+			throw new ModelException(Pessoa.class.getSimpleName()+": RG Nulo ou Maior que o permitido");
+		
+		
 		return true;
 	}
 	
-	public static boolean validarNascimento(String nascimento){
+	public static boolean validarNascimento(Calendar nascimento) throws ModelException{
+		Calendar anoAtualMenosIdadeMinima = Calendar.getInstance();
+		anoAtualMenosIdadeMinima.set(Calendar.YEAR, -IDADE_MINIMA);
+		
+		if(nascimento.after(anoAtualMenosIdadeMinima))
+			throw new ModelException(Pessoa.class.getSimpleName()+": Idade Mínima para realizar o Cadastro é de " + IDADE_MINIMA + " anos");
+		
 		return true;
 	}
+	
 
 	@Override
 	public String toString() {

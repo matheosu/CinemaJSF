@@ -38,8 +38,8 @@
 						<!--  RG -->
 						<h:panelGrid columns="1" style="margin-top:-5px;">
 							<p:outputLabel for="rg" value="RG" />
-							<p:inputMask placeholder="RG" id="rg"
-								maxlength="#{instance.pessoa.maxLengthRg}"
+							<p:inputMask placeholder="RG" id="rg" required="false"
+								maxlength="#{instance.pessoa.maxLengthRg}" validator="rg-validator"
 								value="#{instance.pessoa.rg}" mask="99.999.999-9*" />
 						</h:panelGrid>
 					</h:panelGroup>
@@ -65,7 +65,7 @@
 							<p:calendar id="dataNascimento"
 								value="#{instance.pessoa.dataNascimento}" pattern="dd/MM/yyyy"
 								placeholder="Data de Nascimento" required="true"
-								converter="data-converter"
+								converter="data-converter" validator="nascimento-validator"
 								requiredMessage="Data de Nascimento é obrigatório"
 								showOtherMonths="true" />
 							<p:message for="dataNascimento" />

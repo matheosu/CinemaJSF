@@ -1,13 +1,10 @@
 package bean;
 
-import java.util.Calendar;
-
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ManagedProperty;
 import javax.faces.bean.SessionScoped;
 
 import model.Funcionario;
-import model.Pessoa;
 import model.Setor;
 import model.enums.NivelSetor;
 
@@ -19,8 +16,6 @@ import util.SecurityUtil;
 import annotations.DAO;
 import annotations.InjectDAO;
 import dao.IDAO;
-import dao.PessoaDAO;
-import dao.SetorDAO;
 import exception.BeanException;
 
 @ManagedBean(name="loginBean")
@@ -76,34 +71,6 @@ public class LoginBean {
 
 	public void setSenha(String senha) {
 		this.senha = senha;
-	}
-	
-	private Setor createSetorAdmin(){
-		Setor s = new Setor(NivelSetor.ADMINISTRACAO, "Administração do Cinema");
-		SetorDAO daoSetor = new SetorDAO(dao.getEntityManager());
-		return daoSetor.save(s);
-	}
-	
-	private Pessoa createPessoaAdmin(){
-		Pessoa p = new Pessoa("111.111.111-10","Administrador",Calendar.getInstance());
-		PessoaDAO daoPessoa = new PessoaDAO(dao.getEntityManager());
-		return daoPessoa.save(p);
-	}
-
-	@SuppressWarnings("unused")
-	private void createFuncionarioAdmin(){
-		Setor s = createSetorAdmin();
-		Pessoa p = createPessoaAdmin();
-		
-		Funcionario f = new Funcionario("admin", s, p);
-		dao.save(f);
-	}
-	
-	@SuppressWarnings("unused")
-	private void alterarSenhaAdmin(){
-		Funcionario f = dao.findById(new Long(3));
-		f.setSenha("admin");
-		dao.save(f);
 	}
 	
 	public String autenticar(){

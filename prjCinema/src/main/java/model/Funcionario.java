@@ -13,6 +13,7 @@ import javax.persistence.OneToOne;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 
+import exception.ModelException;
 import util.SecurityUtil;
 
 @Entity
@@ -40,7 +41,7 @@ public class Funcionario implements BaseModel{
 		this.setPessoa(new Pessoa());
 	}
 	
-	public Funcionario(String senha, Setor setor, Pessoa pessoa){
+	public Funcionario(String senha, Setor setor, Pessoa pessoa) throws ModelException{
 		this.setSenha(senha);
 		this.setSetor(setor);
 		this.setPessoa(pessoa);
@@ -55,9 +56,11 @@ public class Funcionario implements BaseModel{
 	public String getSenha() {
 		return senha;
 	}
-	public void setSenha(String senha) {
-		this.senha = SecurityUtil.criptografarSenha(senha);
+	public void setSenha(String senha) throws ModelException {
+		if(validarSenha(senha))
+			this.senha = SecurityUtil.criptografarSenha(senha);
 	}
+
 	public Setor getSetor() {
 		return setor;
 	}
@@ -73,6 +76,13 @@ public class Funcionario implements BaseModel{
 		this.pessoa = pessoa;
 	}
 
+	public static boolean validarSenha(String senha) throws ModelException {
+		if(senha == null || senha.trim().length() > MAX_LENGTH_SENHA)
+			throw new ModelException(Funcionario.class.getSimpleName() + ": Senha Nula ou Maior que Permitido");
+		
+		return true;
+	}
+	
 	@Override
 	public String toString() {
 		return getPessoa().getNome() + " - " +  matricula;
