@@ -17,6 +17,8 @@ import javax.persistence.Table;
 @Table(name = "descontos")
 public class Desconto implements BaseModel{
 
+	private static final long serialVersionUID = -8925713249987254089L;
+
 	@Id
 	@GeneratedValue(generator = "DESCONTO_ID", strategy = GenerationType.SEQUENCE)
 	@SequenceGenerator(name = "DESCONTO_ID", sequenceName = "SEQ_DESCONTO", allocationSize = 1)

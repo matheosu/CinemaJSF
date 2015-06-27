@@ -23,6 +23,8 @@ import model.enums.NivelSetor;
 @Table(name = "setores")
 public class Setor implements BaseModel {
 
+	private static final long serialVersionUID = -5786660791942055272L;
+
 	public static final int MAX_LENGTH_DESCRICAO = 100;
 
 	@Id

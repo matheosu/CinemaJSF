@@ -1,6 +1,8 @@
 package model;
 
-public interface BaseModel {
+import java.io.Serializable;
+
+public interface BaseModel extends Serializable{
 
 	public abstract Long getId();
 	

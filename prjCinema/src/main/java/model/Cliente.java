@@ -21,6 +21,8 @@ import util.SecurityUtil;
 @Table(name = "clientes")
 public class Cliente implements BaseModel{
 
+	private static final long serialVersionUID = -3001268250772296055L;
+	
 	public static final int MAX_LENGTH_EMAIl = 200;
 	public static final int MAX_LENGTH_SENHA = 200;
 	

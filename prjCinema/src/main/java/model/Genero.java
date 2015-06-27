@@ -17,6 +17,8 @@ import javax.persistence.Table;
 @Table(name = "generos")
 public class Genero implements BaseModel{
 
+	private static final long serialVersionUID = 7628606769315509517L;
+
 	public static final int MAX_LENGTH_DESCRICAO = 100;
 
 	@Id

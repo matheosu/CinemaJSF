@@ -22,6 +22,8 @@ import model.enums.Sexo;
 @Table(name="pessoas")
 public class Pessoa implements BaseModel{
 
+	private static final long serialVersionUID = 8726179372480342827L;
+	
 	public static final int MAX_LENGTH_RG = 13;
 	public static final int MAX_LENGTH_CPF = 14;
 	public static final int MAX_LENGTH_NOME = 200;

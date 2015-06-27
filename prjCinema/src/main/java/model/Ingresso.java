@@ -16,6 +16,8 @@ import javax.persistence.TemporalType;
 @Table(name="ingressos")
 public class Ingresso implements BaseModel{
 	
+	private static final long serialVersionUID = 8797029328778731630L;
+
 	@Id
 	@GeneratedValue(generator = "INGRESSO_ID", strategy = GenerationType.SEQUENCE)
 	@SequenceGenerator(name = "INGRESSO_ID", sequenceName = "SEQ_INGRESSO", allocationSize = 1)

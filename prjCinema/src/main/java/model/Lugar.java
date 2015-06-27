@@ -18,6 +18,8 @@ import javax.persistence.Table;
 @Table(name = "lugares")
 public class Lugar implements BaseModel{
 
+	private static final long serialVersionUID = -8789697223452861285L;
+
 	@Id
 	@GeneratedValue(generator = "LUGAR_ID", strategy = GenerationType.SEQUENCE)
 	@SequenceGenerator(name = "LUGAR_ID", sequenceName = "SEQ_LUGAR", allocationSize = 1)

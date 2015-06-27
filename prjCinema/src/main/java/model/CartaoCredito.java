@@ -21,6 +21,8 @@ import model.enums.Bandeira;
 @Table(name="cartoesCredito")
 public class CartaoCredito implements BaseModel{
 
+	private static final long serialVersionUID = 945675845423714839L;
+
 	public static final int MAX_LENGTH_NOME_CARTAO_CREDITO = 200;
 	
 	@Id

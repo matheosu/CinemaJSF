@@ -20,6 +20,8 @@ import util.SecurityUtil;
 @Table(name="funcionarios")
 public class Funcionario implements BaseModel{
 
+	private static final long serialVersionUID = -2415490068253607338L;
+
 	public static final int MAX_LENGTH_SENHA = 200;
 	
 	@Id

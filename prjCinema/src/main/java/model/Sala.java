@@ -17,6 +17,8 @@ import javax.persistence.Table;
 @Table(name = "salas")
 public class Sala implements BaseModel{
 
+	private static final long serialVersionUID = 4682585156686380658L;
+
 	@Id
 	@GeneratedValue(generator = "SALA_ID", strategy = GenerationType.SEQUENCE)
 	@SequenceGenerator(name = "SALA_ID", sequenceName = "SEQ_SALA", allocationSize = 1)

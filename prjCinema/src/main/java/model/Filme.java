@@ -29,6 +29,8 @@ import model.enums.StatusFilme;
 @Table(name = "filmes")
 public class Filme implements BaseModel {
 
+	private static final long serialVersionUID = 9060234903652772597L;
+	
 	public static final int MAX_LENGTH_DIRECAO = 100;
 	public static final int MAX_LENGTH_TITULO = 150;
 	public static final int MAX_LENGTH_URL = 500;

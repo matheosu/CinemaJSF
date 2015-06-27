@@ -26,6 +26,8 @@ import model.enums.StatusSessao;
 @Table(name = "sessoes")
 public class Sessao implements BaseModel{
 
+	private static final long serialVersionUID = 4147667610433521154L;
+
 	@Id
 	@GeneratedValue(generator = "SESSAO_ID", strategy = GenerationType.SEQUENCE)
 	@SequenceGenerator(name = "SESSAO_ID", sequenceName = "SEQ_SESSAO", allocationSize = 1)
