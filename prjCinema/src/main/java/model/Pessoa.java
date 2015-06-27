@@ -227,16 +227,18 @@ public class Pessoa implements BaseModel{
 	}
 	
 	public static boolean validarNascimento(Calendar nascimento) throws ModelException{
-		Calendar anoAtualMenosIdadeMinima = Calendar.getInstance();
-		anoAtualMenosIdadeMinima.set(Calendar.YEAR, -IDADE_MINIMA);
+		Calendar calendar = Calendar.getInstance();
+		int anoAtual = calendar.get(Calendar.YEAR);
+		int anoFinal = anoAtual - IDADE_MINIMA;
 		
-		if(nascimento.after(anoAtualMenosIdadeMinima))
-			throw new ModelException(Pessoa.class.getSimpleName()+": Idade Mínima para realizar o Cadastro é de " + IDADE_MINIMA + " anos");
+		calendar.set(Calendar.YEAR, anoFinal);
+		
+		if(nascimento.after(calendar))
+			throw new ModelException(Pessoa.class.getSimpleName()+": Idade Mínima para realizar o cadastro é de " + IDADE_MINIMA + " anos");
 		
 		return true;
 	}
 	
-
 	@Override
 	public String toString() {
 		return this.cpf + " - " + this.nome;
