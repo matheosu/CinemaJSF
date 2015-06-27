@@ -21,10 +21,10 @@
 			<h:outputText value="#{instance.direcao}" />
 		</p:column>
 		<p:column headerText="Classificação">
-			<h:outputText value="#{instance.classificacao}"/>
+			<h:outputText value="#{instance.classificacao.descricao}"/>
 		</p:column>
 		<p:column headerText="Status">
-			<h:outputText value="#{instance.status}" />
+			<h:outputText value="#{instance.status.value}" />
 		</p:column>
 	</ui:define>
 </ui:composition>

@@ -19,8 +19,7 @@
 
 			<!--  Nivel -->
 			<h:outputLabel for="nivel" value="Nível" style="margin-left:2px;" />
-			<h:selectOneListbox id="nivel" value="#{instance.nivel}" size="1"
-				converter="enum-converter" required="true"
+			<h:selectOneListbox id="nivel" value="#{instance.nivel}" size="1" required="true"
 				requiredMessage="Nível é obrigatório">
 				<f:selectItems value="#{bean.niveis}" var="nivel"
 					itemLabel="#{nivel}" />

@@ -14,6 +14,8 @@
 			<property name="hibernate.connection.username" value="postgres" />
 			<property name="hibernate.connection.password" value="postgres" />
 			
+			<property name="hibernate.connection.autocommit" value="false" />
+			
 			<property name="show_sql" value="true"/>
 			<property name="format_sql" value="tue"/>
 			<property name="use_sql_comments" value="true"/>

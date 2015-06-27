@@ -39,7 +39,7 @@
 						<h:panelGrid columns="1" style="margin-top:-5px;">
 							<p:outputLabel for="rg" value="RG" />
 							<p:inputMask placeholder="RG" id="rg" required="false"
-								maxlength="#{instance.pessoa.maxLengthRg}" validator="rg-validator"
+								maxlength="#{instance.pessoa.maxLengthRg}"
 								value="#{instance.pessoa.rg}" mask="99.999.999-9*" />
 						</h:panelGrid>
 					</h:panelGroup>
@@ -76,10 +76,9 @@
 						<h:panelGrid columns="1">
 							<!--  Sexo -->
 							<p:outputLabel for="sexo" value="Sexo" />
-							<p:selectOneRadio id="sexo" value="#{instance.pessoa.sexo}"
-								converter="enum-converter">
+							<p:selectOneRadio id="sexo" value="#{instance.pessoa.sexo}">
 								<f:selectItems value="#{bean.sexos}" var="sexo"
-									itemLabel="#{sexo.descricao}" />
+									itemLabel="#{sexo}" />
 							</p:selectOneRadio>
 						</h:panelGrid>
 					</h:panelGroup>
